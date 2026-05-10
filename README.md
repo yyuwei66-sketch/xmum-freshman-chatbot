@@ -1,16 +1,28 @@
-# XMUM Freshman FAQ Chatbot
+# A Hybrid and ML-Enhanced FAQ Chatbot for XMUM Freshman Enquiries
 
-This project is a retrieval-based FAQ chatbot for XMUM freshman enquiries. It aims to help new students retrieve answers to common questions about academic matters, campus life, digital systems, and transportation or orientation guidance.
+This project develops a text-based FAQ chatbot prototype for XMUM freshman enquiries. The system combines rule-based intent detection, machine learning category classification, and retrieval-based answer matching.
 
 ## Main Features
-- FAQ knowledge base
-- TF-IDF and cosine similarity retrieval
-- Confidence score
-- Top related questions
-- Fallback response for low-confidence queries
-- Streamlit web prototype
 
-## Team Workflow
-- Do not commit directly to main.
-- Create a branch for each task.
-- Submit a pull request before merging.
+- Categorized FAQ knowledge base
+- Text preprocessing
+- Rule-based intent detection
+- ML category classification using TF-IDF and Logistic Regression
+- Retrieval-based answer matching using cosine similarity
+- Confidence-based response strategy
+- Streamlit user interface
+
+## Project Structure
+
+- `data/`: FAQ datasets and training data
+- `src/`: backend modules
+- `models/`: trained classifier model
+- `results/`: evaluation results and screenshots
+- `docs/`: proposal, literature review, and final report
+- `app.py`: Streamlit chatbot interface
+
+## How to Run
+
+```bash
+pip install -r requirements.txt
+streamlit run app.py
