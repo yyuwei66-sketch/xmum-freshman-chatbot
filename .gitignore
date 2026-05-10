@@ -216,3 +216,31 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# =========================
+# Project-specific data files
+# =========================
+
+# Do not upload internal handbook files
+data/raw/
+data/raw/handbooks/
+
+# Do not upload generated chunks from handbooks
+data/chunks/
+
+# Do not upload generated final datasets
+data/final/
+
+# Do not upload unverified processed FAQ datasets
+data/processed/*.jsonl
+
+# Keep folder structure
+!data/raw/.gitkeep
+!data/raw/handbooks/.gitkeep
+!data/chunks/.gitkeep
+!data/processed/.gitkeep
+!data/final/.gitkeep
+
+# Optional sample data can be uploaded
+!data/sample/
+!data/sample/*.jsonl
