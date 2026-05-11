@@ -216,3 +216,30 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+# =========================
+# Project-specific data files
+# =========================
+
+# Ignore handbook files but keep the folder
+data/raw/handbooks/*
+!data/raw/handbooks/.gitkeep
+
+# Ignore generated chunk files but keep the folder
+data/chunks/*
+!data/chunks/.gitkeep
+
+# Ignore generated processed data but keep the folder
+data/processed/*
+!data/processed/.gitkeep
+
+# Ignore generated final data but keep the folder
+data/final/*
+!data/final/.gitkeep
+
+# Ignore accidentally generated JSONL files directly under data/
+data/*.jsonl
+data/*_raw.jsonl
+
+# Allow sample data
+!data/sample/
+!data/sample/*.jsonl
