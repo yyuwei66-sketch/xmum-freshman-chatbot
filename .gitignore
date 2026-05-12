@@ -243,3 +243,8 @@ data/*_raw.jsonl
 # Allow sample data
 !data/sample/
 !data/sample/*.jsonl
+
+# Ignore generated FAQ datasets
+data/processed/by_category/*.jsonl
+data/processed/faq_dataset.jsonl
+data/processed/faq_dataset.json
