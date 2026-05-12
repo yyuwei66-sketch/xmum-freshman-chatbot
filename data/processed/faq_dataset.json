@@ -1,0 +1,2619 @@
+[
+  {
+    "id": "AA_001",
+    "category": "Academic Affairs",
+    "sub_category": "Foundation Programmes",
+    "question": "What are the entry requirements for the Foundation in Science (FIS) programme at Xiamen University Malaysia?",
+    "answer": "The entry requirements for the Foundation in Science (FIS) programme are detailed in section 2.2.1 of the handbook. Please refer to the handbook for specific details.",
+    "keywords": [
+      "foundation",
+      "science",
+      "entry",
+      "requirements",
+      "fis"
+    ],
+    "intent": "ask_definition",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "AA_002",
+    "category": "Academic Affairs",
+    "sub_category": "Foundation Programmes",
+    "question": "What are the English language requirements for international students at Xiamen University Malaysia?",
+    "answer": "The English language requirements for international students are outlined in section 2.3 of the handbook. Please refer to the handbook for specific details.",
+    "keywords": [
+      "english",
+      "language",
+      "requirements",
+      "international",
+      "students"
+    ],
+    "intent": "ask_definition",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "AA_003",
+    "category": "Academic Affairs",
+    "sub_category": "Course Assessment",
+    "question": "What is the grading system for courses at Xiamen University Malaysia?",
+    "answer": "The grading system for courses is detailed in section 2.5.1 of the handbook. Please refer to the handbook for specific details.",
+    "keywords": [
+      "grading",
+      "system",
+      "courses",
+      "assessment",
+      "results"
+    ],
+    "intent": "ask_definition",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "AA_004",
+    "category": "Academic Affairs",
+    "sub_category": "Duration of Study",
+    "question": "What is the standard and maximum duration for foundation programmes at Xiamen University Malaysia?",
+    "answer": "The standard duration of study for foundation programmes at XMUM is one year or three semesters. However, you are allowed to extend your study duration for up to three more semesters if you are on academic probation or need to repeat certain failed courses or wish to improve your CGPA. This means you can spend up to a maximum of six semesters to complete your programme of study.",
+    "keywords": [
+      "foundation",
+      "duration",
+      "semesters",
+      "academic probation",
+      "extend"
+    ],
+    "intent": "ask_definition",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "AA_005",
+    "category": "Academic Affairs",
+    "sub_category": "Foundation Programme",
+    "question": "What undergraduate programmes can I pursue after completing the Foundation in Science at Xiamen University Malaysia?",
+    "answer": "Upon completion of the Foundation in Science programme, students can pursue undergraduate programmes in marine science, traditional Chinese medicine, energy science, information and communication technology, applied mathematics, and engineering at Xiamen University Malaysia.",
+    "keywords": [
+      "foundation",
+      "undergraduate",
+      "programmes",
+      "science",
+      "pathway"
+    ],
+    "intent": "ask_definition",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "AA_006",
+    "category": "Academic Affairs",
+    "sub_category": "Foundation Programme",
+    "question": "Who is the Foundation in Science programme designed for?",
+    "answer": "The Foundation in Science programme is designed for secondary school leavers who wish to embark on science-related tertiary education.",
+    "keywords": [
+      "foundation",
+      "science",
+      "secondary",
+      "school",
+      "leavers"
+    ],
+    "intent": "ask_definition",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "AA_007",
+    "category": "Academic Affairs",
+    "sub_category": "Entry Requirements",
+    "question": "What are the entry requirements for the Biological Science track?",
+    "answer": "For the Biological Science track, you must meet one of the following: (i) A pass in SPM/SPMV with at least a credit or Grade C in 5 subjects including Mathematics and 2 science subjects, and a pass in Bahasa Melayu and English or equivalent; or (ii) A pass in O-Level with at least a credit or Grade C in 5 subjects including Mathematics and 2 science subjects, and a pass in English or equivalent; or (iii) A pass in UEC with at least a Grade B in Mathematics and 2 science subjects, and a pass in Bahasa Melayu and English or equivalent.",
+    "keywords": [
+      "biological",
+      "science",
+      "entry",
+      "requirements",
+      "spm"
+    ],
+    "intent": "ask_definition",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "AA_008",
+    "category": "Academic Affairs",
+    "sub_category": "Entry Requirements",
+    "question": "What are the entry requirements for the Physical Science track?",
+    "answer": "For the Physical Science track, you must meet one of the following: (i) A pass in SPM/SPMV with at least a credit or Grade C in 5 subjects including Mathematics and Physics, and a pass in Bahasa Melayu and English or equivalent; or (ii) A pass in O-Level with at least a credit or Grade C in 5 subjects including Mathematics and Physics, and a pass in English or equivalent; or (iii) A pass in UEC with at least a Grade B in 3 subjects including Mathematics and Physics, and a pass in Bahasa Melayu and English or equivalent.",
+    "keywords": [
+      "physical",
+      "science",
+      "entry",
+      "requirements",
+      "o-level"
+    ],
+    "intent": "ask_definition",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "AA_009",
+    "category": "Academic Affairs",
+    "sub_category": "Entry Requirements",
+    "question": "What are the entry requirements for the Traditional Chinese Medicine track?",
+    "answer": "For the Traditional Chinese Medicine track, you must meet one of the following: (i) A pass in SPM/SPMV with at least a credit or Grade C in 5 subjects including Mathematics and 2 science subjects, and a pass in Bahasa Melayu and English or equivalent; or (ii) A pass in O-Level with at least a credit or Grade C in 5 subjects including Mathematics and 2 science subjects, and a pass in English or equivalent; or (iii) A pass in UEC with at least a Grade B in Mathematics and 2 science subjects, and a pass in Bahasa Melayu and English or equivalent.",
+    "keywords": [
+      "traditional",
+      "chinese",
+      "medicine",
+      "entry",
+      "requirements",
+      "uec"
+    ],
+    "intent": "ask_definition",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "AA_010",
+    "category": "Academic Affairs",
+    "sub_category": "Foundation Programme",
+    "question": "What undergraduate programmes can I pursue after completing the Foundation in Arts and Social Science at Xiamen University Malaysia?",
+    "answer": "Upon completion of the Foundation in Arts and Social Science programme, students can pursue undergraduate programmes in business, accounting, finance, journalism, advertising, and Chinese studies at Xiamen University Malaysia.",
+    "keywords": [
+      "foundation",
+      "arts",
+      "social science",
+      "undergraduate",
+      "pathway"
+    ],
+    "intent": "ask_definition",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "AA_011",
+    "category": "Academic Affairs",
+    "sub_category": "Foundation Programme",
+    "question": "Who is the Foundation in Arts and Social Science programme designed for?",
+    "answer": "The Foundation in Arts and Social Science programme is designed for secondary school leavers who wish to pursue higher education in the fields of arts and social science.",
+    "keywords": [
+      "foundation",
+      "arts",
+      "social science",
+      "secondary school",
+      "leavers"
+    ],
+    "intent": "ask_definition",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "AA_012",
+    "category": "Academic Affairs",
+    "sub_category": "Entry Requirements",
+    "question": "What are the entry requirements for the Business Studies program?",
+    "answer": "For the Business Studies program, you need: (i) A pass in Sijil Pelajaran Malaysia (SPM) / Sijil Pelajaran Malaysia Vokasional (SPMV) with at least a credit or Grade C in 5 subjects including Mathematics and English; or (ii) A pass in O-Level with at least a credit or Grade C in 5 subjects including Mathematics and English; or (iii) A pass in Unified Examination Certificate (UEC) with at least a Grade B6 in 3 subjects including Mathematics and English; or (iv) Other equivalent qualifications recognised by the Government of Malaysia.",
+    "keywords": [
+      "business",
+      "entry",
+      "requirements",
+      "mathematics",
+      "english"
+    ],
+    "intent": "ask_definition",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "AA_013",
+    "category": "Academic Affairs",
+    "sub_category": "Entry Requirements",
+    "question": "What are the entry requirements for the Communication Studies program?",
+    "answer": "For the Communication Studies program, you need: (i) A pass in Sijil Pelajaran Malaysia (SPM) / Sijil Pelajaran Malaysia Vokasional (SPMV) with at least a credit or Grade C in 5 subjects including English; or (ii) A pass in O-Level with at least a credit or Grade C in 5 subjects including English; or (iii) A pass in Unified Examination Certificate (UEC) with at least a Grade B6 in 3 subjects including English; or (iv) Other equivalent qualifications recognised by the Government of Malaysia.",
+    "keywords": [
+      "communication",
+      "entry",
+      "requirements",
+      "english"
+    ],
+    "intent": "ask_definition",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "AA_014",
+    "category": "Academic Affairs",
+    "sub_category": "Entry Requirements",
+    "question": "What are the entry requirements for the Chinese Studies program?",
+    "answer": "For the Chinese Studies program, you need: (i) A pass in Sijil Pelajaran Malaysia (SPM) / Sijil Pelajaran Malaysia Vokasional (SPMV) with at least a credit or Grade C in 5 subjects including Chinese, and a pass in English; or (ii) A pass in Unified Examination Certificate (UEC) with at least a Grade B6 in 3 subjects including Chinese, and a pass in English; or (iii) Other equivalent qualifications recognised by the Government of Malaysia.",
+    "keywords": [
+      "chinese",
+      "entry",
+      "requirements",
+      "english"
+    ],
+    "intent": "ask_definition",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "AA_015",
+    "category": "Academic Affairs",
+    "sub_category": "Foundation Programme",
+    "question": "What undergraduate programmes can I pursue after completing the Foundation in Information Technology?",
+    "answer": "Upon completion of the Foundation in Information Technology programme, students can pursue undergraduate studies in software engineering, cyber security, artificial intelligence, data science, digital media technology, and computer science and technology at Xiamen University Malaysia.",
+    "keywords": [
+      "foundation",
+      "undergraduate",
+      "information technology",
+      "pathway",
+      "programmes"
+    ],
+    "intent": "ask_definition",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "AA_016",
+    "category": "Academic Affairs",
+    "sub_category": "Foundation Programme",
+    "question": "Who is the Foundation in Information Technology programme designed for?",
+    "answer": "The Foundation in Information Technology programme is designed for secondary school leavers who wish to embark on higher education in the field of information technology.",
+    "keywords": [
+      "foundation",
+      "information technology",
+      "secondary school",
+      "higher education",
+      "programme"
+    ],
+    "intent": "ask_definition",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "AA_017",
+    "category": "Academic Affairs",
+    "sub_category": "Entry Requirements",
+    "question": "What are the entry requirements for undergraduate programs at Xiamen University Malaysia?",
+    "answer": "The entry requirements include: i. Possess Sijil Pelajaran Malaysia (SPM) with at least credit in five (5) subjects including Mathematics and English; or ii. A pass in Unified Examination Certificate (UEC) with at least a Grade B in three (3) subjects including Mathematics and English; or iii. A pass in O-Level with at least Grade C in five (5) subjects including Mathematics and English; or iv. Other relevant qualifications recognised by the Malaysian Government.",
+    "keywords": [
+      "entry",
+      "requirements",
+      "undergraduate",
+      "qualifications",
+      "mathematics",
+      "english"
+    ],
+    "intent": "ask_definition",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "AA_018",
+    "category": "Academic Affairs",
+    "sub_category": "Entry Requirements",
+    "question": "Which qualifications are accepted for entry into Xiamen University Malaysia?",
+    "answer": "Accepted qualifications include: i. Sijil Pelajaran Malaysia (SPM) with credit in five subjects including Mathematics and English; ii. Unified Examination Certificate (UEC) with Grade B in three subjects including Mathematics and English; iii. O-Level with Grade C in five subjects including Mathematics and English; iv. Other relevant qualifications recognised by the Malaysian Government.",
+    "keywords": [
+      "qualifications",
+      "accepted",
+      "entry",
+      "spm",
+      "uec",
+      "o-level"
+    ],
+    "intent": "ask_definition",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "AA_019",
+    "category": "Academic Affairs",
+    "sub_category": "English Language Requirement",
+    "question": "What are the English language requirements for international students applying to foundation programmes?",
+    "answer": "For international students applying to foundation programmes, the English language requirements are as follows: \n1. You must have attained a grade equivalent to a credit in SPM English in your secondary education level English subject. \n2. You must have achieved a minimum score in one of the recognised English language tests: \n   a. Minimum overall band score of 5.0 in IELTS; or \n   b. Minimum score of 40 in TOEFL iBT; or \n   c. Minimum Band 3.5 in MUET; or \n   d. Other equivalent qualifications recognised by the Malaysian government. \nNote: These requirements do not apply if your medium of instruction in secondary school was entirely in English.",
+    "keywords": [
+      "english",
+      "language",
+      "requirement",
+      "international",
+      "foundation"
+    ],
+    "intent": "ask_definition",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "AA_020",
+    "category": "Academic Affairs",
+    "sub_category": "English Language Requirement",
+    "question": "Which English language tests are accepted for international students applying to foundation programmes?",
+    "answer": "The following English language tests are accepted for international students applying to foundation programmes: \n- Minimum overall band score of 5.0 in IELTS; or \n- Minimum score of 40 in TOEFL iBT; or \n- Minimum Band 3.5 in MUET; or \n- Other equivalent qualifications recognised by the Malaysian government.",
+    "keywords": [
+      "english",
+      "tests",
+      "accepted",
+      "international",
+      "foundation"
+    ],
+    "intent": "ask_definition",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "AA_021",
+    "category": "Academic Affairs",
+    "sub_category": "Foundation in Science",
+    "question": "What are the graduation requirements for the Foundation in Science programme?",
+    "answer": "To graduate from the Foundation in Science programme, you must complete six common core courses, five core courses, and four specialisation courses (based on your academic track) within three semesters. You need to pass all assigned courses with at least a Grade D, attain a CGPA of 2.00 or higher, and earn a minimum of 50 credits.",
+    "keywords": [
+      "graduation",
+      "requirements",
+      "foundation",
+      "science",
+      "courses",
+      "credits"
+    ],
+    "intent": "ask_definition",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "AA_022",
+    "category": "Academic Affairs",
+    "sub_category": "Foundation in Science",
+    "question": "What are the compulsory courses for the Foundation in Science programme?",
+    "answer": "The compulsory courses for the Foundation in Science programme are: FCC1071 Introduction to Academic English (4 credits), FCC1061 Computing and Digital Skills (2 credits), FCC2081 Effective Presentations (2 credits), FCC3101 Basics of Critical Thinking (3 credits), and FCC3091 Academic Reading and Writing (3 credits). These total 14 credits.",
+    "keywords": [
+      "compulsory",
+      "courses",
+      "foundation",
+      "science",
+      "credits"
+    ],
+    "intent": "ask_definition",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "AA_023",
+    "category": "Academic Affairs",
+    "sub_category": "Foundation in Science",
+    "question": "What specialisation courses are available in the Foundation in Science programme?",
+    "answer": "The Foundation in Science programme offers three specialisation tracks: Physical Science, Biological Science, and Traditional Chinese Medicine. Each track has four courses worth 4 credits each, totaling 16 credits. For Physical Science: FIS2211 Mechanics and Waves, FIS3221 Electromagnetism, FIS3231 Thermodynamics and Modern Physics, FIS3091 Computer Science. For Biological Science: FIS2151 General Physics, FIS2131 Cell Biology, FIS3161 Introduction to Biotechnology, FIS3201 Basics of Environmental Biology. For Traditional Chinese Medicine: FIS2151 General Physics, FIS2131 Cell Biology, FIS3141 Human Physiology and Genetics, FIS3181 Chinese for Traditional Chinese Medicine (中医汉语).",
+    "keywords": [
+      "specialisation",
+      "courses",
+      "foundation",
+      "science",
+      "tracks",
+      "credits"
+    ],
+    "intent": "ask_definition",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "IT_001",
+    "category": "University Platforms & IT Support",
+    "sub_category": "Leave Application",
+    "question": "How do I apply for leave at Xiamen University Malaysia?",
+    "answer": "All leave applications must be submitted via the official e-Service system, accessible at https://eservices.xmu.edu.my.",
+    "keywords": [
+      "leave",
+      "application",
+      "e-service",
+      "submit",
+      "process"
+    ],
+    "intent": "ask_procedure",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "IT_002",
+    "category": "University Platforms & IT Support",
+    "sub_category": "Password Reset",
+    "question": "What should I do if I have password-related issues with the e-Service system?",
+    "answer": "For password-related issues, students may reset their password at https://id.xmu.edu.my.",
+    "keywords": [
+      "password",
+      "reset",
+      "e-service",
+      "login",
+      "issues"
+    ],
+    "intent": "ask_procedure",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "IT_003",
+    "category": "University Platforms & IT Support",
+    "sub_category": "e-Leave Service",
+    "question": "How do I apply for sick leave using the e-Leave Service system?",
+    "answer": "For all students: You must complete the online application via the e-Leave Service system, which is only accessible within the campus network. After submitting the online application, you are required to submit the original physical medical certificate (MC) to the School Office at Room B1#217. Leave applications submitted via email or verbal requests will not be processed. Failure to comply with these procedures may result in the rejection of your leave application.",
+    "keywords": [
+      "sick leave",
+      "e-leave service",
+      "medical certificate",
+      "application",
+      "procedure"
+    ],
+    "intent": "ask_procedure",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "IT_004",
+    "category": "University Platforms & IT Support",
+    "sub_category": "e-Leave Service",
+    "question": "Where do I submit my medical certificate after applying for sick leave online?",
+    "answer": "For all students: After completing the online application via the e-Leave Service system, you must submit the original physical medical certificate (MC) to the School Office at Room B1#217.",
+    "keywords": [
+      "medical certificate",
+      "submit",
+      "sick leave",
+      "school office",
+      "location"
+    ],
+    "intent": "ask_location",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "IT_005",
+    "category": "University Platforms & IT Support",
+    "sub_category": "e-Leave Service",
+    "question": "Can I apply for leave via email or verbal request?",
+    "answer": "For all students: Leave applications submitted via email or verbal requests will not be processed. You must use the e-Leave Service system, which is only accessible within the campus network.",
+    "keywords": [
+      "leave application",
+      "email",
+      "verbal request",
+      "e-leave service",
+      "process"
+    ],
+    "intent": "ask_procedure",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "IT_006",
+    "category": "University Platforms & IT Support",
+    "sub_category": "Complaints",
+    "question": "How can I submit a complaint or grievance at Xiamen University Malaysia?",
+    "answer": "For foundation students: You may contact the Office of the School of Foundation Studies via email at sfsac@xmu.edu.my.",
+    "keywords": [
+      "complaint",
+      "grievance",
+      "foundation",
+      "email",
+      "contact"
+    ],
+    "intent": "ask_contact",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "IT_007",
+    "category": "University Platforms & IT Support",
+    "sub_category": "Contact Information",
+    "question": "Where is the Office of the School of Foundation Studies located?",
+    "answer": "The Office of the School of Foundation Studies is located in Room B1 # 217.",
+    "keywords": [
+      "foundation",
+      "office",
+      "location"
+    ],
+    "intent": "ask_location",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "IT_008",
+    "category": "University Platforms & IT Support",
+    "sub_category": "Contact Information",
+    "question": "What are the office hours for the School of Foundation Studies?",
+    "answer": "The office hours for the School of Foundation Studies are Monday to Friday from 8.30 am to 5.30 pm.",
+    "keywords": [
+      "foundation",
+      "office",
+      "hours"
+    ],
+    "intent": "ask_procedure",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "IT_009",
+    "category": "University Platforms & IT Support",
+    "sub_category": "Contact Information",
+    "question": "How can I contact the School of Foundation Studies?",
+    "answer": "You can visit the Office of the School of Foundation Studies in-person at Room B1 # 217 or send your enquiries via email to sfsac@xmu.edu.my.",
+    "keywords": [
+      "foundation",
+      "contact",
+      "email"
+    ],
+    "intent": "ask_contact",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "IT_010",
+    "category": "University Platforms & IT Support",
+    "sub_category": "Finance Office",
+    "question": "What are the contact details and office hours of the Finance Office?",
+    "answer": "The Finance Office is located in Room A3#711. Office hours are Monday to Friday from 9.00 am to 5.00 pm. You can contact them via email at finance@xmu.edu.my or by phone at 03-8800 6856.",
+    "keywords": [
+      "finance",
+      "contact",
+      "office hours",
+      "location",
+      "email",
+      "phone"
+    ],
+    "intent": "ask_contact",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "IT_011",
+    "category": "University Platforms & IT Support",
+    "sub_category": "Finance Office",
+    "question": "Where is the Finance Office located?",
+    "answer": "The Finance Office is located in Room A3#711.",
+    "keywords": [
+      "finance",
+      "location",
+      "office",
+      "room"
+    ],
+    "intent": "ask_location",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "IT_012",
+    "category": "University Platforms & IT Support",
+    "sub_category": "Finance Office",
+    "question": "What are the office hours of the Finance Office?",
+    "answer": "The Finance Office is open Monday to Friday from 9.00 am to 5.00 pm.",
+    "keywords": [
+      "finance",
+      "office hours",
+      "timing",
+      "working hours"
+    ],
+    "intent": "ask_procedure",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "IT_013",
+    "category": "University Platforms & IT Support",
+    "sub_category": "IT Rules",
+    "question": "What are the general IT rules and regulations at Xiamen University Malaysia?",
+    "answer": "Computer and network facilities at Xiamen University Malaysia are primarily for educational use. Circumventing accounting systems or using others' computer accounts is considered attempted theft. All users must comply with the Cyberlaw Acts of Malaysia, which prohibit activities like downloading/sharing pornographic materials or unauthorized copying/alteration of copyrighted materials. Violations may lead to suspension, expulsion, or legal proceedings. Users must follow university rules when using campus computers, networks, equipment, or facilities, or face disciplinary action.",
+    "keywords": [
+      "it rules",
+      "computer use",
+      "cyberlaw",
+      "misconduct",
+      "disciplinary action"
+    ],
+    "intent": "ask_definition",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "IT_014",
+    "category": "University Platforms & IT Support",
+    "sub_category": "IT Policy",
+    "question": "Where can I find more details about the IT Services Policy at Xiamen University Malaysia?",
+    "answer": "You can access the IT Services Policy details by visiting the library’s website at https://linc.xmu.edu.my/.",
+    "keywords": [
+      "it policy",
+      "library website",
+      "it services",
+      "policy details"
+    ],
+    "intent": "ask_procedure",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "IT_015",
+    "category": "University Platforms & IT Support",
+    "sub_category": "Wifi / Wireless Network Connection",
+    "question": "How do I connect to the university's wifi network?",
+    "answer": "Connect to the Wifi network named \"Student-5G\" or \"Student\". User authentication will be imposed.",
+    "keywords": [
+      "wifi",
+      "connection",
+      "student",
+      "network",
+      "authentication"
+    ],
+    "intent": "ask_procedure",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "IT_016",
+    "category": "University Platforms & IT Support",
+    "sub_category": "Wifi / Wireless Network Connection",
+    "question": "Can I use my own wireless router on campus?",
+    "answer": "If you would like to use your own wireless router, please seek approval from the IT Department. Note: The Wifi name (SSID) for personal use cannot begin with \"XMU\" or any other SSID names such as Staff, Guest, Student etc.",
+    "keywords": [
+      "wifi",
+      "router",
+      "personal",
+      "it",
+      "approval"
+    ],
+    "intent": "ask_procedure",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "IT_017",
+    "category": "University Platforms & IT Support",
+    "sub_category": "Network Connection",
+    "question": "How do I connect to the wired/LAN network at Xiamen University Malaysia?",
+    "answer": "To connect to the wired/LAN network: (i) Connect your computer to the LAN port. (ii) Go to ‘Network and Internet Setting’ and choose ‘Obtain an IP address automatically’. Wired/LAN connection is recommended for a more stable internet experience.",
+    "keywords": [
+      "wired",
+      "lan",
+      "network",
+      "connection",
+      "internet"
+    ],
+    "intent": "ask_procedure",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "IT_018",
+    "category": "University Platforms & IT Support",
+    "sub_category": "Network Connection",
+    "question": "What is the recommended network connection for stable internet at Xiamen University Malaysia?",
+    "answer": "Wired/LAN connection is recommended for a more stable internet experience.",
+    "keywords": [
+      "stable",
+      "internet",
+      "recommended",
+      "wired",
+      "lan"
+    ],
+    "intent": "ask_definition",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "IT_019",
+    "category": "University Platforms & IT Support",
+    "sub_category": "Email",
+    "question": "How do I change my initial email password?",
+    "answer": "To change your initial email password, sign in through https://www.office.com. Enter your email account and the initial password given to you, then enter your new password and click ‘Confirm Password’ to change. Click ‘Update Password’ and sign in again. If you require assistance, such as resetting your email password, proceed to the library (A3 Building).",
+    "keywords": [
+      "email",
+      "password",
+      "change",
+      "office",
+      "library"
+    ],
+    "intent": "ask_procedure",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "IT_020",
+    "category": "University Platforms & IT Support",
+    "sub_category": "Email",
+    "question": "Where can I get help with resetting my email password?",
+    "answer": "For assistance with resetting your email password, proceed to the library located in the A3 Building.",
+    "keywords": [
+      "email",
+      "password",
+      "reset",
+      "help",
+      "library"
+    ],
+    "intent": "ask_location",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "REG_001",
+    "category": "Registration & Orientation",
+    "sub_category": "Student Pass",
+    "question": "What is a Student Pass and why do I need it?",
+    "answer": "A Student Pass is a mandatory document for all international students studying in Malaysia. It includes a sticker endorsement by the Immigration Department of Malaysia and functions as a multiple-entry visa, allowing you to exit and re-enter Malaysia within a specified period. The pass details your visa type, allowable length of stay, number of permitted entries, and its validity.",
+    "keywords": [
+      "student pass",
+      "visa",
+      "international students",
+      "immigration",
+      "malaysia"
+    ],
+    "intent": "ask_definition",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "REG_002",
+    "category": "Registration & Orientation",
+    "sub_category": "Student Pass",
+    "question": "When should I renew my Student Pass?",
+    "answer": "You must submit your Student Pass renewal application to ISAO at least twelve (12) weeks before its expiration. During the processing period, you are not allowed to make any travel arrangements. Failing to renew on time risks overstaying, which is prosecutable under Malaysian law.",
+    "keywords": [
+      "student pass",
+      "renewal",
+      "deadline",
+      "isa",
+      "international students"
+    ],
+    "intent": "ask_deadline",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "REG_003",
+    "category": "Registration & Orientation",
+    "sub_category": "Student Pass",
+    "question": "Do I need a new Student Pass when progressing to a higher academic level?",
+    "answer": "Yes, if you are progressing from one academic level to the next, you must apply for a new Student Pass.",
+    "keywords": [
+      "student pass",
+      "academic progression",
+      "new application",
+      "international students"
+    ],
+    "intent": "ask_procedure",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "REG_004",
+    "category": "Registration & Orientation",
+    "sub_category": "Visa and Immigration Services",
+    "question": "What visa services are available for new students at Xiamen University Malaysia?",
+    "answer": "For new students, the university assists with obtaining the Student Pass and required documents.",
+    "keywords": [
+      "visa",
+      "student pass",
+      "new students",
+      "documents",
+      "immigration"
+    ],
+    "intent": "ask_procedure",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "REG_005",
+    "category": "Registration & Orientation",
+    "sub_category": "Visa and Immigration Services",
+    "question": "How can I renew my student visa at Xiamen University Malaysia?",
+    "answer": "The university provides guidance on renewing student visas before expiration.",
+    "keywords": [
+      "visa",
+      "renewal",
+      "student pass",
+      "expiration",
+      "immigration"
+    ],
+    "intent": "ask_procedure",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "REG_006",
+    "category": "Registration & Orientation",
+    "sub_category": "Visa and Immigration Services",
+    "question": "What services are available for international students regarding i-Kad?",
+    "answer": "The university assists with the application and renewal of the International Student Card (i-Kad) for international students.",
+    "keywords": [
+      "i-kad",
+      "international student card",
+      "application",
+      "renewal",
+      "international students"
+    ],
+    "intent": "ask_procedure",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "REG_007",
+    "category": "Registration & Orientation",
+    "sub_category": "",
+    "question": "What is a Single-Entry Visa (SEV) for students at Xiamen University Malaysia?",
+    "answer": "The SEV is a one-time entry visa required for students from countries that need a visa to enter Malaysia. It must be obtained before arrival and is issued by the Malaysian Embassy or Consulate in the student's home country.",
+    "keywords": [
+      "single-entry visa",
+      "sev",
+      "visa requirement",
+      "malaysia",
+      "international students"
+    ],
+    "intent": "ask_definition",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "REG_008",
+    "category": "Registration & Orientation",
+    "sub_category": "Visa Requirements",
+    "question": "Do students from ASEAN countries need an SEV or eVISA to study at Xiamen University Malaysia?",
+    "answer": "For international students from ASEAN countries (e.g., Indonesia, Thailand, Singapore), an SEV or eVISA is not required. However, they must have a VAL (Visa Approval Letter). Some nationalities may be eligible for a Visa on Arrival (VOA), but they must confirm with the university and immigration authorities.",
+    "keywords": [
+      "asean",
+      "visa",
+      "international",
+      "val",
+      "requirements"
+    ],
+    "intent": "ask_definition",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "REG_009",
+    "category": "Registration & Orientation",
+    "sub_category": "Visa Requirements",
+    "question": "What visa types are essential for international students traveling to Malaysia?",
+    "answer": "The Single-Entry Visa (SEV) and eVISA (Student) are essential for international students traveling to Malaysia. Students should check their country’s eligibility and apply for the correct visa type to ensure a smooth arrival and Student Pass processing.",
+    "keywords": [
+      "visa",
+      "international",
+      "sev",
+      "evisa",
+      "student pass"
+    ],
+    "intent": "ask_definition",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "REG_010",
+    "category": "Registration & Orientation",
+    "sub_category": "Visa Requirements",
+    "question": "Can international students get a Visa on Arrival (VOA) for studying at Xiamen University Malaysia?",
+    "answer": "Some nationalities may be eligible for a Visa on Arrival (VOA), but they must confirm with the university and immigration authorities.",
+    "keywords": [
+      "visa",
+      "international",
+      "voa",
+      "arrival",
+      "requirements"
+    ],
+    "intent": "ask_definition",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "REG_011",
+    "category": "Registration & Orientation",
+    "sub_category": "Travel Arrangements",
+    "question": "What should I do after my SEV is approved?",
+    "answer": "Once the SEV is approved, students should make travel arrangements, including flight booking. It is advisable to inform the university of the arrival date and time 7 days prior to arrival date for airport arrival arrangements.",
+    "keywords": [
+      "travel",
+      "sev",
+      "flight",
+      "arrival",
+      "airport"
+    ],
+    "intent": "ask_procedure",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "REG_012",
+    "category": "Registration & Orientation",
+    "sub_category": "Travel Arrangements",
+    "question": "When should I inform the university about my arrival details?",
+    "answer": "Students should inform the university of the arrival date and time 7 days prior to arrival date for airport arrival arrangements.",
+    "keywords": [
+      "arrival",
+      "inform",
+      "university",
+      "airport",
+      "date"
+    ],
+    "intent": "ask_deadline",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "REG_013",
+    "category": "Registration & Orientation",
+    "sub_category": "",
+    "question": "What documents should international students carry while in Malaysia?",
+    "answer": "International students should always carry a copy of their passport and student pass while in Malaysia.",
+    "keywords": [
+      "documents",
+      "passport",
+      "student pass",
+      "international",
+      "malaysia"
+    ],
+    "intent": "ask_procedure",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "REG_014",
+    "category": "Registration & Orientation",
+    "sub_category": "",
+    "question": "What should international students do if they face issues with visa renewal or compliance?",
+    "answer": "International students should follow university guidelines on visa renewal and compliance. If they face any issues, they can visit the International Student Office for assistance.",
+    "keywords": [
+      "visa",
+      "renewal",
+      "compliance",
+      "international",
+      "student office"
+    ],
+    "intent": "ask_procedure",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "REG_015",
+    "category": "Registration & Orientation",
+    "sub_category": "",
+    "question": "Where can international students get assistance for settling in at Xiamen University Malaysia?",
+    "answer": "International students can visit the International Student Office for assistance with settling in at Xiamen University Malaysia.",
+    "keywords": [
+      "assistance",
+      "settling",
+      "international",
+      "student office",
+      "xiamen"
+    ],
+    "intent": "ask_location",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "REG_016",
+    "category": "Registration & Orientation",
+    "sub_category": "International Student Documentation",
+    "question": "What is an i-Kad and what is its purpose for international students?",
+    "answer": "The i-Kad (International Student Card) is an identification card issued by Immigration Malaysia to international students. It serves as an alternative to carrying a passport for identification within Malaysia.",
+    "keywords": [
+      "i-kad",
+      "international student",
+      "identification"
+    ],
+    "intent": "ask_definition",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "REG_017",
+    "category": "Registration & Orientation",
+    "sub_category": "Visa Application",
+    "question": "How do I apply for a new student visa at Xiamen University Malaysia?",
+    "answer": "Submit a fresh visa application under the new university via EMGS. Provide updated passport details, offer letter, and academic transcripts.",
+    "keywords": [
+      "visa",
+      "application",
+      "emgs",
+      "passport",
+      "offer letter"
+    ],
+    "intent": "ask_procedure",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "REG_018",
+    "category": "Registration & Orientation",
+    "sub_category": "Visa Application",
+    "question": "What documents are required for a new student visa application?",
+    "answer": "You need to provide updated passport details, offer letter, and academic transcripts for the visa application via EMGS.",
+    "keywords": [
+      "documents",
+      "visa",
+      "passport",
+      "offer letter",
+      "transcripts"
+    ],
+    "intent": "ask_procedure",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "REG_019",
+    "category": "Registration & Orientation",
+    "sub_category": "Visa Procedures",
+    "question": "What are the consequences of not following the visa withdrawal procedure?",
+    "answer": "Failure to follow the visa withdrawal procedure may result in: Immigration Blacklisting – The student may be banned from re-entering Malaysia. Overstaying Fines and Legal Action – Overstaying a visa is a violation of Malaysian immigration laws and may lead to fines, detention, or deportation. Denial of Future Student Visas – Students who fail to cancel their visas properly may face difficulties in applying for a new student visa in Malaysia. University Disciplinary Action – Outstanding financial dues or unresolved academic matters may affect future academic applications or transcripts.",
+    "keywords": [
+      "visa",
+      "withdrawal",
+      "consequences",
+      "immigration",
+      "blacklisting",
+      "overstaying"
+    ],
+    "intent": "ask_definition",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "REG_020",
+    "category": "Registration & Orientation",
+    "sub_category": "Counselling Services",
+    "question": "What services does the XMUM Counselling Centre offer?",
+    "answer": "The XMUM Counselling Centre provides individual and group counselling to support students. Services include support for adaptation, self-exploration, study stress, emotion, grief and loss, sexuality/gender, family, boy-girl relationship, friendship, and career guidance. The service is free and ensures confidentiality and privacy for all students.",
+    "keywords": [
+      "counselling",
+      "support",
+      "mental health",
+      "services",
+      "confidentiality"
+    ],
+    "intent": "ask_definition",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "REG_021",
+    "category": "Registration & Orientation",
+    "sub_category": "Counselling Services",
+    "question": "Who can use the XMUM Counselling Centre services?",
+    "answer": "The XMUM Counselling Centre is available to all students at the university, irrespective of age, socioeconomic status, ethnicity, culture, religion, gender identity, and sexual orientation. The centre aims to meet the unique needs of each student who seeks counselling services.",
+    "keywords": [
+      "counselling",
+      "eligibility",
+      "students",
+      "support",
+      "diversity"
+    ],
+    "intent": "ask_definition",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "REG_022",
+    "category": "Registration & Orientation",
+    "sub_category": "Counselling Services",
+    "question": "Are the counselling services at XMUM free?",
+    "answer": "Yes, the counselling services provided by the XMUM Counselling Centre are free for all students. The service ensures confidentiality and privacy.",
+    "keywords": [
+      "counselling",
+      "free",
+      "cost",
+      "confidentiality",
+      "privacy"
+    ],
+    "intent": "ask_definition",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "CS_001",
+    "category": "Campus Services",
+    "sub_category": "Library",
+    "question": "What are the library opening hours?",
+    "answer": "The library opening hours are mentioned in section 5.2 of the handbook, but the specific times are not provided in this text chunk.",
+    "keywords": [
+      "library",
+      "opening",
+      "hours",
+      "access"
+    ],
+    "intent": "ask_procedure",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "CS_002",
+    "category": "Campus Services",
+    "sub_category": "Library",
+    "question": "How can I suggest a book for the library to purchase?",
+    "answer": "Book purchase suggestions can be made as mentioned in section 5.5 of the handbook, but the specific procedure is not detailed in this text chunk.",
+    "keywords": [
+      "library",
+      "book",
+      "purchase",
+      "suggestion"
+    ],
+    "intent": "ask_procedure",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "CS_003",
+    "category": "Campus Services",
+    "sub_category": "Library",
+    "question": "Where can I find the library contact details?",
+    "answer": "The library contact details are provided in section 5.12 of the handbook, but the specific information is not included in this text chunk.",
+    "keywords": [
+      "library",
+      "contact",
+      "details",
+      "information"
+    ],
+    "intent": "ask_contact",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "CS_004",
+    "category": "Campus Services",
+    "sub_category": "IT Services",
+    "question": "What are the general IT rules and regulations at Xiamen University Malaysia?",
+    "answer": "The general IT rules and regulations are outlined in section 6.2 of the handbook. Specific details are not provided in this text chunk.",
+    "keywords": [
+      "it",
+      "rules",
+      "regulations",
+      "handbook",
+      "section"
+    ],
+    "intent": "ask_definition",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "CS_005",
+    "category": "Campus Services",
+    "sub_category": "IT Services",
+    "question": "Where can I find the IT quick user manual?",
+    "answer": "The IT quick user manual is available in section 6.3 of the handbook.",
+    "keywords": [
+      "it",
+      "manual",
+      "user",
+      "handbook",
+      "section"
+    ],
+    "intent": "ask_location",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "CS_006",
+    "category": "Campus Services",
+    "sub_category": "IT Services",
+    "question": "How can I contact the Library Helpdesk and IT Department?",
+    "answer": "The contact details for the Library Helpdesk and IT Department are provided in section 6.4 of the handbook.",
+    "keywords": [
+      "contact",
+      "library",
+      "helpdesk",
+      "it",
+      "department",
+      "handbook"
+    ],
+    "intent": "ask_contact",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "CS_007",
+    "category": "Campus Services",
+    "sub_category": "Events and Activities",
+    "question": "What is the process for applying to hold an event or activity at Xiamen University Malaysia?",
+    "answer": "The process for applying to hold an event or activity is detailed in section 7.6.3 of the handbook. Specific steps and requirements are outlined there.",
+    "keywords": [
+      "event",
+      "activity",
+      "application",
+      "process",
+      "handbook"
+    ],
+    "intent": "ask_procedure",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "CS_008",
+    "category": "Campus Services",
+    "sub_category": "Events and Activities",
+    "question": "Are there any guidelines for posters created by clubs or societies?",
+    "answer": "Yes, poster guidelines for clubs and societies are provided in section 7.6.4 of the handbook.",
+    "keywords": [
+      "poster",
+      "guidelines",
+      "clubs",
+      "societies",
+      "handbook"
+    ],
+    "intent": "ask_definition",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "CS_009",
+    "category": "Campus Services",
+    "sub_category": "Events and Activities",
+    "question": "Where can I find the contact details and office hours of the ECA?",
+    "answer": "The contact details and office hours of the ECA are listed in section 7.9 of the handbook.",
+    "keywords": [
+      "eca",
+      "contact",
+      "office",
+      "hours",
+      "handbook"
+    ],
+    "intent": "ask_contact",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "CS_010",
+    "category": "Campus Services",
+    "sub_category": "Counselling Services",
+    "question": "What are the contact details and office hours of the Counselling Centre at Xiamen University Malaysia?",
+    "answer": "The contact details and office hours of the Counselling Centre are mentioned in the handbook on page 64.",
+    "keywords": [
+      "counselling",
+      "contact",
+      "office hours",
+      "support",
+      "mental health"
+    ],
+    "intent": "ask_contact",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "CS_011",
+    "category": "Campus Services",
+    "sub_category": "Counselling Services",
+    "question": "Where can I find information about the Counselling Services at Xiamen University Malaysia?",
+    "answer": "Information about the Counselling Services, including contact details and office hours, can be found in the handbook on page 64.",
+    "keywords": [
+      "counselling",
+      "information",
+      "handbook",
+      "support",
+      "services"
+    ],
+    "intent": "ask_location",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "CS_012",
+    "category": "Campus Services",
+    "sub_category": "Language Hub",
+    "question": "What services are provided by the English Language Education Centre (ELEC)?",
+    "answer": "The English Language Education Centre (ELEC) provides various language-related services, though specific details are not mentioned in the text.",
+    "keywords": [
+      "elec",
+      "language",
+      "services",
+      "english",
+      "education"
+    ],
+    "intent": "ask_definition",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "CS_013",
+    "category": "Campus Services",
+    "sub_category": "Language Hub",
+    "question": "Where can I find the contact details and office hours of the English Language Education Centre (ELEC)?",
+    "answer": "The contact details and office hours of the English Language Education Centre (ELEC) are mentioned in the handbook, but specific information is not provided in this text chunk.",
+    "keywords": [
+      "elec",
+      "contact",
+      "office hours",
+      "language",
+      "centre"
+    ],
+    "intent": "ask_contact",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "CS_014",
+    "category": "Campus Services",
+    "sub_category": "Student Affairs Office",
+    "question": "What services are provided by the Student Affairs Office?",
+    "answer": "The Student Affairs Office provides various services including Student Helpdesk, Student Vehicle Registration, Feedback handling, Lost and Found, assistance for Lost or Damaged Student Campus ID Cards, Student Group Personal Accident Insurance, and PTPTN Enquiries. It also maintains a directory and office hours for the SAO and Student Helpdesk.",
+    "keywords": [
+      "student affairs",
+      "services",
+      "helpdesk",
+      "registration",
+      "feedback",
+      "insurance"
+    ],
+    "intent": "ask_definition",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "CS_015",
+    "category": "Campus Services",
+    "sub_category": "Student Affairs Office",
+    "question": "Where can I find the office hours for the Student Affairs Office and Student Helpdesk?",
+    "answer": "The directory and office hours for the Student Affairs Office and Student Helpdesk are available in the handbook.",
+    "keywords": [
+      "student affairs",
+      "office hours",
+      "helpdesk",
+      "directory"
+    ],
+    "intent": "ask_location",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "CS_016",
+    "category": "Campus Services",
+    "sub_category": "Student Affairs Office",
+    "question": "What should I do if I lose or damage my student campus ID card?",
+    "answer": "For lost or damaged student campus ID cards, you can seek assistance from the Student Affairs Office.",
+    "keywords": [
+      "student id",
+      "lost",
+      "damaged",
+      "replacement",
+      "assistance"
+    ],
+    "intent": "ask_procedure",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "CS_017",
+    "category": "Campus Services",
+    "sub_category": "International Student Affairs",
+    "question": "What are the responsibilities of a student pass holder at Xiamen University Malaysia?",
+    "answer": "The text mentions that there are responsibilities for holders of a student pass, but the specific details are not provided in this chunk. Please refer to section 11.2.3 for more information.",
+    "keywords": [
+      "student pass",
+      "responsibilities",
+      "international"
+    ],
+    "intent": "ask_definition",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "CS_018",
+    "category": "Campus Services",
+    "sub_category": "International Student Affairs",
+    "question": "Where can I find the directory and office hours of the International Student Affairs Office?",
+    "answer": "The directory and office hours of the International Student Affairs Office (ISAO) are mentioned in section 11.2.4 of the handbook.",
+    "keywords": [
+      "isa",
+      "office hours",
+      "directory",
+      "contact"
+    ],
+    "intent": "ask_location",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "CS_019",
+    "category": "Campus Services",
+    "sub_category": "International Student Affairs",
+    "question": "What are the basic rules and regulations regarding student passes at Xiamen University Malaysia?",
+    "answer": "The text indicates that there are basic rules and regulations regarding student passes, but the specific details are not provided in this chunk. Please refer to section 11.2.2 for more information.",
+    "keywords": [
+      "student pass",
+      "rules",
+      "regulations",
+      "international"
+    ],
+    "intent": "ask_definition",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "CS_020",
+    "category": "Campus Services",
+    "sub_category": "Maintenance",
+    "question": "What services does the Operations and Maintenance Department provide?",
+    "answer": "The Operations and Maintenance Department provides maintenance services, car parking and campus traffic management, and general cleaning services.",
+    "keywords": [
+      "maintenance",
+      "parking",
+      "cleaning",
+      "services",
+      "operations"
+    ],
+    "intent": "ask_definition",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "CS_021",
+    "category": "Campus Services",
+    "sub_category": "Maintenance",
+    "question": "Where can I find the directory and office hours of the Operations and Maintenance Department?",
+    "answer": "The directory and office hours of the Operations and Maintenance Department can be found in the handbook.",
+    "keywords": [
+      "directory",
+      "office hours",
+      "maintenance",
+      "operations",
+      "handbook"
+    ],
+    "intent": "ask_location",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "CS_022",
+    "category": "Campus Services",
+    "sub_category": "Maintenance",
+    "question": "What are the operation hours of the Operations and Maintenance Department?",
+    "answer": "The operation hours of the Operations and Maintenance Department are mentioned in the handbook.",
+    "keywords": [
+      "operation hours",
+      "maintenance",
+      "operations",
+      "handbook"
+    ],
+    "intent": "ask_deadline",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "CS_023",
+    "category": "Campus Services",
+    "sub_category": "Sports Facilities",
+    "question": "What sports facilities are available at Xiamen University Malaysia?",
+    "answer": "The text mentions sports facilities but does not provide specific details about the types of facilities available.",
+    "keywords": [
+      "sports",
+      "facilities",
+      "campus"
+    ],
+    "intent": "ask_definition",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "CS_024",
+    "category": "Campus Services",
+    "sub_category": "Cafeterias",
+    "question": "Are there cafeterias available on campus?",
+    "answer": "The text confirms the presence of cafeterias on campus but does not provide further details about their locations or operating hours.",
+    "keywords": [
+      "cafeterias",
+      "food",
+      "campus"
+    ],
+    "intent": "ask_location",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "CS_025",
+    "category": "Campus Services",
+    "sub_category": "Laundry",
+    "question": "Is there a self-service laundry facility on campus?",
+    "answer": "The text mentions the availability of self-service laundry facilities but does not specify their locations or usage procedures.",
+    "keywords": [
+      "laundry",
+      "self-service",
+      "facilities"
+    ],
+    "intent": "ask_location",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "CS_026",
+    "category": "Campus Services",
+    "sub_category": "Medical Services",
+    "question": "What medical services are available on-campus at Xiamen University Malaysia?",
+    "answer": "The handbook mentions on-campus medical care services, but does not provide specific details about the types of services offered or their availability.",
+    "keywords": [
+      "medical",
+      "health",
+      "on-campus",
+      "services",
+      "care"
+    ],
+    "intent": "ask_definition",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "CS_027",
+    "category": "Campus Services",
+    "sub_category": "Medical Services",
+    "question": "Are there off-campus medical care options for students?",
+    "answer": "The handbook acknowledges the existence of off-campus medical care options, but does not specify any details about these services or how to access them.",
+    "keywords": [
+      "medical",
+      "off-campus",
+      "healthcare",
+      "services",
+      "care"
+    ],
+    "intent": "ask_definition",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "AL_001",
+    "category": "Accommodation & Living",
+    "sub_category": "Residence Rules and Regulations",
+    "question": "What are the general rules for student residence at Xiamen University Malaysia?",
+    "answer": "The general rules for student residence cover various aspects including application procedures, payment and refund policies, room assignment, key replacement, visitor policies, security, cleanliness, noise regulations, code of conduct, use of electrical appliances, maintenance, check-in and check-out procedures, withdrawal or termination of tenancy, disciplinary actions, and spot check procedures. For specific details, refer to the respective sections in the handbook.",
+    "keywords": [
+      "rules",
+      "residence",
+      "student",
+      "general",
+      "regulations"
+    ],
+    "intent": "ask_definition",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "AL_002",
+    "category": "Accommodation & Living",
+    "sub_category": "Residence Rules and Regulations",
+    "question": "How can I apply for student residence at Xiamen University Malaysia?",
+    "answer": "The application process for student residence is outlined in the handbook. It includes details on how to apply, but specific procedures or deadlines are not mentioned in the provided text chunk.",
+    "keywords": [
+      "apply",
+      "residence",
+      "student",
+      "application",
+      "process"
+    ],
+    "intent": "ask_procedure",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "AL_003",
+    "category": "Accommodation & Living",
+    "sub_category": "Residence Rules and Regulations",
+    "question": "What is the visitor policy for student residence at Xiamen University Malaysia?",
+    "answer": "The visitor policy for student residence is covered under the residence rules and regulations. It includes guidelines on visitors and addresses illegal squatting, but specific details are not provided in the given text chunk.",
+    "keywords": [
+      "visitor",
+      "policy",
+      "residence",
+      "student",
+      "rules"
+    ],
+    "intent": "ask_definition",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "AL_004",
+    "category": "Accommodation & Living",
+    "sub_category": "Library Rules",
+    "question": "What are the general rules for using library rooms and common learning spaces at Xiamen University Malaysia?",
+    "answer": "The following rules apply to all library rooms (e.g., instruction room, mini cinema, makerspace) and common learning areas: Use the space only for study and academic purposes. Seat reservations are not allowed in common learning areas (first come, first served), while library rooms require reservations via the space booking system. Keep the space clean and tidy. Food and beverages are prohibited (except bottled plain water). Turn off lights and close the door when leaving. Avoid loud noises. Do not move, remove, or add furniture. Playing cards, games, or watching movies is prohibited. Vandalism is not allowed. The patron who booked a room must be present during the reservation.",
+    "keywords": [
+      "library",
+      "rules",
+      "rooms",
+      "learning",
+      "reservation",
+      "cleanliness"
+    ],
+    "intent": "ask_definition",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "AL_005",
+    "category": "Accommodation & Living",
+    "sub_category": "Library Rules",
+    "question": "Can I reserve a seat in the common learning areas of the library?",
+    "answer": "No, seat reservations are not allowed in common learning areas. Access is on a first come, first served basis. However, library rooms (e.g., instruction room, mini cinema) require reservations via the space booking system.",
+    "keywords": [
+      "library",
+      "reservation",
+      "seats",
+      "learning",
+      "common areas"
+    ],
+    "intent": "ask_procedure",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "AL_006",
+    "category": "Accommodation & Living",
+    "sub_category": "Library Rules",
+    "question": "What items are prohibited in library rooms and common learning spaces?",
+    "answer": "Food and beverages are not allowed (except bottled plain drinking water). Playing cards, games, or watching movies is also prohibited. Vandalism of library rooms or common learning areas is strictly forbidden.",
+    "keywords": [
+      "library",
+      "prohibited",
+      "food",
+      "beverages",
+      "games",
+      "vandalism"
+    ],
+    "intent": "ask_definition",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "AL_007",
+    "category": "Accommodation & Living",
+    "sub_category": "Internet Access",
+    "question": "How can I access the internet on campus or in the student hostel?",
+    "answer": "You can access the campus internet 24 hours a day when you are on campus or in the student hostel via the Ethernet/LAN or the wireless network. If you want to use the Ethernet/LAN network, you must get your own accessories such as Ethernet/LAN cables to connect your computer to the network.",
+    "keywords": [
+      "internet",
+      "access",
+      "campus",
+      "hostel",
+      "ethernet",
+      "wireless"
+    ],
+    "intent": "ask_procedure",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "AL_008",
+    "category": "Accommodation & Living",
+    "sub_category": "Internet Usage",
+    "question": "What are the rules for using the internet on campus?",
+    "answer": "As a responsible user of IT services, you are prohibited from viewing pornographic websites, downloading pornographic materials from the Internet, or engaging in online gambling. You should not attempt to remove, tamper, or interfere with any of the computers, printers, cabling, projectors, power extension cords, network devices, or other equipment in the classrooms, computer laboratories, library, or any other locations with equipment installed on campus. The IT Department reserves the right to control the availability of Ethernet sockets and to constantly monitor any abnormal Internet activities on campus.",
+    "keywords": [
+      "internet",
+      "rules",
+      "usage",
+      "prohibited",
+      "monitoring",
+      "it"
+    ],
+    "intent": "ask_definition",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "AL_009",
+    "category": "Accommodation & Living",
+    "sub_category": "Room Assignment",
+    "question": "How is room assignment determined for students at Xiamen University Malaysia?",
+    "answer": "Room assignment is made at the sole discretion of the Accommodation Office (AO). The AO reserves the right to reassign rooms for reasons such as safety, health, repair service, economy, disciplinary issues involving residents, or unresolvable roommate incompatibility.",
+    "keywords": [
+      "room",
+      "assignment",
+      "ao",
+      "discretion",
+      "reassignment"
+    ],
+    "intent": "ask_definition",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "AL_010",
+    "category": "Accommodation & Living",
+    "sub_category": "Room Assignment",
+    "question": "Can students change their accommodation unit at Xiamen University Malaysia?",
+    "answer": "Residents are not allowed to change units without the approval of the AO. Requests for unit changes are principally discouraged, but if approved, an administration fee of RM 30 will be imposed. Downgrading occupancy type is generally not allowed unless a valid reason is provided and approved by the AO. Upgrading occupancy type is allowed, but the applicant must pay the difference in rental. All requests are subject to unit availability.",
+    "keywords": [
+      "change",
+      "unit",
+      "approval",
+      "fee",
+      "downgrade",
+      "upgrade"
+    ],
+    "intent": "ask_procedure",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "AL_011",
+    "category": "Accommodation & Living",
+    "sub_category": "Room Assignment",
+    "question": "What is the minimum tenancy period for accommodation at Xiamen University Malaysia?",
+    "answer": "The minimum tenancy period for accommodation is one semester, according to the University’s academic calendar.",
+    "keywords": [
+      "tenancy",
+      "minimum",
+      "semester",
+      "academic",
+      "calendar"
+    ],
+    "intent": "ask_definition",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "AL_012",
+    "category": "Accommodation & Living",
+    "sub_category": "Visitor Policy",
+    "question": "What is the procedure for visitors to enter the hostel?",
+    "answer": "All visitors must register at the Guard House and the ground level Security Desk of the respective hostel block. They must hand over their driving licence to the security guard upon entry. Visitors of the opposite gender are strictly not allowed to enter residential units at any time, except for immediate family members or guardians, who must also register and hand over their driving licence. All visitors must leave the hostel premises by 8.00 pm.",
+    "keywords": [
+      "visitor",
+      "registration",
+      "hostel",
+      "security",
+      "entry"
+    ],
+    "intent": "ask_procedure",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "AL_013",
+    "category": "Accommodation & Living",
+    "sub_category": "Visitor Policy",
+    "question": "Are visitors allowed to stay overnight in the hostel?",
+    "answer": "Residents are not allowed to invite visitors (including parents, siblings, friends, or outsiders) to stay overnight in their residential units. Failure to comply will result in the resident’s eviction from the hostel. Disciplinary action will also be taken against residents found with a member of the opposite sex inside their room at any time.",
+    "keywords": [
+      "overnight",
+      "visitor",
+      "hostel",
+      "rules",
+      "discipline"
+    ],
+    "intent": "ask_definition",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "AL_014",
+    "category": "Accommodation & Living",
+    "sub_category": "Visitor Policy",
+    "question": "Can residents host parties or social gatherings in the hostel?",
+    "answer": "Parties and other social gatherings in the residence are not permitted without prior consent from the Accommodation Office. Residents are personally responsible for ensuring their visitors comply with all Residences Rules and Regulations and that their behaviour is not offensive or a nuisance to other residents.",
+    "keywords": [
+      "parties",
+      "gatherings",
+      "hostel",
+      "rules",
+      "permission"
+    ],
+    "intent": "ask_definition",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "AL_015",
+    "category": "Accommodation & Living",
+    "sub_category": "Cleanliness and Order",
+    "question": "What are the responsibilities of residents regarding cleanliness and order in their units?",
+    "answer": "Residents are personally responsible for the tidiness and cleanliness of their units at all times. Any waste should be disposed of properly at designated rubbish collection points. The last person leaving the unit must ensure all taps are turned off and all lights/electrical appliances are switched off to prevent wastage and fire hazards. Fixtures that may cause damage are prohibited, and residents cannot hammer nails, stick tapes, deface walls, or remove furniture from common areas. The University provides cleaning services for common areas only and is not responsible for the loss of personal items.",
+    "keywords": [
+      "cleanliness",
+      "responsibilities",
+      "waste disposal",
+      "electricity",
+      "fixtures",
+      "common areas"
+    ],
+    "intent": "ask_definition",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "AL_016",
+    "category": "Accommodation & Living",
+    "sub_category": "Cleanliness and Order",
+    "question": "What should residents do to prevent fire hazards in their units?",
+    "answer": "Residents must ensure all taps are turned off and all lights/electrical appliances are switched off when not in use, especially the last person leaving the unit. This prevents wastage and avoids fire hazards.",
+    "keywords": [
+      "fire hazards",
+      "electricity",
+      "taps",
+      "appliances",
+      "safety"
+    ],
+    "intent": "ask_procedure",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "AL_017",
+    "category": "Accommodation & Living",
+    "sub_category": "Cleanliness and Order",
+    "question": "Is the University responsible for lost personal items in the residence?",
+    "answer": "The University will not be responsible for the loss of any valuable personal items, laptops, mobile phones, or money left by residents in their rooms or common areas.",
+    "keywords": [
+      "lost items",
+      "personal belongings",
+      "responsibility",
+      "common areas",
+      "rooms"
+    ],
+    "intent": "ask_definition",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "AL_018",
+    "category": "Accommodation & Living",
+    "sub_category": "Noise and Nuisance",
+    "question": "What are the noise restrictions in the university residences?",
+    "answer": "Noise is restricted from 10.00 pm to 7.00 am on Sunday and Monday to Thursday, and from 11.00 pm to 7.00 am on Friday and Saturday. During examination periods, noise restriction is in effect at all times. Residents are prohibited from making noise in common areas (corridor, pantry, laundry area, balcony) and residences compound (within a 10-meter radius from residence building) during noise restriction times.",
+    "keywords": [
+      "noise",
+      "restrictions",
+      "residences",
+      "quiet hours",
+      "examination period"
+    ],
+    "intent": "ask_definition",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "AL_019",
+    "category": "Accommodation & Living",
+    "sub_category": "Noise and Nuisance",
+    "question": "What is considered excessive noise in the residences?",
+    "answer": "Excessive noise is defined as noise that can be heard outside the confines of a resident’s own unit and disturbs other residents. Audio equipment should be operated at a reasonable volume where the sound is not heard from outside the unit or a nuisance to other residents.",
+    "keywords": [
+      "excessive noise",
+      "audio equipment",
+      "disturbance",
+      "residences"
+    ],
+    "intent": "ask_definition",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "AL_020",
+    "category": "Accommodation & Living",
+    "sub_category": "Noise and Nuisance",
+    "question": "Are there specific times when noise is not allowed in common areas?",
+    "answer": "Yes, residents are prohibited from making noise in common areas (corridor, pantry, laundry area, balcony) and residences compound (within a 10-meter radius from residence building) during noise restriction times, which are from 10.00 pm to 7.00 am on Sunday and Monday to Thursday, and from 11.00 pm to 7.00 am on Friday and Saturday.",
+    "keywords": [
+      "common areas",
+      "noise prohibition",
+      "residences",
+      "quiet hours"
+    ],
+    "intent": "ask_definition",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "AL_021",
+    "category": "Accommodation & Living",
+    "sub_category": "Cooking and Electrical Appliances",
+    "question": "What are the rules for cooking in the residence units?",
+    "answer": "Cooking is strictly prohibited in the units. Light cooking is allowed in the pantry, but extreme care must be exercised. Residents are strictly prohibited from keeping or using gas/kerosene/flammable stoves, portable air-conditioners, home theatre systems, and large musical instruments in the units. For safety reasons, burning candles or mosquito coils without a cover is also prohibited. Residents are advised to use electric mosquito mat vaporizers.",
+    "keywords": [
+      "cooking",
+      "prohibited",
+      "safety",
+      "pantry",
+      "rules"
+    ],
+    "intent": "ask_definition",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "AL_022",
+    "category": "Accommodation & Living",
+    "sub_category": "Cooking and Electrical Appliances",
+    "question": "What electrical appliances are allowed in the residence rooms?",
+    "answer": "Only the following electrical appliances are permitted in your room: haircare equipment, clock/radio, and computer equipment. Items like mini fridges, microwaves, hot plates, induction cookers, and musical instruments are not permitted. The list provided is not exhaustive, and the Accommodation Officer reserves the right to amend it. Residents must obtain permission from the Accommodation Officer to use or install electrical appliances inside the residence area.",
+    "keywords": [
+      "electrical",
+      "appliances",
+      "permitted",
+      "room",
+      "rules"
+    ],
+    "intent": "ask_definition",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "AL_023",
+    "category": "Accommodation & Living",
+    "sub_category": "Cooking and Electrical Appliances",
+    "question": "What are the consequences of violating the rules on electrical appliances?",
+    "answer": "Violation of the rules on electrical appliances will lead to the items being confiscated and a fine of Ringgit Malaysia Fifty (RM 50) being imposed. Additionally, tampering with firefighting equipment, other than for emergency purposes, will result in a fine. The minimum fine for tampering with firefighting equipment is Ringgit Malaysia Three Hundred (RM 300), depending on the severity of the damage, with the final cost validated by a third party or vendor.",
+    "keywords": [
+      "violation",
+      "fine",
+      "confiscation",
+      "rules",
+      "consequences"
+    ],
+    "intent": "ask_definition",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "AL_024",
+    "category": "Accommodation & Living",
+    "sub_category": "Maintenance",
+    "question": "How do I report maintenance issues in my room?",
+    "answer": "Residents should report any problems or damages that need rectification to the AO using the 'Maintenance Request Form'. Residents should not attempt to fix the issues themselves.",
+    "keywords": [
+      "maintenance",
+      "report",
+      "room",
+      "damages",
+      "request form"
+    ],
+    "intent": "ask_procedure",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "AL_025",
+    "category": "Accommodation & Living",
+    "sub_category": "Maintenance",
+    "question": "Can university staff enter my room for maintenance?",
+    "answer": "Yes, the AO or any other authorised University personnel, maintenance staff, agent, or approved service contractor may enter the affected unit at a suitable time for a reasonable duration to conduct spot checks, inspections, repairs, or recover University-owned property.",
+    "keywords": [
+      "maintenance",
+      "room entry",
+      "university staff",
+      "inspection",
+      "repairs"
+    ],
+    "intent": "ask_definition",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "AL_026",
+    "category": "Accommodation & Living",
+    "sub_category": "Check-In/Check-Out",
+    "question": "What are the check-in and check-out procedures for university residences?",
+    "answer": "Residents must complete check-in/check-out documents when starting or ending their stay. Units will be inspected for damages, and charges may apply. Residents must remove all personal belongings, return room keys, and vacate by 12.00 pm on the check-out date. Failure to comply may result in the room being vacated without consent. Check-in/check-out is only possible on weekdays or announced periods between 9.00 am and 5.00 pm. For different times, a formal written notice must be submitted at least 7 days in advance. Residents must clean the unit before check-out, or a RM 100 fine will be deducted from the deposit. Failure to follow procedures may result in deposit forfeiture.",
+    "keywords": [
+      "check-in",
+      "check-out",
+      "residences",
+      "procedures",
+      "deposit"
+    ],
+    "intent": "ask_procedure",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "TR_001",
+    "category": "Transportation",
+    "sub_category": "Student vehicle registration",
+    "question": "Where can I register my vehicle as a student at Xiamen University Malaysia?",
+    "answer": "You can register your vehicle at the Student Helpdesk, which is the first point of contact for students at Xiamen University Malaysia (XMUM).",
+    "keywords": [
+      "vehicle",
+      "registration",
+      "student",
+      "helpdesk",
+      "transport"
+    ],
+    "intent": "ask_location",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "TR_002",
+    "category": "Transportation",
+    "sub_category": "Public transport discount cards",
+    "question": "How can I get verification for a public transport discount card as a student at Xiamen University Malaysia?",
+    "answer": "The Student Helpdesk provides verification services for students who need to replace lost or damaged Campus ID cards or register for public transport discount cards.",
+    "keywords": [
+      "public",
+      "transport",
+      "discount",
+      "card",
+      "verification"
+    ],
+    "intent": "ask_procedure",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "TR_003",
+    "category": "Transportation",
+    "sub_category": "Lost and found",
+    "question": "Where should I go if I lost my transportation-related items on campus?",
+    "answer": "The Student Helpdesk assists with lost and found items, including transportation-related items, for students at Xiamen University Malaysia (XMUM).",
+    "keywords": [
+      "lost",
+      "found",
+      "transportation",
+      "items",
+      "helpdesk"
+    ],
+    "intent": "ask_location",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "TR_004",
+    "category": "Transportation",
+    "sub_category": "Vehicle Pass",
+    "question": "What happens if I provide false information in my vehicle pass application or transfer it to another vehicle without authorization?",
+    "answer": "If you are found to have intentionally provided false information in your application for a vehicle pass or to have made an unauthorized transfer of a vehicle pass from one vehicle to another, your vehicle pass will be revoked.",
+    "keywords": [
+      "vehicle pass",
+      "revocation",
+      "false information",
+      "unauthorized transfer"
+    ],
+    "intent": "ask_procedure",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "TR_005",
+    "category": "Transportation",
+    "sub_category": "Parking",
+    "question": "What are the requirements to park a motor vehicle at Xiamen University Malaysia?",
+    "answer": "To park a motor vehicle in any parking area of the University, it MUST be registered along with a vehicle pass permanently affixed to the right hand side of the windscreen.",
+    "keywords": [
+      "parking",
+      "vehicle",
+      "registration",
+      "pass",
+      "windscreen"
+    ],
+    "intent": "ask_procedure",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "TR_006",
+    "category": "Transportation",
+    "sub_category": "Vehicle Pass",
+    "question": "What happens if I provide false information to obtain a vehicle pass?",
+    "answer": "Obtaining a vehicle pass by providing false information will result in revocation of the vehicle pass.",
+    "keywords": [
+      "vehicle",
+      "pass",
+      "false",
+      "information",
+      "revocation"
+    ],
+    "intent": "ask_procedure",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "TR_007",
+    "category": "Transportation",
+    "sub_category": "Vehicle Pass",
+    "question": "What are the consequences of transferring my vehicle pass to another vehicle without authorization?",
+    "answer": "Unauthorized transfer of a vehicle pass to another vehicle will result in revocation of the vehicle pass.",
+    "keywords": [
+      "vehicle",
+      "pass",
+      "transfer",
+      "unauthorized",
+      "revocation"
+    ],
+    "intent": "ask_procedure",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "TR_008",
+    "category": "Transportation",
+    "sub_category": "Emergency Contacts",
+    "question": "What are the emergency contact numbers for the fire brigade near Xiamen University Malaysia?",
+    "answer": "The fire brigade contact numbers near Xiamen University Malaysia are:\n1. Sepang: 03-3142 1333\n2. Kuala Lumpur International Airport (KLIA): 03-8787 4970",
+    "keywords": [
+      "fire brigade",
+      "emergency",
+      "contact",
+      "numbers",
+      "sepang",
+      "klia"
+    ],
+    "intent": "ask_contact",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "FIN_001",
+    "category": "Finance & Fees",
+    "sub_category": "Withdrawal Refund",
+    "question": "How much refund can I get if I withdraw from my programme at Xiamen University Malaysia?",
+    "answer": "The refund amount depends on when your completed withdrawal form is received. If you submit the withdrawal form within the first two weeks of a new semester, you are entitled to a 50% refund of the tuition fee. If you submit the withdrawal form after the first two weeks of the new semester, no refund will be given.",
+    "keywords": [
+      "withdrawal",
+      "refund",
+      "tuition fee",
+      "semester"
+    ],
+    "intent": "ask_definition",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "FIN_002",
+    "category": "Finance & Fees",
+    "sub_category": "Withdrawal Penalty",
+    "question": "What is the penalty for withdrawing without paying tuition fees at Xiamen University Malaysia?",
+    "answer": "If you withdraw within the first two weeks of a semester without paying any tuition fees, you are liable to pay a penalty equivalent to 50% of the tuition fee for that semester. If you withdraw more than two weeks after the semester starts without paying any tuition fees, you are liable to pay a penalty equivalent to the full tuition fee for that semester.",
+    "keywords": [
+      "withdrawal",
+      "penalty",
+      "tuition fee",
+      "semester"
+    ],
+    "intent": "ask_definition",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "FIN_003",
+    "category": "Finance & Fees",
+    "sub_category": "Withdrawal Procedure",
+    "question": "What do I need to do before withdrawing from my programme at Xiamen University Malaysia?",
+    "answer": "Before withdrawing, you must complete the 'Student Withdrawal Application form' available at https://eservices.xmu.edu.my/. You must also settle any outstanding fees, room rental charges, and utility bills, and return any loaned books to the library or loaned items to the responsible departments or offices.",
+    "keywords": [
+      "withdrawal",
+      "procedure",
+      "fees",
+      "library"
+    ],
+    "intent": "ask_procedure",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "FIN_004",
+    "category": "Finance & Fees",
+    "sub_category": "Study Break",
+    "question": "What are the financial implications of applying for a study break during a semester?",
+    "answer": "For foundation level students: If your study break application is received and approved before the start of a semester, you are not liable to pay any tuition fee. If approved within the first two weeks of a semester, 50% of any paid tuition fee will be treated as advanced payment for the future semester, while the other half is forfeited. If approved after the second week, all paid tuition fee for the semester is forfeited, or you may face a penalty equivalent to the full tuition fee if unpaid.",
+    "keywords": [
+      "study break",
+      "tuition fee",
+      "financial implications",
+      "foundation",
+      "advanced payment",
+      "penalty"
+    ],
+    "intent": "ask_definition",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "FIN_005",
+    "category": "Finance & Fees",
+    "sub_category": "Study Break",
+    "question": "How does the timing of a study break application affect tuition fees?",
+    "answer": "For foundation level students: Applying before the semester starts means no tuition fee is due. Applying within the first two weeks of the semester results in 50% of the paid tuition fee being treated as advanced payment, with the rest forfeited. Applying after the second week leads to forfeiture of all paid tuition fees or a penalty equal to the full tuition fee if unpaid.",
+    "keywords": [
+      "study break",
+      "timing",
+      "tuition fee",
+      "advanced payment",
+      "forfeiture",
+      "penalty"
+    ],
+    "intent": "ask_definition",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "FIN_006",
+    "category": "Finance & Fees",
+    "sub_category": "Study Break",
+    "question": "What happens to my tuition fees if I take a study break after the semester has started?",
+    "answer": "For foundation level students: If your study break is approved within the first two weeks of the semester, 50% of your paid tuition fee is treated as advanced payment for the future semester, and the other half is forfeited. If approved after the second week, all paid tuition fees are forfeited, or you may incur a penalty equal to the full tuition fee if unpaid.",
+    "keywords": [
+      "study break",
+      "tuition fee",
+      "advanced payment",
+      "forfeiture",
+      "penalty",
+      "semester"
+    ],
+    "intent": "ask_definition",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "FIN_007",
+    "category": "Finance & Fees",
+    "sub_category": "Tuition Fees",
+    "question": "What are the tuition fees for the Foundation in Science programme at Xiamen University Malaysia?",
+    "answer": "For Malaysian students: The tuition fee for the Foundation in Science programme is RM19,000 per year. For international students: The tuition fee is RM20,000 per year. Additionally, international students must pay a security deposit of RM1,000 (refundable), an international student fee of RM2,500 per year, and the fees are exclusive of 6% SST.",
+    "keywords": [
+      "tuition",
+      "foundation",
+      "science",
+      "fees",
+      "international"
+    ],
+    "intent": "ask_definition",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "FIN_008",
+    "category": "Finance & Fees",
+    "sub_category": "Administrative Fees",
+    "question": "What are the administrative fees for applying to a foundation programme at Xiamen University Malaysia?",
+    "answer": "The application fee is RM100 and the registration fee is RM200 for all foundation programmes. These fees are non-refundable. For international students, additional fees include a security deposit of RM1,000 (refundable), an international student fee of RM2,500 per year, and the fees are exclusive of 6% SST.",
+    "keywords": [
+      "administrative",
+      "fees",
+      "application",
+      "registration",
+      "foundation"
+    ],
+    "intent": "ask_definition",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "FIN_009",
+    "category": "Finance & Fees",
+    "sub_category": "Tuition Fees",
+    "question": "What are the tuition fees for the Foundation in Arts and Social Science programme at Xiamen University Malaysia?",
+    "answer": "For Malaysian students: The tuition fee for the Foundation in Arts and Social Science programme is RM17,000 per year. For international students: The tuition fee is RM18,000 per year. Additionally, international students must pay a security deposit of RM1,000 (refundable), an international student fee of RM2,500 per year, and the fees are exclusive of 6% SST.",
+    "keywords": [
+      "tuition",
+      "arts",
+      "social science",
+      "fees",
+      "international"
+    ],
+    "intent": "ask_definition",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "FIN_010",
+    "category": "Finance & Fees",
+    "sub_category": "Fee Payment",
+    "question": "What is the deadline to pay tuition fees for each semester?",
+    "answer": "You are required to pay your tuition fee for each semester within seven (7) working days from the commencement of a new semester.",
+    "keywords": [
+      "tuition",
+      "fee",
+      "deadline",
+      "payment",
+      "semester"
+    ],
+    "intent": "ask_deadline",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "FIN_011",
+    "category": "Finance & Fees",
+    "sub_category": "Fee Payment",
+    "question": "What happens if I do not pay my tuition fees on time?",
+    "answer": "If you have defaulted on any of your tuition fee payments without informing the Finance Office about your reason for failing to make payments, you shall: (i) Be automatically barred from attending classes; (ii) Be denied access to university facilities; and (iii) Have your certificate of programme completion withheld at the time of your graduation until you have settled all your outstanding fees.",
+    "keywords": [
+      "tuition",
+      "fee",
+      "default",
+      "penalty",
+      "consequences"
+    ],
+    "intent": "ask_definition",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "FIN_012",
+    "category": "Finance & Fees",
+    "sub_category": "Fee Payment",
+    "question": "How will I be notified if I have outstanding fees?",
+    "answer": "If you owe the university money, you will be sent reminders via email and/or SMS, and your name will appear in a list of students with outstanding fees which will be posted on notice boards.",
+    "keywords": [
+      "outstanding",
+      "fees",
+      "notification",
+      "reminder",
+      "email",
+      "sms"
+    ],
+    "intent": "ask_procedure",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "FIN_013",
+    "category": "Finance & Fees",
+    "sub_category": "Refund of Paid Fees",
+    "question": "How does the refund process work when I withdraw from my study programme?",
+    "answer": "Any partially or fully paid fees will be refunded to you, less any deductible amount of money owing to the university, when you withdraw from your study programme. Your refund request will be processed within sixty (60) days upon receiving your completed programme withdrawal form and relevant documents (if applicable). All refund shall be free of interest and the University reserves the right to off-set the refundable amount against any outstanding fees or whatsoever payments due and owing to the University.",
+    "keywords": [
+      "refund",
+      "withdrawal",
+      "fees",
+      "process",
+      "deductible"
+    ],
+    "intent": "ask_procedure",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "FIN_014",
+    "category": "Finance & Fees",
+    "sub_category": "Refund of Paid Fees",
+    "question": "How long does it take to process a refund after withdrawing from a programme?",
+    "answer": "Your refund request will be processed within sixty (60) days upon receiving your completed programme withdrawal form and relevant documents (if applicable).",
+    "keywords": [
+      "refund",
+      "processing",
+      "time",
+      "withdrawal",
+      "documents"
+    ],
+    "intent": "ask_deadline",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "FIN_015",
+    "category": "Finance & Fees",
+    "sub_category": "Refund of Paid Fees",
+    "question": "Are there any deductions or conditions applied to the refund amount?",
+    "answer": "Any partially or fully paid fees will be refunded to you, less any deductible amount of money owing to the university. The University reserves the right to off-set the refundable amount against any outstanding fees or whatsoever payments due and owing to the University.",
+    "keywords": [
+      "refund",
+      "deductions",
+      "outstanding",
+      "fees",
+      "conditions"
+    ],
+    "intent": "ask_definition",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "FIN_016",
+    "category": "Finance & Fees",
+    "sub_category": "Mode of Payment",
+    "question": "What are the accepted modes of payment for fees at Xiamen University Malaysia?",
+    "answer": "You can pay your fees in cash, with cheques, bank drafts or credit cards at the Finance Office or via direct bank-in, telegraphic transfer or online banking (ePayment).",
+    "keywords": [
+      "payment",
+      "fees",
+      "finance",
+      "methods",
+      "banking"
+    ],
+    "intent": "ask_definition",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "FIN_017",
+    "category": "Finance & Fees",
+    "sub_category": "Mode of Payment",
+    "question": "Where can I pay my fees in person at Xiamen University Malaysia?",
+    "answer": "You can pay your fees in person at the Finance Office using cash, cheques, bank drafts, or credit cards.",
+    "keywords": [
+      "payment",
+      "fees",
+      "finance",
+      "location",
+      "office"
+    ],
+    "intent": "ask_location",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "FIN_018",
+    "category": "Finance & Fees",
+    "sub_category": "Mode of Payment",
+    "question": "Can I pay my fees online at Xiamen University Malaysia?",
+    "answer": "Yes, you can pay your fees via online banking (ePayment), direct bank-in, or telegraphic transfer.",
+    "keywords": [
+      "payment",
+      "fees",
+      "online",
+      "banking",
+      "transfer"
+    ],
+    "intent": "ask_procedure",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "FIN_019",
+    "category": "Finance & Fees",
+    "sub_category": "Payment Methods",
+    "question": "Where can I make cash payments at Xiamen University Malaysia?",
+    "answer": "Cash payments can be made at the Finance Office located in Room A3#711. You will receive an official receipt immediately after making the payment.",
+    "keywords": [
+      "cash",
+      "payment",
+      "finance office",
+      "receipt",
+      "location"
+    ],
+    "intent": "ask_location",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "FIN_020",
+    "category": "Finance & Fees",
+    "sub_category": "Payment Methods",
+    "question": "What happens after I make a cash payment at the Finance Office?",
+    "answer": "Upon making a cash payment at the Finance Office, you will be issued an official receipt on the spot.",
+    "keywords": [
+      "cash",
+      "payment",
+      "receipt",
+      "procedure",
+      "finance"
+    ],
+    "intent": "ask_procedure",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "FIN_021",
+    "category": "Finance & Fees",
+    "sub_category": "Payment Methods",
+    "question": "How can I pay by cheque or bank draft at Xiamen University Malaysia?",
+    "answer": "Cheque or bank draft payments can be made at the Finance Office's cashier counter or by post. The cheque or bank draft must be issued to \"XMU Jiageng Education Development Sdn Bhd\" and signed and dated with the current date (post-dated cheques are not accepted). On the reverse of the cheque or bank draft, you must include your name, IC number, contact number, and purpose of payment. If you pay in person at the Finance Office (Room A3#711), you will receive an official receipt on the spot. If you send your payment by post, you must collect your official receipt from the Finance Office on your next campus visit.",
+    "keywords": [
+      "cheque",
+      "bank draft",
+      "payment",
+      "finance office",
+      "receipt"
+    ],
+    "intent": "ask_procedure",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "FIN_022",
+    "category": "Finance & Fees",
+    "sub_category": "Payment Methods",
+    "question": "What details are required on the back of a cheque or bank draft for payment?",
+    "answer": "On the reverse of the cheque or bank draft, you must include your name, IC number, contact number, and the purpose of payment.",
+    "keywords": [
+      "cheque",
+      "bank draft",
+      "payment details",
+      "requirements"
+    ],
+    "intent": "ask_definition",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "FIN_023",
+    "category": "Finance & Fees",
+    "sub_category": "Payment Methods",
+    "question": "Where is the Finance Office located for cheque or bank draft payments?",
+    "answer": "The Finance Office's cashier counter for cheque or bank draft payments is located in Room A3#711.",
+    "keywords": [
+      "finance office",
+      "location",
+      "cheque",
+      "bank draft"
+    ],
+    "intent": "ask_location",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "FIN_024",
+    "category": "Finance & Fees",
+    "sub_category": "Credit Cards",
+    "question": "Where can I pay with a credit card at Xiamen University Malaysia?",
+    "answer": "Payments with credit cards can be made at the Finance Office (Room A3#711) or through online banking.",
+    "keywords": [
+      "credit card",
+      "payment",
+      "finance office",
+      "online banking"
+    ],
+    "intent": "ask_location",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "FIN_025",
+    "category": "Finance & Fees",
+    "sub_category": "Credit Cards",
+    "question": "Are there any processing fees for credit card payments?",
+    "answer": "No processing fee will be imposed on the use of Visa, Mastercard, or UnionPay cards to make payments.",
+    "keywords": [
+      "credit card",
+      "processing fee",
+      "visa",
+      "mastercard",
+      "unionpay"
+    ],
+    "intent": "ask_definition",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "FIN_026",
+    "category": "Finance & Fees",
+    "sub_category": "Credit Cards",
+    "question": "What is the procedure for making a credit card payment?",
+    "answer": "You shall be required to key in your PIN to verify your identity before making any payments using a credit card. Once the transaction is approved by the issuing financial institution, you will be issued an official receipt by the Finance Office.",
+    "keywords": [
+      "credit card",
+      "payment",
+      "procedure",
+      "pin",
+      "receipt"
+    ],
+    "intent": "ask_procedure",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "FIN_027",
+    "category": "Finance & Fees",
+    "sub_category": "Payment Methods",
+    "question": "How can I make a payment via direct bank-in or telegraphic transfer to Xiamen University Malaysia?",
+    "answer": "Payments via direct bank-in or telegraphic transfer should be made to XMUM's Maybank account with the following details: Account Name - XMU Jiageng Education Development Sdn Bhd, Bank Name - Malayan Banking Berhad, Account no - 5624-3250-5328, Swift Code - MBBEMYKL, Branch - KLIA 2. After making the payment, provide a hardcopy of the bank-in or TT slip to the Finance Office or send a scanned copy to finance@xmu.edu.my. Ensure to write your name, IC/passport number, contact number, and payment purpose on the reverse side of the slip or include these details in your email. An official receipt will be issued by the Finance Office upon receipt of your payment evidence.",
+    "keywords": [
+      "payment",
+      "bank-in",
+      "telegraphic transfer",
+      "finance",
+      "maybank"
+    ],
+    "intent": "ask_procedure",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "FIN_028",
+    "category": "Finance & Fees",
+    "sub_category": "Payment Methods",
+    "question": "What details should I include when making a payment via bank-in or telegraphic transfer?",
+    "answer": "When making a payment via bank-in or telegraphic transfer, you must include your name, IC/passport number, contact number, and the payment purpose. These details should be written on the reverse side of the bank-in or TT slip or stated in your email if you are sending a scanned copy of the slip to finance@xmu.edu.my.",
+    "keywords": [
+      "payment details",
+      "bank-in",
+      "telegraphic transfer",
+      "finance",
+      "requirements"
+    ],
+    "intent": "ask_procedure",
+    "contributor": "data_lead",
+    "verified": false
+  },
+  {
+    "id": "FIN_029",
+    "category": "Finance & Fees",
+    "sub_category": "Payment Methods",
+    "question": "What happens after I submit my bank-in or telegraphic transfer payment evidence?",
+    "answer": "After submitting your bank-in or telegraphic transfer payment evidence (either as a hardcopy to the Finance Office or as a scanned copy to finance@xmu.edu.my), the Finance Office will issue you an official receipt once they have received and processed your payment slip.",
+    "keywords": [
+      "payment confirmation",
+      "receipt",
+      "finance office",
+      "bank-in",
+      "telegraphic transfer"
+    ],
+    "intent": "ask_procedure",
+    "contributor": "data_lead",
+    "verified": false
+  }
+]
