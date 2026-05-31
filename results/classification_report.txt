@@ -1,0 +1,22 @@
+Best model: Naive Bayes
+============================================================
+                                   precision    recall  f1-score   support
+
+                 Academic Affairs     1.0000    1.0000    1.0000         5
+           Accommodation & Living     0.7143    1.0000    0.8333         5
+                  Campus Services     1.0000    0.6000    0.7500         5
+                   Finance & Fees     1.0000    1.0000    1.0000         6
+       Registration & Orientation     1.0000    1.0000    1.0000         4
+                   Transportation     1.0000    1.0000    1.0000         2
+University Platforms & IT Support     1.0000    1.0000    1.0000         4
+
+                         accuracy                         0.9355        31
+                        macro avg     0.9592    0.9429    0.9405        31
+                     weighted avg     0.9539    0.9355    0.9328        31
+
+
+Comparison
+============================================================
+Naive Bayes                    acc=0.9355  f1=0.9405 ← best
+Logistic Regression            acc=0.7742  f1=0.6767
+Linear SVM                     acc=0.9355  f1=0.9405
