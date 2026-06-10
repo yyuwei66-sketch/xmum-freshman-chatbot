@@ -1,0 +1,275 @@
+% !TEX program = xelatex
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage{microtype}
+\usepackage{setspace}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage[hidelinks]{hyperref}
+
+\setmainfont{Times New Roman}
+\onehalfspacing
+\setlength{\parindent}{1.5em}
+\setlength{\parskip}{0.35em}
+\setcounter{secnumdepth}{2}
+\setcounter{tocdepth}{2}
+
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+
+\title{\textbf{Literature Review}}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+
+\subsection{Background}
+
+As higher education institutions face an increasingly diverse student body 
+and the demand for more accessible and personalised education, 
+chatbots emerge as an innovative solution to address a myriad of challenges \cite{martinez2024}. 
+
+When students move from high school to an unfamiliar university environment, they will naturally have many related questions to ask. 
+Although university students are increasingly familiar with using the internet to obtain information, 
+the information they need is often scattered across different websites, documents, and communication platforms.
+As a result, finding accurate and timely answers might be challenging.
+
+Moreover, due to different living habits in different countries, 
+students use a wide variety of online communication software. 
+This makes it difficult for universities to fully deliver daily-life information beyond official announcements.
+
+Therefore, there is a need for a unified chatbot that can provide structured and reliable access to university information for freshmen.
+
+\subsection{Purpose and Scope}
+
+The purpose of this literature review is to examine chatbot applications developed for university students, especially freshmen. It also explores the approaches adopted in these systems, including rule-based, machine learning-based, retrieval-based, and hybrid methods.
+
+The discussion covers university enquiry chatbots, student support and FAQ systems, freshmen information needs, and the limitations of existing solutions. These topics were selected because they represent some of the most common applications of chatbot technology in higher education.
+
+Another focus of this review is the evaluation of chatbot effectiveness. Common evaluation aspects include classification performance, retrieval accuracy, response quality, fallback handling, and user satisfaction. Together, these studies provide an overview of current developments in university chatbot systems and highlight areas that require further improvement.\subsection{Research Questions}
+
+\begin{description}
+    \item[\textbf{RQ1.}] What existing chatbot applications have been developed to support university students?
+    \item[\textbf{RQ2.}] What techniques have been used in chatbot systems?
+    \item[\textbf{RQ3.}] What evaluation methods are used to assess diffenrent kinds of chatbots?
+\end{description}
+
+\subsection{Search Strategy and Selection Criteria}
+
+The literature in this study was mainly collected through academic databases such as Google Scholar and IEEE. It includes academic journals, conference papers, related books, and peer-reviewed research from 2008 to 2026.
+
+During the literature search process, the keywords used included ``college enquiry chatbot'', ``rule-based chatbot'', ``retrieval-based chatbot'', and ``information retrieval in chatbots''. Priority was given to more recent studies and research directly applied in the education field, as they better reflect the current situation of university students and the need for chatbots.
+
+Through the above selection criteria, this study ensures that both technical performance evaluation and educational application scenarios are well covered. This provides a reliable theoretical foundation for developing a hybrid chatbot aimed at supporting university freshmen.
+
+\section{Existing Chatbot Applications for University Students and Freshmen}
+
+\subsection{University Enquiry Chatbots}
+
+Susanna et al.\ designed a college enquiry chatbot. This technology is a web-based application that answers questions submitted by students to the chatbot. The chatbot can read links, text notifications, and PDF documents, allowing users to directly access relevant announcement content \cite{susanna2020}.
+
+At the same time, the project with the same name by Salve et al.\ introduced improvements based on this work. They added a feedback loop between the system administrator and students. Students can mark invalid answers, and administrators can delete or modify those answers. This function can effectively correct errors in the system and improve its overall performance \cite{salve}.
+
+\subsection{Student Support and FAQ Chatbots}
+
+Dhandayuthapani proposed \textit{A Proposed Cognitive Framework Model for a Student Support Chatbot in a Higher Education Institution}. This system supports multilingual interaction and can process text, voice, and graphical user interfaces. It aims to efficiently handle student services and reduce the time spent by staff members \cite{dhandayuthapani2022}.
+
+Nourbakhsh and Yaser stated that chatbots have unlimited potential for students. They can improve learning efficiency, provide support for both students and teachers, promote communication and collaboration between teachers and students, and offer access to education for students in remote areas \cite{nourbakhsh2017}.
+
+\subsection{Freshman Information Needs}
+
+People often feel confusion and anxiety when entering an unfamiliar environment, and they tend to seek information in order to gain a sense of security. In the paper by Yuwei Qian, it is pointed out that information-seeking behavior varies across individuals in different environments. This is especially true for freshmen, who may find it difficult to begin a university life that is very different from their high school experience \cite{qian2019}.
+
+Steve Jones (2008), in his book based on research findings, describes how university students differ from the general population in their adoption of the internet. Because they have been exposed to computers and other technologies from an early age, the use of the internet has become part of their daily communication habits \cite{jones2008}.
+
+This highlights the importance of providing structured and easily accessible information systems for freshmen.
+
+\subsection{Limitations of Existing University Chatbot Applications}
+
+For chatbots, when users use slang or include emotions in their language, the chatbot may fail to understand the user's needs and may even enter a loop state \cite{raval2020}.
+
+For university chatbot applications, since each school has its own characteristics and relatively independent information systems, the chatbot has high requirements for data collection. At the same time, this also leads to the fact that many existing university chatbots are not targeted and may cause misunderstanding for some students.
+
+These limitations highlight the need for a hybrid chatbot system that combines rule-based, machine learning, and retrieval-based approaches.
+
+\section{Technical Approaches Used in University Chatbots}
+
+In the development of university FAQ chatbots, what to choose of technical architecture directly determines the overall performance of systems. To address the diverse needs of students, modern conversational agents have evolved from single method frameworks into systems integrated with multi-modular. This section evaluates various methods and deeply analyzes the core text classification algorithms supporting intent routing.
+
+\subsection{Rule-Based Approaches}
+
+Rule-based chatbots represents the earliest paradigm in educational systems. 
+They provide specific responses relied on predefined rules and patterns for matching user inputs. 
+Despite their simplicity, 37 out of 43 papers we collected used them in their chatbot systems.
+Among the papers we collected, 
+Artificial Intelligence Markup Language (AIML) is commonly used to create rule-based chatbots \cite{khin2020}. 
+Since they are easy to build, developers tend to use them to address well-defined queries, 
+such as assignments distribution or course schedules \cite{nguyen2021,alghadhban2020,dinesh2021},
+which can greatly reduce the effort and cost to build other chatbots. 
+However, their reliance on fixed patterns and short for semantic understanding 
+still makes them inflexible and could not be adaptable to complex or ambiguous questions \cite{lopez2022}.
+
+\subsection{Machine-Learning-Based Approaches}
+
+To overcome the rigidity of pattern matching, machine-learning-based (ML-based) methods are widely used for intent and category classification. As the development of nature language processing and machine learning algorithms, the methods for extracting text feature have been thriving. In the text classification task, the term frequency-inverse document frequency (TF-IDF) algorithm is widely used for its simplicity, strong interpretability, and suitability for small and medium-sized corpora. Its simple structure and clearing feature meaning make it adapt to constrained dialogue system in FAQ chatbots \cite{ashraf2024,yang2026}. Based on the text feature extraction, we evaluate three core text classification algorithms:
+
+\begin{itemize}
+    \item \textbf{Naive Bayes:} Naive Bayes is a probabilistic machine learning algorithm that can be used in a wide variety of classification tasks. In early text classification, the multivariate Bernoulli model only recorded the presence or absence of a word, ignoring the term frequency. A study find that Multinomial Naive Bayes (MNB) model, which incorporates word frequency, performs better at larger vocabulary sizes \cite{mccallum1998}. To mitigate the zero-probability problem caused by unseen words, Laplace smoothing is applied to ensure the robustness of inputs. And it is also proved to minimize misclassification errors \cite{setyaningsih2021}.
+
+    \item \textbf{Logistic Regression:} Logistic Regression is a widely used method in analytics projects for predicting outcomes. Instead of fitting a joint probability distribution, it directly models the posterior probability, which maps from features to class labels. However, some rare or unseen words may be assigned extreme weights, which can cause overfitting, and misleading models in real world scenario. To overcome this problem, L2 regularization could be applied to improve generalizability and mitigate overfitting \cite{acito2024}.
+
+    \item \textbf{Linear SVM:} SVM is a geometric classification method based on structural risk minimization. It searches the best compromise between the complexity of the model (the learning accuracy of a particular training sample) and learning ability (error-free ability to identify any samples) in order to expect the best generalization ability \cite{li2009}. An experiment shows that F1 value of SVM classifier has reached more than 86.26\%, and the classification results comparing to other classification methods have greatly improved, proving that SVM is an effective machine learning method \cite{liu2010}.
+\end{itemize}
+
+\subsection{Retrieval-Based Approaches}
+
+A retrieval-based chatbots works by matching user inputs to the most relevant responses within a predefined dataset. The responses here are entered manually by the developer, or based on a knowledge base of pre-existing information. There are effective methods to search for a response to a user query, like cosine similarity, the fundamental formula for answering, and TF-IDF can search for the best in all available documents, which have been proved to improve the performance of retrieval-based chatbots. Nevertheless, while retrieval-based models perform well in specific queries, their dependence on the quality of datasets and the scope limits them to solve inventive and complex questions \cite{mikael2025}. Therefore, retrieval-based methods are suitable for handling official FAQ content.
+
+\subsection{Hybrid Chatbot Architectures}
+
+Generative chatbots have become increasingly popular because they can produce human-like responses and handle a wide range of questions. However, their dynamic text generation poses a high risk of ``hallucinations''. And they may sometimes generate incorrect or misleading information, which can be problematic in university service systems. As a result, many recent studies have adopted hybrid chatbot architectures that combine multiple approaches rather than relying solely on generative models.
+
+In a hybrid architecture, an intent classification model is first used to identify the type of user query and then direct it to the most appropriate module. Mikael et al.\ proposed a hybrid chatbot for educational administration. They used a MNB classifier for query routing. Questions related to registration or financial matters are handled by the rule-based component, while academic and campus-related questions are processed by the retrieval-based module. For more complex or open-ended queries, they are forwarded to the generative model. By combining these different approaches, the system is able to improve both response reliability and conversational flexibility. It is also reported an overall accuracy of 97.57\% in their experiments \cite{mikael2025}. As a result, this type architecture can be used as a reference for our project.
+
+\subsection{Comparison of Methods}
+
+To explicitly justify the technical selection for our project, Table~\ref{tab:method-comparison} summarizes the strengths, limitations, and suitability of the discussed chatbot approaches.
+
+\begin{table}[htbp]
+    \centering
+    \caption{Comparison of chatbot approaches}
+    \label{tab:method-comparison}
+    \renewcommand{\arraystretch}{1.25}
+    \small
+    \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.16\textwidth}YYY}
+        \toprule
+        \textbf{Approach} & \textbf{Strength} & \textbf{Limitation} & \textbf{Suitability for Our Project} \\
+        \midrule
+        Rule-based & Controllable and simple & Poor flexibility & Good for greetings/help \\
+        ML-based & Handles varied wording & Needs labelled data & Good for category classification \\
+        Retrieval-based & Uses reviewed answers & Depends on FAQ coverage & Good for official FAQ answers \\
+        Generative & Flexible & Risk of hallucination & Not main method \\
+        Hybrid & Balances control and flexibility & More complex & Most suitable \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+
+In conclusion, each chatbot approach has its own strengths and limitations. To leverage the strengths of both approaches, our project adopts a hybrid architecture. Moreover, an MNB classifier is used to identify user intent and route queries to the appropriate module. This design is expected to improve accuracy and usability in a university service environment.
+
+\section{Evaluation Methods for Chatbots}
+
+\subsection{Evaluation Metrics for Machine Learning Category Classification}
+
+With the emergence of different types of chatbots, machine learning is widely used to allocate tasks to chatbots with different strengths. And evaluating the classification becomes a need. Luckily, machine learning is quite a mature technique, and most of the classic evaluation metrics for machine learning can be directly applied here. In the 34 papers we collected, 32 used classification accuracy to measure, while 30 of them calculated the F1-score for their classification models. Precision and recall are also widely used, with both 29 papers reporting them. Moreover, the confusion matrix, ROC-AUC, task success rate are also applied to evaluate the model performance, although they were less common.
+
+\subsection{Evaluation Metrics for Rule-Based Chatbots}
+
+Since around 2018--2020, research shifted heavily towards retrieval-based chatbots, generative chatbots, and LLM-based agents, there are quite few papers talking about the evaluation metrics for pure rule-based chatbots. In the eight papers we collected, rule-based chatbots are generally evaluated from four aspects: Coverage, Robustness, User satisfaction.
+
+\begin{description}
+    \item[\textbf{Coverage}] Coverage is used to measure how much of the users' question space this chatbot can handle. An ideal chatbot should be able to response to most of the users' questions. And that's the reason why coverage should be considered as one of the core measurements for a chatbot's capability. To measure this, D'Ávila \cite{davila2018} introduced the KINO framework, which evaluates rule-based chatbot performance using two monitoring metrics---assertiveness (the ability to provide a valid response) and ambiguity (the degree of uncertainty caused by overlapping rules).
+
+    \item[\textbf{Robustness}] Sometimes, users might click Enter accidentally without finishing typing their questions, or they might mistaken the spelling of some words. Therefore, robustness should also be considered as one of the important standards to evaluate a chatbot. D'Ávila \cite{davila2018} used out-of-scope (OOS) interactions in his KINO framework to refer to user inputs that cannot be matched to any existing conversational rule, intent, or response pattern. A high proportion of OOS inputs suggests reduced conversational robustness, whereas a lower OOS rate indicates that the chatbot can successfully handle a broader range of user requests within its intended domain.
+
+    \item[\textbf{User satisfaction}] As a chatbot designed to provide users with convenience, user satisfaction is absolutely an important standard to evaluate a chatbot. To measure this, Papakostas et al.\ \cite{papakostas2024} used a questionnaire administered to 50 undergraduate students. The questionnaire covered general user satisfaction, query accuracy, response time, and personalized guidance. By directly questioning users, the authors can get a grasp of the actual user satisfaction conveniently. However the problem is, surveying a sufficiently large number of people might be a costly and labor-intensive work, whereas surveying just a small number of respondents may lead to biased conclusion. Moreover, Dhinagaran et al.\ \cite{dhinagaran2022} provided another way to evaluate user satisfaction. They use retention (the proportion of users who continue using the chatbot over time) and number of interactions (the number of rounds a user need before their query is resolved) to measure the user satisfaction. If a user finds the chatbot helpful, they will keep using it, and if the chatbot can solve the user's problem efficiently, the user will get satisfied. Therefore, these two are indeed reasonable evaluation metrics.
+\end{description}
+
+\subsection{Evaluation Metrics for Retrieval-Based Chatbots}
+
+For retrieval-based chatbots, Recall@k (measures whether the correct answer appears within the top $k$ retrieved responses), MRR (measures how highly the first correct answer is ranked), and Precision@k (measures how many of the top $k$ retrieved results are actually relevant) are most commonly used. Metrics like ROUGE and BERTScore are also frequently mentioned, but they are more commonly used for retrieval-augmented generation (RAG) chatbots rather than pure retrieval-based chatbots, so they are not the focus here.
+
+Interestingly, another paper we found pointed out the limitation of the previously mentioned metrics. Liu et al.\ \cite{liu2021meta} performed a meta-evaluation. Instead of evaluating chatbots, they evaluate the classic evaluation metrics themselves. Their finding indicates that most commonly used metrics do not strongly predict what users actually prefer. A model with high Recall@k, Precision@k, etc.\ can still provide poor user experience. Inspired by their findings, we propose that a complete evaluation for retrieval based chatbots should consist of two complementary literature streams: Response Selection Evaluation (classic evaluation) and Conversational Evaluation Metrics (user satisfaction). In this way the developer can have a comprehensive grasp of the model performance.
+
+\clearpage
+\begin{thebibliography}{99}
+
+\bibitem{martinez2024}
+S. Martinez-Requejo, E. J. García, S. R. Duarte, J. R. Lázaro, E. P. Sanz, and G. M. Vivas, ``AI-driven student assistance: Chatbots redefining university support,'' in \textit{INTED2024 Proceedings}, pp. 617--625, IATED, 2024.
+
+\bibitem{sharma2019}
+R. M. Sharma, ``Chatbot based college information system,'' \textit{RESEARCH REVIEW International Journal of Multidisciplinary}, vol. 4, no. 3, pp. 109--112, 2019.
+
+\bibitem{susanna2020}
+M. C. L. Susanna, R. Pratyusha, P. Swathi, P. R. Krishna, and V. S. Pradeep, ``College enquiry chatbot,'' \textit{International Research Journal of Engineering and Technology (IRJET)}, vol. 7, no. 3, pp. 784--788, 2020.
+
+\bibitem{salve}
+P. Salve, V. Patil, V. Gaikwad, and G. Wadhwa, ``College enquiry chat bot,'' \textit{International Journal on Recent and Innovation Trends in Computing and Communication}, vol. 5, no. 3, n.d.
+
+\bibitem{dhandayuthapani2022}
+V. B. Dhandayuthapani, ``A proposed cognitive framework model for a student support chatbot in a higher education institution,'' \textit{International Journal of Advanced Networking and Applications}, vol. 14, no. 2, pp. 5390--5395, 2022.
+
+\bibitem{nourbakhsh2017}
+A. Nourbakhsh and S. Yaser, ``Chatbots in education: A review of the state-of-the-art and future directions,'' \textit{Educational Technology Research and Development}, vol. 65, no. 5, pp. 1079--1104, 2017.
+
+\bibitem{qian2019}
+Y. Qian, \textit{How Do Freshmen Find Information Orienting Themselves in Their First Year of College? An Investigation of the Information Seeking Behaviors of First-Year Undergraduate Students}, 2019.
+
+\bibitem{jones2008}
+S. Jones, \textit{Internet Goes to College: How Students Are Living in the Future with Today's Technology}. Diane Publishing, 2008.
+
+\bibitem{raval2020}
+H. Raval, ``Limitations of existing chatbot with analytical survey to enhance the functionality using emerging technology,'' \textit{International Journal of Research and Analytical Reviews (IJRAR)}, vol. 7, no. 2, 2020.
+
+\bibitem{khin2020}
+N. N. Khin and K. M. Soe, ``University chatbot using artificial intelligence markup language,'' in \textit{Proc. IEEE Conf. Computer Applications (ICCA)}, pp. 1--5, Feb. 2020.
+
+\bibitem{nguyen2021}
+T. T. Nguyen, A. D. Le, H. T. Hoang, and T. Nguyen, ``NEU-chatbot: Chatbot for admission of National Economics University,'' \textit{Computers and Education: Artificial Intelligence}, vol. 2, Art. no. 100036, Jan. 2021.
+
+\bibitem{alghadhban2020}
+D. Al-Ghadhban and N. Al-Twairesh, ``Nabiha: An Arabic dialect chatbot,'' \textit{International Journal of Advanced Computer Science and Applications}, vol. 11, no. 3, pp. 452--459, 2020.
+
+\bibitem{dinesh2021}
+T. Dinesh, M. R. Anala, T. T. Newton, and G. R. Smitha, ``AI bot for academic schedules using Rasa,'' in \textit{Proc. International Conference on Innovative Computing, Intelligent Communication and Smart Electrical Systems (ICSES)}, pp. 1--6, Sep. 2021.
+
+\bibitem{lopez2022}
+T. Lopez and M. Qamber, \textit{The Benefits and Drawbacks of Implementing Chatbots in Higher Education: A Case Study for International Students at Jönköping University}, M.S. thesis, Jönköping International Business School, Jönköping University, Sweden, 2022.
+
+\bibitem{ashraf2024}
+N. Ashraf, R. S. Ahmad, S. Bano, H. M. Azeem, and S. Naz, ``Enhancing MBTI personality prediction from text data with advance word embedding technique,'' \textit{VFAST Transactions on Software Engineering}, vol. 12, no. 3, pp. 35--43, 2024.
+
+\bibitem{yang2026}
+X. Yang, ``Generative language model for chatbots based on TF-IDF personality feature recognition and classification,'' \textit{Modelling and Simulation in Engineering}, vol. 2026, Art. ID 2635948, Mar. 2026, doi: \href{https://doi.org/10.1155/mse/2635948}{10.1155/mse/2635948}.
+
+\bibitem{mccallum1998}
+A. McCallum and K. Nigam, ``A comparison of event models for Naive Bayes text classification,'' in \textit{Proc. AAAI Workshop on Learning for Text Categorization}, pp. 41--48, 1998.
+
+\bibitem{setyaningsih2021}
+E. R. Setyaningsih and I. Listiowarni, ``Categorization of exam questions based on Bloom taxonomy using Naive Bayes and Laplace smoothing,'' in \textit{Proc. 3rd East Indonesia Conference on Computer and Information Technology (EIConCIT)}, Surabaya, Indonesia, pp. 330--333, 2021, doi: \href{https://doi.org/10.1109/EIConCIT50028.2021.9431862}{10.1109/EIConCIT50028.2021.9431862}.
+
+\bibitem{acito2024}
+F. Acito, ``Logistic regression,'' in \textit{Predictive Analytics with KNIME}, Cham, Switzerland: Springer Nature, pp. 125--167, 2024, doi: \href{https://doi.org/10.1007/978-3-031-45630-5_7}{10.1007/978-3-031-45630-5\_7}.
+
+\bibitem{li2009}
+G. Li, S. Xing, and H. Xue, ``Comparison on pattern analysis performance of SVM and RVM based on RBF kernel,'' \textit{Application Research of Computers}, vol. 26, no. 5, pp. 1782--1784, 2009 (in Chinese).
+
+\bibitem{liu2010}
+Z. Liu, X. Lv, K. Liu, and S. Shi, ``Study on SVM compared with the other text classification methods,'' in \textit{2010 Second International Workshop on Education Technology and Computer Science}, Wuhan, China, pp. 219--222, 2010, doi: \href{https://doi.org/10.1109/ETCS.2010.248}{10.1109/ETCS.2010.248}.
+
+\bibitem{mikael2025}
+K. Mikael, C. Öz, T. A. Rashid, and G. S. Nariman, ``A hybrid chatbot model for enhancing administrative support in education: Comparative analysis, integration, and optimization,'' \textit{IEEE Access}, vol. 13, pp. 50741--50754, 2025, doi: \href{https://doi.org/10.1109/ACCESS.2025.3552501}{10.1109/ACCESS.2025.3552501}.
+
+\bibitem{jose2025}
+T. A. Jose, Abhishek, A. P. Patil, A. G. S, and B. Bharath, ``Hybrid chatbot for educational institutions,'' \textit{International Journal of Recent Trends in Multidisciplinary Research}, vol. 5, no. 6, pp. 151--161, Nov.--Dec. 2025, doi: \href{https://doi.org/10.59256/ijrtmr.20250506020}{10.59256/ijrtmr.20250506020}.
+
+\bibitem{davila2018}
+T. C. D'Ávila, \textit{KINO: An Approach for Rule-Based Chatbot Development, Monitoring and Evaluation}, Master's thesis, Federal University of Minas Gerais, Brazil, 2018.
+
+\bibitem{papakostas2024}
+C. Papakostas, C. Troussas, A. Krouska, and C. Sgouropoulou, ``A rule-based chatbot offering personalized guidance in computer programming education,'' in \textit{Intelligent Tutoring Systems}, Springer, 2024, doi: \href{https://doi.org/10.1007/978-3-031-63031-6_22}{10.1007/978-3-031-63031-6\_22}.
+
+\bibitem{dhinagaran2022}
+D. A. Dhinagaran, L. Martinengo, M. H. R. Ho, S. Joty, T. Kowatsch, R. Atun, and L. Tudor Car, ``Designing, developing, evaluating, and implementing a smartphone-delivered, rule-based conversational agent (DISCOVER): Development of a conceptual framework,'' \textit{JMIR mHealth and uHealth}, vol. 10, no. 10, p. e38740, 2022, doi: \href{https://doi.org/10.2196/38740}{10.2196/38740}.
+
+\bibitem{liu2021meta}
+Z. Liu, K. Zhou, and M. L. Wilson, ``Meta-evaluation of conversational search evaluation metrics,'' \textit{ACM Transactions on Information Systems}, vol. 39, no. 4, Art. 45, 2021, doi: \href{https://doi.org/10.1145/3445029}{10.1145/3445029}.
+
+\end{thebibliography}
+
+\end{document}
