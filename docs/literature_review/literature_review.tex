@@ -52,7 +52,7 @@ The purpose of this literature review is to examine chatbot applications develop
 
 The discussion covers university enquiry chatbots, student support and FAQ systems, freshmen information needs, and the limitations of existing solutions. These topics were selected because they represent some of the most common applications of chatbot technology in higher education.
 
-Another focus of this review is the evaluation of chatbot effectiveness. Common evaluation aspects include classification performance, retrieval accuracy, response quality, fallback handling, and user satisfaction. Together, these studies provide an overview of current developments in university chatbot systems and highlight areas that require further improvement.\subsection{Research Questions}
+Another focus of this review is the evaluation of chatbot effectiveness. Common evaluation aspects include classification performance, retrieval accuracy, response quality, and user satisfaction. Together, these studies provide an overview of current developments in university chatbot systems and highlight areas that require further improvement.\subsection{Research Questions}
 
 \begin{description}
     \item[\textbf{RQ1.}] What existing chatbot applications have been developed to support university students?
@@ -185,6 +185,23 @@ Since around 2018--2020, research shifted heavily towards retrieval-based chatbo
 For retrieval-based chatbots, Recall@k (measures whether the correct answer appears within the top $k$ retrieved responses), MRR (measures how highly the first correct answer is ranked), and Precision@k (measures how many of the top $k$ retrieved results are actually relevant) are most commonly used. Metrics like ROUGE and BERTScore are also frequently mentioned, but they are more commonly used for retrieval-augmented generation (RAG) chatbots rather than pure retrieval-based chatbots, so they are not the focus here.
 
 Interestingly, another paper we found pointed out the limitation of the previously mentioned metrics. Liu et al.\ \cite{liu2021meta} performed a meta-evaluation. Instead of evaluating chatbots, they evaluate the classic evaluation metrics themselves. Their finding indicates that most commonly used metrics do not strongly predict what users actually prefer. A model with high Recall@k, Precision@k, etc.\ can still provide poor user experience. Inspired by their findings, we propose that a complete evaluation for retrieval based chatbots should consist of two complementary literature streams: Response Selection Evaluation (classic evaluation) and Conversational Evaluation Metrics (user satisfaction). In this way the developer can have a comprehensive grasp of the model performance.
+
+\section{Conclusion}
+This literature review examined existing university chatbot applications, 
+the technical approaches used in chatbot development, 
+and the evaluation methods adopted in previous studies.
+
+The review found that university chatbots are widely applied in areas 
+such as student enquiries, academic support, admissions, and administrative services. 
+And the chatbots can indeed help freshmen adapt to university life more quickly.
+Among the different approaches, they each has their own strengths and limitation.
+Recent studies suggest that hybrid architectures might combine their advantages and improve the chatbot performance.
+The review also analyzed the commonly used evaluation metrics for diffenrent chatbot components.
+And concluded that a comprehensive assessment should be composed of evaluation from different aspects.
+
+Overall, this literature review analyses the chatbots built by previous researchers, 
+and can be a good starting point to build FAQ chatbots.
+
 
 \clearpage
 \begin{thebibliography}{99}
