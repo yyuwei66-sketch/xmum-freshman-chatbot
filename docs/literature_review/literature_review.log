@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026) (preloaded format=xelatex 2026.3.1)  12 JUN 2026 16:30
+This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026) (preloaded format=xelatex 2026.3.1)  12 JUN 2026 16:59
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -402,9 +402,9 @@ File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman (
 
 ] [2] [3] [4] [5] [6] [7]
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 194.
+(Font)              <12> on input line 207.
  [8]
-Overfull \hbox (5.03004pt too wide) in paragraph at lines 199--202
+Overfull \hbox (5.03004pt too wide) in paragraph at lines 212--215
 \TU/TimesNewRoman(0)/m/n/12 This literature review examined existing university chatbot applications, the technical approaches
  []
 
@@ -415,20 +415,13 @@ Overfull \hbox (5.03004pt too wide) in paragraph at lines 199--202
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
  ***********
-
-
-Package rerunfilecheck Warning: File `literature_review.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `literature_review.out':
-(rerunfilecheck)             Before: 7E486A11A3A970D1CEF930212C793152;4662
-(rerunfilecheck)             After:  67F585CE876A8D201BF8F56BAF6B1673;4468.
+Package rerunfilecheck Info: File `literature_review.out' has not changed.
+(rerunfilecheck)             Checksum: 67F585CE876A8D201BF8F56BAF6B1673;4468.
  ) 
 Here is how much of TeX's memory you used:
  12612 strings out of 469709
  253319 string characters out of 5466024
- 735952 words of memory out of 5000000
+ 734747 words of memory out of 5000000
  41126 multiletter control sequences out of 15000+600000
  632862 words of font info for 83 fonts, out of 8000000 for 9000
  319 hyphenation exceptions out of 8191
