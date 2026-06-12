@@ -35,14 +35,21 @@ As higher education institutions face an increasingly diverse student body
 and the demand for more accessible and personalised education, 
 chatbots emerge as an innovative solution to address a myriad of challenges \cite{martinez2024}. 
 
-When students move from high school to an unfamiliar university environment, they will naturally have many related questions to ask. 
+When students move from high school to an unfamiliar university environment, 
+they will naturally have many related questions to ask. 
 Although university students are increasingly familiar with using the internet to obtain information, 
 the information they need is often scattered across different websites, documents, and communication platforms.
 As a result, finding accurate and timely answers might be challenging.
 
+In the paper by Yuwei Qian, 
+it is pointed out that information-seeking behavior varies across individuals in different environments. 
+This is especially true for freshmen, 
+who may find it difficult to begin a university life that is very different from their high school experience \cite{qian2019}.
+This highlights the importance of providing structured and easily accessible information systems for freshmen.
+
 Moreover, due to different living habits in different countries, 
 students use a wide variety of online communication software. 
-This makes it difficult for universities to fully deliver daily-life information beyond official announcements.
+This also makes it difficult for universities to fully deliver daily-life information beyond official announcements.
 
 Therefore, there is a need for a unified chatbot that can provide structured and reliable access to university information for freshmen.
 
@@ -72,31 +79,33 @@ Through the above selection criteria, this study ensures that both technical per
 
 \subsection{University Enquiry Chatbots}
 
-Susanna et al.\ designed a college enquiry chatbot. This technology is a web-based application that answers questions submitted by students to the chatbot. The chatbot can read links, text notifications, and PDF documents, allowing users to directly access relevant announcement content \cite{susanna2020}.
+University enquiry chatbots are primarily designed to improve access to campus-related information and streamline FAQ services. Their main role is to assist students in obtaining administrative information, announcements, and other university resources through a conversational interface. As a result, they represent one of the most common chatbot applications in higher education.
 
-At the same time, the project with the same name by Salve et al.\ introduced improvements based on this work. They added a feedback loop between the system administrator and students. Students can mark invalid answers, and administrators can delete or modify those answers. This function can effectively correct errors in the system and improve its overall performance \cite{salve}.
+Susanna et al.\ developed a College Enquiry Chatbot that allows students to access information from links, text notifications, and PDF documents through a single platform \cite{susanna2020}. Similarly, Salve et al.\ proposed a chatbot for university enquiries, but their system additionally incorporates a feedback mechanism that enables students to report inaccurate responses and allows administrators to refine the knowledge base accordingly \cite{salve}.
+
+Although both studies focus on improving information accessibility, they highlight different priorities. Susanna et al.\ emphasize the integration and delivery of information, whereas Salve et al.\ place greater importance on maintaining answer quality through continuous updates. This comparison suggests that effective enquiry chatbots require not only accessible information but also mechanisms to ensure the reliability and relevance of responses over time.
+
+Despite their benefits, these systems largely depend on predefined knowledge bases and structured information sources. Their effectiveness is therefore closely tied to the quality and coverage of the available data. Nevertheless, the studies demonstrate that enquiry chatbots can play an important role in reducing information barriers and supporting students in navigating university services.
 
 \subsection{Student Support and FAQ Chatbots}
 
-Dhandayuthapani proposed \textit{A Proposed Cognitive Framework Model for a Student Support Chatbot in a Higher Education Institution}. This system supports multilingual interaction and can process text, voice, and graphical user interfaces. It aims to efficiently handle student services and reduce the time spent by staff members \cite{dhandayuthapani2022}.
+Compared with enquiry chatbots, student support and FAQ chatbots address a broader range of student needs. Rather than focusing solely on information retrieval, these systems aim to support communication, learning, and student service management.
 
-Nourbakhsh and Yaser stated that chatbots have unlimited potential for students. They can improve learning efficiency, provide support for both students and teachers, promote communication and collaboration between teachers and students, and offer access to education for students in remote areas \cite{nourbakhsh2017}.
+Dhandayuthapani proposed a student support chatbot framework that supports multilingual interaction and multiple communication channels, including text, voice, and graphical interfaces \cite{dhandayuthapani2022}. The study argues that such systems can improve service efficiency while reducing staff workload. Similarly, Nourbakhsh and Yaser discussed the wider educational role of chatbots, suggesting that they can support learning, strengthen communication between students and teachers, and improve access to educational opportunities \cite{nourbakhsh2017}.
 
-\subsection{Freshman Information Needs}
+Taken together, these studies indicate a gradual shift in higher education chatbots from information-centered systems towards more comprehensive student support platforms. Unlike enquiry chatbots, which mainly provide institutional information, student support chatbots aim to assist students throughout different aspects of their academic journey. This broader focus reflects the growing expectation that chatbots should contribute not only to information delivery but also to the overall student experience.
 
-People often feel confusion and anxiety when entering an unfamiliar environment, and they tend to seek information in order to gain a sense of security. In the paper by Yuwei Qian, it is pointed out that information-seeking behavior varies across individuals in different environments. This is especially true for freshmen, who may find it difficult to begin a university life that is very different from their high school experience \cite{qian2019}.
-
-Steve Jones (2008), in his book based on research findings, describes how university students differ from the general population in their adoption of the internet. Because they have been exposed to computers and other technologies from an early age, the use of the internet has become part of their daily communication habits \cite{jones2008}.
-
-This highlights the importance of providing structured and easily accessible information systems for freshmen.
+While the potential advantages are widely recognized, much of the literature remains focused on conceptual frameworks and expected outcomes. Consequently, further investigation is needed to understand how these systems perform in real university environments and how students perceive their usefulness in practice.
 
 \subsection{Limitations of Existing University Chatbot Applications}
 
-For chatbots, when users use slang or include emotions in their language, the chatbot may fail to understand the user's needs and may even enter a loop state \cite{raval2020}.
+Although university chatbots have demonstrated significant potential, several limitations remain. Raval noted that chatbots may struggle to understand slang, informal expressions, or emotionally charged language, which can result in misunderstandings or repetitive response loops \cite{raval2020}. Such issues may reduce response accuracy and negatively affect user experience.
 
-For university chatbot applications, since each school has its own characteristics and relatively independent information systems, the chatbot has high requirements for data collection. At the same time, this also leads to the fact that many existing university chatbots are not targeted and may cause misunderstanding for some students.
+Another challenge is the highly institution-specific nature of university information. Since each university operates under different policies, procedures, and organizational structures, chatbot systems require extensive data collection and continuous maintenance. Ensuring that information remains accurate and up to date therefore represents an ongoing challenge.
 
-These limitations highlight the need for a hybrid chatbot system that combines rule-based, machine learning, and retrieval-based approaches.
+Furthermore, many existing systems rely heavily on predefined knowledge bases and fixed response patterns. While this approach can effectively handle routine enquiries, it may be less effective when users ask ambiguous, unexpected, or complex questions. Existing studies also place greater emphasis on functionality and system design than on long-term user satisfaction or practical effectiveness.
+
+Taken together, these limitations suggest that a single approach may not be sufficient to address the diverse needs of university students. This highlights the potential value of hybrid chatbot systems that combine rule-based methods, machine learning techniques, and information retrieval mechanisms to provide more flexible and reliable support.
 
 \section{Technical Approaches Used in University Chatbots}
 
