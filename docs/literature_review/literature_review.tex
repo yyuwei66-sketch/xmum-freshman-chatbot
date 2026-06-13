@@ -82,12 +82,20 @@ Together, these studies provide an overview of current developments in universit
 
 \subsection{Search Strategy and Selection Criteria}
 
-The literature in this study was mainly collected through academic databases such as Google Scholar and IEEE. It includes academic journals, conference papers, related books, and peer-reviewed research from 2008 to 2026.
+The literature reviewed in this study was mainly collected through academic databases such as Google Scholar and IEEE Xplore. 
+Sources include journal articles, conference papers, books, and peer-reviewed studies. 
+The search focused on publications from 2008 to 2026, covering both early work on educational chatbots and more recent developments in AI-based conversational systems.
 
-During the literature search process, the keywords used included ``college enquiry chatbot'', ``rule-based chatbot'', ``retrieval-based chatbot'', and ``information retrieval in chatbots''. Priority was given to more recent studies and research directly applied in the education field, as they better reflect the current situation of university students and the need for chatbots.
+A combination of keyword searches and reference tracking was used to identify relevant studies. 
+The main keywords included “college enquiry chatbot”, “university chatbot”, “student support chatbot”, “FAQ chatbot”, “rule-based chatbot”, “retrieval-based chatbot”, “hybrid chatbot”, and “information retrieval in chatbots”. 
+These terms were selected to cover both the common applications of university chatbots and the different technical approaches discussed in this review. 
+For several key papers, the reference lists were also examined to identify additional studies that were relevant to the topic.
 
-Through the above selection criteria, this study ensures that both technical performance evaluation and educational application scenarios are well covered. This provides a reliable theoretical foundation for developing a hybrid chatbot aimed at supporting university freshmen.
+During the selection process, attention was given not only to chatbot technologies but also to their use in higher education. 
+Priority was therefore given to studies related to student support services, campus information enquiries, FAQ systems, and chatbot design for educational settings. 
+Since this project focuses on a hybrid chatbot that combines rule-based matching, machine learning classification, and information retrieval, studies discussing these approaches were included as important references.
 
+Studies focusing mainly on e-commerce, customer service, or other non-educational applications were not considered as primary sources. In addition, papers that only introduced chatbot concepts without discussing system implementation, evaluation methods, or practical applications were not examined in detail. The final selection of literature provides an overview of existing university chatbot applications, the technologies used to develop them, and the methods used to evaluate their effectiveness. These studies form the basis for addressing the research questions presented in this review.
 \section{Existing Chatbot Applications for University Students and Freshmen}
 
 \subsection{University Enquiry Chatbots}
@@ -126,38 +134,31 @@ In the development of university FAQ chatbots, what to choose of technical archi
 
 \subsection{Rule-Based Approaches}
 
-Rule-based chatbots represents the earliest paradigm in educational systems. 
-They provide specific responses relied on predefined rules and patterns for matching user inputs. 
-Despite their simplicity, 37 out of 43 papers we collected used them in their chatbot systems.
-Among the papers we collected, 
-Artificial Intelligence Markup Language (AIML) is commonly used to create rule-based chatbots \cite{khin2020}. 
-Since they are easy to build, developers tend to use them to address well-defined queries, 
-such as assignments distribution or course schedules \cite{nguyen2021,alghadhban2020,dinesh2021},
-which can greatly reduce the effort and cost to build other chatbots. 
-However, their reliance on fixed patterns and short for semantic understanding 
-still makes them inflexible and could not be adaptable to complex or ambiguous questions \cite{lopez2022}.
+Rule-based chatbots represent the earliest paradigm in educational systems. They provide specific responses relied on predefined rules and patterns for matching user inputs. Among the reviewed studies, we find Artificial Intelligence Markup Language (AIML) is commonly used to create rule-based chatbots. Khin and Soe \cite{khin2020}, for example, developed a university chatbot using AIML to provide predefined responses to frequently asked questions. Since they are easy to build, developers tend to use them to address well-defined queries, such as assignments distribution or course schedules \cite{nguyen2021,alghadhban2020,dinesh2021}, which can greatly reduce the effort and cost to build other chatbots. However, Lopez and Qamber \cite{lopez2022} observed that chatbots in higher education may struggle when users employ unexpected expressions or submit complex and ambiguous questions. Therefore, the reviewed literature suggests that their reliance on fixed patterns and short for semantic understanding makes them appropriate for narrowly defined queries, which are generally insufficient for university chatbot.
 
 \subsection{Machine-Learning-Based Approaches}
 
-To overcome the rigidity of pattern matching, machine-learning-based (ML-based) methods are widely used for intent and category classification. As the development of nature language processing and machine learning algorithms, the methods for extracting text feature have been thriving. In the text classification task, the term frequency-inverse document frequency (TF-IDF) algorithm is widely used for its simplicity, strong interpretability, and suitability for small and medium-sized corpora. Its simple structure and clearing feature meaning make it adapt to constrained dialogue system in FAQ chatbots \cite{ashraf2024,yang2026}. Based on the text feature extraction, we evaluate three core text classification algorithms:
+To overcome the rigidity of pattern matching, researchers have increasingly used machine-learning-based (ML-based) methods for intent and category classification. As the development of natural language processing and machine learning algorithms, the methods for extracting text feature have been thriving. In the text classification task, the term frequency-inverse document frequency (TF-IDF) algorithm is widely used for its simplicity, strong interpretability, and suitability for small and medium-sized corpora. Its simple structure and clearing feature meaning make it adapt to constrained dialogue system in FAQ chatbots \cite{ashraf2024,yang2026}. Based on the text feature extraction, we evaluate three core text classification algorithms:
 
 \begin{itemize}
-    \item \textbf{Naive Bayes:} Naive Bayes is a probabilistic machine learning algorithm that can be used in a wide variety of classification tasks. In early text classification, the multivariate Bernoulli model only recorded the presence or absence of a word, ignoring the term frequency. A study find that Multinomial Naive Bayes (MNB) model, which incorporates word frequency, performs better at larger vocabulary sizes \cite{mccallum1998}. To mitigate the zero-probability problem caused by unseen words, Laplace smoothing is applied to ensure the robustness of inputs. And it is also proved to minimize misclassification errors \cite{setyaningsih2021}.
+    \item \textbf{Naive Bayes:} Naive Bayes is a probabilistic machine learning algorithm that can be used in a wide variety of classification tasks. In early text classification, the multivariate Bernoulli model only recorded the presence or absence of a word, ignoring the term frequency. A study found that Multinomial Naive Bayes (MNB) model, which incorporates word frequency, performs better at larger vocabulary sizes \cite{mccallum1998}. However, an unseen word may produce a zero probability if it does not occur in the training data. To addressed this issue, Setyaningsih and Listiowarni \cite{setyaningsih2021} applied Laplace smoothing to ensure the robustness of inputs. And it is also proved to minimize misclassification errors. Consequently, MNB with smoothing provides a efficient and relatively robust solution for intent classification, especially when the available training dataset is limited.
 
-    \item \textbf{Logistic Regression:} Logistic Regression is a widely used method in analytics projects for predicting outcomes. Instead of fitting a joint probability distribution, it directly models the posterior probability, which maps from features to class labels. However, some rare or unseen words may be assigned extreme weights, which can cause overfitting, and misleading models in real world scenario. To overcome this problem, L2 regularization could be applied to improve generalizability and mitigate overfitting \cite{acito2024}.
+    \item \textbf{Logistic Regression:} Among the papers we collected, Logistic Regression is another widely used method. Instead of fitting a joint probability distribution, it directly models the posterior probability, which maps from features to class labels. It can model the relationship between TF-IDF features and intent categories. However, Acito pointed out that some rare or unseen words may be assigned extreme weights, which can cause overfitting, misleading models in real world scenario\cite{acito2024}. To overcome this problem, many developers applied L2 regularization to improve generalizability and mitigate overfitting.
 
-    \item \textbf{Linear SVM:} SVM is a geometric classification method based on structural risk minimization. It searches the best compromise between the complexity of the model (the learning accuracy of a particular training sample) and learning ability (error-free ability to identify any samples) in order to expect the best generalization ability \cite{li2009}. An experiment shows that F1 value of SVM classifier has reached more than 86.26\%, and the classification results comparing to other classification methods have greatly improved, proving that SVM is an effective machine learning method \cite{liu2010}.
+    \item \textbf{Linear SVM:} SVM is a geometric classification method based on structural risk minimization. It searches the best compromise between the complexity of the model (the learning accuracy of a particular training sample) and learning ability (error-free ability to identify any samples) in order to expect the best generalization ability \cite{li2009}. An experiment shows that F1 value of SVM classifier has reached more than 86.26\%, and the classification results comparing to other classification methods have greatly improved, proving that SVM is an effective machine learning method \cite{liu2010}. These findings predicate that Linear SVM is particularly suitable for high-dimensional and sparse textual features.
 \end{itemize}
+
+Overall, the reviewed studies demonstrate that MNB, Logistic Regression, and Linear SVM are all viable algorithms for intent classification. MNB offers computational simplicity and performs effectively with word-frequency features, Logistic Regression provides probabilistic outputs, and Linear SVM often achieves strong classification performance in high-dimensional feature spaces. However, the cited studies were conducted on different datasets and tasks. Their reported numerical results therefore cannot be compared directly. For the proposed chatbot, all three algorithms should be evaluated using the same university-query dataset.
 
 \subsection{Retrieval-Based Approaches}
 
-A retrieval-based chatbots works by matching user inputs to the most relevant responses within a predefined dataset. The responses here are entered manually by the developer, or based on a knowledge base of pre-existing information. There are effective methods to search for a response to a user query, like cosine similarity, the fundamental formula for answering, and TF-IDF can search for the best in all available documents, which have been proved to improve the performance of retrieval-based chatbots. Nevertheless, while retrieval-based models perform well in specific queries, their dependence on the quality of datasets and the scope limits them to solve inventive and complex questions \cite{mikael2025}. Therefore, retrieval-based methods are suitable for handling official FAQ content.
+A retrieval-based chatbot works by matching user inputs to the most relevant responses within a predefined dataset. The responses here are entered manually by the developer, or based on a knowledge base of pre-existing information. Traditional systems commonly use lexical retrieval methods such as TF-IDF with cosine similarity or BM25 for their efficiency and interpretability \cite{salton1988,robertson2009}. However, these methods may perform poorly when users express the same meaning with different vocabulary. In order to solve this limitation, researchers have introduced semantic retrieval methods based on BERT, Sentence-BERT, and dense passage representations, which can better identify paraphrases and semantically related questions \cite{sakata2019,reimers2019,karpukhin2020}. Although these approaches improve retrieval flexibility, their effectiveness still depends heavily on the quality of the knowledge base. Therefore, retrieval-based methods are particularly suitable for university service chatbots because they provide reviewed and traceable answers to official enquiries.
 
 \subsection{Hybrid Chatbot Architectures}
 
-Generative chatbots have become increasingly popular because they can produce human-like responses and handle a wide range of questions. However, their dynamic text generation poses a high risk of ``hallucinations''. And they may sometimes generate incorrect or misleading information, which can be problematic in university service systems. As a result, many recent studies have adopted hybrid chatbot architectures that combine multiple approaches rather than relying solely on generative models.
+Hybrid Chatbot have been introduced to combine the rule-based systems, the ML models and retrieval-based or generative components. In a hybrid architecture, an intent classification model is first used to identify the type of user query and then direct it to the most appropriate module. Researchers such as Mikael et al.\ \cite{mikael2025} proposed a hybrid chatbot for educational administration. They used a MNB classifier for query routing. Questions related to registration or financial matters were handled by the rule-based component, while academic and campus-related questions were directed to a retrieval-based module. For more complex or open-ended queries, they are forwarded to the generative model. By combining these different approaches, the system is able to improve both response reliability and conversational flexibility. It is also reported an overall accuracy of 97.57\% in their experiments.
 
-In a hybrid architecture, an intent classification model is first used to identify the type of user query and then direct it to the most appropriate module. Mikael et al.\ proposed a hybrid chatbot for educational administration. They used a MNB classifier for query routing. Questions related to registration or financial matters are handled by the rule-based component, while academic and campus-related questions are processed by the retrieval-based module. For more complex or open-ended queries, they are forwarded to the generative model. By combining these different approaches, the system is able to improve both response reliability and conversational flexibility. It is also reported an overall accuracy of 97.57\% in their experiments \cite{mikael2025}. As a result, this type architecture can be used as a reference for our project.
+The reviewed hybrid studies show that different modules can be assigned according to their respective strengths. However, hybrid architectures are more difficult to design and maintain. An incorrect intent prediction may direct a query to an unsuitable module even when the required information is available elsewhere in the system. As a result, it is important to evaluate both classifier performance and end-to-end chatbot performance.
 
 \subsection{Comparison of Methods}
 
@@ -293,6 +294,21 @@ Z. Liu, X. Lv, K. Liu, and S. Shi, ``Study on SVM compared with the other text c
 
 \bibitem{mikael2025}
 K. Mikael, C. Öz, T. A. Rashid, and G. S. Nariman, ``A hybrid chatbot model for enhancing administrative support in education: Comparative analysis, integration, and optimization,'' \textit{IEEE Access}, vol. 13, pp. 50741--50754, 2025, doi: \href{https://doi.org/10.1109/ACCESS.2025.3552501}{10.1109/ACCESS.2025.3552501}.
+
+\bibitem{salton1988}
+G. Salton and C. Buckley, ``Term-weighting approaches in automatic text retrieval,'' \textit{Information Processing \& Management}, vol. 24, no. 5, pp. 513--523, 1988, doi: \href{https://doi.org/10.1016/0306-4573(88)90021-0}{10.1016/0306-4573(88)90021-0}.
+
+\bibitem{robertson2009}
+S. Robertson and H. Zaragoza, ``The probabilistic relevance framework: BM25 and beyond,'' \textit{Foundations and Trends in Information Retrieval}, vol. 3, no. 4, pp. 333--389, 2009, doi: \href{https://doi.org/10.1561/1500000019}{10.1561/1500000019}.
+
+\bibitem{sakata2019}
+W. Sakata, T. Shibata, R. Tanaka, and S. Kurohashi, ``FAQ retrieval using query-question similarity and BERT-based query-answer relevance,'' \textit{arXiv preprint arXiv:1905.02851}, 2019.
+
+\bibitem{reimers2019}
+N. Reimers and I. Gurevych, ``Sentence-BERT: Sentence embeddings using Siamese BERT-networks,'' in \textit{Proc. 2019 Conference on Empirical Methods in Natural Language Processing and the 9th International Joint Conference on Natural Language Processing (EMNLP-IJCNLP)}, Hong Kong, China, pp. 3982--3992, 2019, doi: \href{https://doi.org/10.18653/v1/D19-1410}{10.18653/v1/D19-1410}.
+
+\bibitem{karpukhin2020}
+V. Karpukhin, B. Oguz, S. Min, P. Lewis, L. Wu, S. Edunov, D. Chen, and W.-T. Yih, ``Dense passage retrieval for open-domain question answering,'' in \textit{Proc. 2020 Conference on Empirical Methods in Natural Language Processing (EMNLP)}, pp. 6769--6781, 2020, doi: \href{https://doi.org/10.18653/v1/2020.emnlp-main.550}{10.18653/v1/2020.emnlp-main.550}.
 
 \bibitem{jose2025}
 T. A. Jose, Abhishek, A. P. Patil, A. G. S, and B. Bharath, ``Hybrid chatbot for educational institutions,'' \textit{International Journal of Recent Trends in Multidisciplinary Research}, vol. 5, no. 6, pp. 151--161, Nov.--Dec. 2025, doi: \href{https://doi.org/10.59256/ijrtmr.20250506020}{10.59256/ijrtmr.20250506020}.

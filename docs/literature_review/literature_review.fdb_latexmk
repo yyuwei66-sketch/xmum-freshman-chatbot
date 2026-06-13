@@ -1,11 +1,11 @@
 # Fdb version 4
-["xdvipdfmx"] 1781245149.78763 "literature_review.xdv" "literature_review.pdf" "literature_review" 1781245149.82908 0
-  "literature_review.xdv" 1781245149.76089 293216 64206106a1e1d41881797208cbc88996 "xelatex"
+["xdvipdfmx"] 1781314204.21335 "literature_review.xdv" "literature_review.pdf" "literature_review" 1781314204.27184 0
+  "literature_review.xdv" 1781314204.19096 321264 dd3b2fc24983249a3cd9786387d51df4 "xelatex"
   (generated)
   "literature_review.pdf"
   (rewritten before read)
-["xelatex"] 1781245149.46849 "/Users/jinyu/workspace/xmum-freshman-chatbot/docs/literature_review/literature_review.tex" "literature_review.xdv" "literature_review" 1781245149.82871 0
-  "/Users/jinyu/workspace/xmum-freshman-chatbot/docs/literature_review/literature_review.tex" 1781245139.61607 30991 b80022bb14b68d524c61578317c3bd86 ""
+["xelatex"] 1781314203.91805 "/Users/jinyu/workspace/xmum-freshman-chatbot/docs/literature_review/literature_review.tex" "literature_review.xdv" "literature_review" 1781314204.27147 0
+  "/Users/jinyu/workspace/xmum-freshman-chatbot/docs/literature_review/literature_review.tex" 1781314187.0422 34044 5c97ff6bd6512c36d42ab251a960b496 ""
   "/usr/local/texlive/2026basic/texmf-dist/fonts/tfm/adobe/zapfding/pzdr.tfm" 1136768653 1528 f853c4d1b4e0550255e02831fdc8496f ""
   "/usr/local/texlive/2026basic/texmf-dist/fonts/tfm/public/cm/cmmi10.tfm" 1136768653 1528 abec98dbc43e172678c11b3b9031252a ""
   "/usr/local/texlive/2026basic/texmf-dist/fonts/tfm/public/cm/cmmi12.tfm" 1136768653 1524 4414a8315f39513458b80dfc63bff03a ""
@@ -65,9 +65,9 @@
   "/usr/local/texlive/2026basic/texmf-dist/web2c/texmf.cnf" 1770478701 43630 e9fa012910491fe5ae08a72c3c2997a7 ""
   "/usr/local/texlive/2026basic/texmf-var/web2c/xetex/xelatex.fmt" 1772405592 5411330 a9f71f02640f08d181d83650a436ab3f ""
   "/usr/local/texlive/2026basic/texmf.cnf" 1772405582 628 bbc09d6d38872d53c11bb48dc9b14e88 ""
-  "literature_review.aux" 1781245149.76026 4512 c654cf9832409f11747188422036b930 "xelatex"
-  "literature_review.out" 1781245149.76068 4662 7e486a11a3a970d1cef930212c793152 "xelatex"
-  "literature_review.tex" 1781245139.61607 30991 b80022bb14b68d524c61578317c3bd86 ""
+  "literature_review.aux" 1781314204.19017 4585 b9006692d3756058c03170e6100c1bd5 "xelatex"
+  "literature_review.out" 1781314204.19067 4468 67f585ce876a8d201bf8f56baf6b1673 "xelatex"
+  "literature_review.tex" 1781314187.0422 34044 5c97ff6bd6512c36d42ab251a960b496 ""
   (generated)
   "literature_review.aux"
   "literature_review.log"
