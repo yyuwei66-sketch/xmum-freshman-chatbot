@@ -143,26 +143,26 @@ To overcome the rigidity of pattern matching, researchers have increasingly used
 \begin{itemize}
     \item \textbf{Naive Bayes:} Naive Bayes is a probabilistic machine learning algorithm that can be used in a wide variety of classification tasks. In early text classification, the multivariate Bernoulli model only recorded the presence or absence of a word, ignoring the term frequency. A study found that Multinomial Naive Bayes (MNB) model, which incorporates word frequency, performs better at larger vocabulary sizes \cite{mccallum1998}. However, an unseen word may produce a zero probability if it does not occur in the training data. To addressed this issue, Setyaningsih and Listiowarni \cite{setyaningsih2021} applied Laplace smoothing to ensure the robustness of inputs. And it is also proved to minimize misclassification errors. Consequently, MNB with smoothing provides a efficient and relatively robust solution for intent classification, especially when the available training dataset is limited.
 
-    \item \textbf{Logistic Regression:} Among the papers we collected, Logistic Regression is another widely used method. Instead of fitting a joint probability distribution, it directly models the posterior probability, which maps from features to class labels. It can model the relationship between TF-IDF features and intent categories. However, Acito pointed out that some rare or unseen words may be assigned extreme weights, which can cause overfitting, misleading models in real world scenario\cite{acito2024}. To overcome this problem, many developers applied L2 regularization to improve generalizability and mitigate overfitting.
+    \item \textbf{Logistic Regression:} Among the papers we collected, Logistic Regression is another widely used method. Instead of fitting a joint probability distribution, it directly models the posterior probability, which maps from features to class labels. It can model the relationship between TF-IDF features and intent categories. However, Acito pointed out that some rare or unseen words may be assigned extreme weights, which can cause overfitting, misleading models in real world scenario\cite{acito2024}. To overcome this problem, L2 regularization is applied by many developers to improve generalizability and mitigate overfitting.
 
-    \item \textbf{Linear SVM:} SVM is a geometric classification method based on structural risk minimization. It searches the best compromise between the complexity of the model (the learning accuracy of a particular training sample) and learning ability (error-free ability to identify any samples) in order to expect the best generalization ability \cite{li2009}. An experiment shows that F1 value of SVM classifier has reached more than 86.26\%, and the classification results comparing to other classification methods have greatly improved, proving that SVM is an effective machine learning method \cite{liu2010}. These findings predicate that Linear SVM is particularly suitable for high-dimensional and sparse textual features.
+    \item \textbf{Linear SVM:} SVM is also a common geometric classification method based on structural risk minimization. It searches the best compromise between the complexity of the model (the learning accuracy of a particular training sample) and learning ability (error-free ability to identify any samples) in order to expect the best generalization ability \cite{li2009}. Liu et al.\ compared SVM with several other text classification methods and found that SVM achieved stronger text classification performance in their experiment \cite{liu2010}. These findings predicate that Linear SVM is particularly suitable for high-dimensional and sparse textual features.
 \end{itemize}
 
 Overall, the reviewed studies demonstrate that MNB, Logistic Regression, and Linear SVM are all viable algorithms for intent classification. MNB offers computational simplicity and performs effectively with word-frequency features, Logistic Regression provides probabilistic outputs, and Linear SVM often achieves strong classification performance in high-dimensional feature spaces. However, the cited studies were conducted on different datasets and tasks. Their reported numerical results therefore cannot be compared directly. For the proposed chatbot, all three algorithms should be evaluated using the same university-query dataset.
 
 \subsection{Retrieval-Based Approaches}
 
-A retrieval-based chatbot works by matching user inputs to the most relevant responses within a predefined dataset. The responses here are entered manually by the developer, or based on a knowledge base of pre-existing information. Traditional systems commonly use lexical retrieval methods such as TF-IDF with cosine similarity or BM25 for their efficiency and interpretability \cite{salton1988,robertson2009}. However, these methods may perform poorly when users express the same meaning with different vocabulary. In order to solve this limitation, researchers have introduced semantic retrieval methods based on BERT, Sentence-BERT, and dense passage representations, which can better identify paraphrases and semantically related questions \cite{sakata2019,reimers2019,karpukhin2020}. Although these approaches improve retrieval flexibility, their effectiveness still depends heavily on the quality of the knowledge base. Therefore, retrieval-based methods are particularly suitable for university service chatbots because they provide reviewed and traceable answers to official enquiries.
+A retrieval-based chatbot works by matching user inputs to the most relevant responses within a predefined dataset. The responses here are entered manually by the developer, or based on a knowledge base of pre-existing information. Traditional systems commonly use lexical retrieval methods such as TF-IDF with cosine similarity or BM25 for their efficiency and interpretability \cite{salton1988,robertson2009}. However, these methods may perform poorly when users express the same meaning with different vocabulary. In order to solve this limitation, researchers introduced semantic retrieval methods based on BERT, Sentence-BERT, and dense passage representations, which can better identify paraphrases and semantically related questions \cite{sakata2019,reimers2019,karpukhin2020}. Although these approaches improve retrieval flexibility, their effectiveness still depends heavily on the quality of the knowledge base. Therefore, retrieval-based methods are particularly suitable for university service chatbots because they provide reviewed and traceable answers to official enquiries.
 
 \subsection{Hybrid Chatbot Architectures}
 
-Hybrid Chatbot have been introduced to combine the rule-based systems, the ML models and retrieval-based or generative components. In a hybrid architecture, an intent classification model is first used to identify the type of user query and then direct it to the most appropriate module. Researchers such as Mikael et al.\ \cite{mikael2025} proposed a hybrid chatbot for educational administration. They used a MNB classifier for query routing. Questions related to registration or financial matters were handled by the rule-based component, while academic and campus-related questions were directed to a retrieval-based module. For more complex or open-ended queries, they are forwarded to the generative model. By combining these different approaches, the system is able to improve both response reliability and conversational flexibility. It is also reported an overall accuracy of 97.57\% in their experiments.
+Among the papers we collected, quite a lot researchers choose Hybrid Chatbot Architecture to combine the rule-based systems, the ML models and retrieval-based or generative components. In a hybrid architecture, an intent classification model is first used to identify the type of user query and then direct it to the most appropriate module. Researchers such as Mikael et al.\ \cite{mikael2025} proposed a hybrid chatbot for educational administration. They used a MNB classifier for query routing. Questions related to registration or financial matters were handled by the rule-based component, while academic and campus-related questions were directed to a retrieval-based module. For more complex or open-ended queries, they are forwarded to the generative model. By combining these different approaches, the system can improve both response reliability and conversational flexibility.
 
 The reviewed hybrid studies show that different modules can be assigned according to their respective strengths. However, hybrid architectures are more difficult to design and maintain. An incorrect intent prediction may direct a query to an unsuitable module even when the required information is available elsewhere in the system. As a result, it is important to evaluate both classifier performance and end-to-end chatbot performance.
 
 \subsection{Comparison of Methods}
 
-To explicitly justify the technical selection for our project, Table~\ref{tab:method-comparison} summarizes the strengths, limitations, and suitability of the discussed chatbot approaches.
+To explicitly justify the technical selection, Table~\ref{tab:method-comparison} summarizes the strengths, limitations, and suitability of the discussed chatbot approaches.
 
 \begin{table}[htbp]
     \centering
@@ -183,9 +183,12 @@ To explicitly justify the technical selection for our project, Table~\ref{tab:me
     \end{tabularx}
 \end{table}
 
-In conclusion, each chatbot approach has its own strengths and limitations. To leverage the strengths of both approaches, our project adopts a hybrid architecture. Moreover, an MNB classifier is used to identify user intent and route queries to the appropriate module. This design is expected to improve accuracy and usability in a university service environment.
+Generally, each chatbot approach has its own strengths and limitations. Since hybrid approach combines control, flexibility, and reliability, it is the most common architecture for university chatbots.
 
 \section{Evaluation Methods for Chatbots}
+
+Since different types of chatbots have their own characteristics, they cannot be evaluated using the same method. 
+Therefore, a systematic review of evaluation metrics for different types of chatbots is needed.
 
 \subsection{Evaluation Metrics for Machine Learning Category Classification}
 
@@ -216,14 +219,14 @@ and the evaluation methods adopted in previous studies.
 
 The review found that university chatbots are widely applied in areas 
 such as student enquiries, academic support, admissions, and administrative services. 
-And the chatbots can indeed help freshmen adapt to university life more quickly.
-Among the different approaches, they each has their own strengths and limitation.
-Recent studies suggest that hybrid architectures might combine their advantages and improve the chatbot performance.
-The review also analyzed the commonly used evaluation metrics for diffenrent chatbot components.
-And concluded that a comprehensive assessment should be composed of evaluation from different aspects.
+Different types of chatbots can support freshmen in different aspects.
+Among the different approaches, each has its own strengths and limitations.
+Hybrid architecture is a useful way to leverage the strengths and overcome the shortcomings of different modules, and it has been widely applied by many researchers.
+The review also analyzed the commonly used evaluation metrics for different chatbot components,
+and concluded that a comprehensive assessment should include evaluation from different aspects.
 
-Overall, this literature review analyses the chatbots built by previous researchers, 
-and can be a good starting point to build FAQ chatbots.
+Overall, this literature review analyzes chatbots developed by previous researchers 
+and provides a useful starting point for building FAQ chatbots.
 
 
 \clearpage

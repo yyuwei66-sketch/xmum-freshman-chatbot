@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026) (preloaded format=xelatex 2026.3.1)  13 JUN 2026 09:57
+This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026) (preloaded format=xelatex 2026.3.1)  13 JUN 2026 15:11
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -402,9 +402,9 @@ File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman (
 
 ] [2] [3] [4] [5] [6] [7] [8]
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 208.
+(Font)              <12> on input line 211.
  [9]
-Overfull \hbox (5.03004pt too wide) in paragraph at lines 213--216
+Overfull \hbox (5.03004pt too wide) in paragraph at lines 216--219
 \TU/TimesNewRoman(0)/m/n/12 This literature review examined existing university chatbot applications, the technical approaches
  []
 
@@ -421,7 +421,7 @@ Package rerunfilecheck Info: File `literature_review.out' has not changed.
 Here is how much of TeX's memory you used:
  12617 strings out of 469709
  253386 string characters out of 5466024
- 734919 words of memory out of 5000000
+ 733919 words of memory out of 5000000
  41131 multiletter control sequences out of 15000+600000
  632862 words of font info for 83 fonts, out of 8000000 for 9000
  319 hyphenation exceptions out of 8191
