@@ -31,46 +31,23 @@
 
 \subsection{Background}
 
-As higher education institutions face an increasingly diverse student body 
-and the demand for more accessible and personalised education, 
-chatbots emerge as an innovative solution to address a myriad of challenges \cite{martinez2024}. 
+As higher education institutions face an increasingly diverse student body and the demand for more accessible and personalised education, chatbots emerge as an innovative solution to address a myriad of challenges \cite{martinez2024}.
 
-When students move from high school to an unfamiliar university environment, 
-they will naturally have many related questions to ask. 
-Although university students are increasingly familiar with using the internet to obtain information, 
-the information they need is often scattered across different websites, documents, and communication platforms.
-As a result, finding accurate and timely answers might be challenging.
+When students move from high school to an unfamiliar university environment, they will naturally have many related questions to ask. Although university students are increasingly familiar with using the internet to obtain information, the information they need is often scattered across different websites, documents, and communication platforms. As a result, finding accurate and timely answers might be challenging.
 
-In the paper by Yuwei Qian, 
-it is pointed out that information-seeking behavior varies across individuals in different environments. 
-This is especially true for freshmen, 
-who may find it difficult to begin a university life that is very different from their high school experience \cite{qian2019}.
-This highlights the importance of providing structured and easily accessible information systems for freshmen.
+In the paper by Yuwei Qian, it is pointed out that information-seeking behavior varies across individuals in different environments. This is especially true for freshmen, who may find it difficult to begin a university life that is very different from their high school experience \cite{qian2019}. This highlights the importance of providing structured and easily accessible information systems for freshmen.
 
-Moreover, due to different living habits in different countries, 
-students use a wide variety of online communication software. 
-This also makes it difficult for universities to fully deliver daily-life information beyond official announcements.
+Moreover, due to different living habits in different countries, students use a wide variety of online communication software. This also makes it difficult for universities to fully deliver daily-life information beyond official announcements.
 
-Therefore, there is a need for a unified chatbot that can provide structured and reliable access to university information for freshmen.
-And in order to build the chatbot, a systematic review on previous chatbot applications is needed.
+Therefore, there is a need for a unified chatbot that can provide structured and reliable access to university information for freshmen. And in order to build the chatbot, a systematic review on previous chatbot applications is needed.
 
 \subsection{Purpose and Scope}
 
-The purpose of this literature review is to examine chatbot applications developed for university students, especially freshmen. 
-It explores the previous applications of chatbots in the domain of education,
-the approaches adopted in these systems, and the evaluations metrics used for different types of chatbots,
-in order to better guide the development of the chatbot.
+The purpose of this literature review is to examine chatbot applications developed for university students, especially freshmen. It explores the previous applications of chatbots in the domain of education, the approaches adopted in these systems, and the evaluations metrics used for different types of chatbots, in order to better guide the development of the chatbot.
 
-This review focuses on chatbot systems designed for higher education contexts,
-particularly those that support university students and freshmen 
-through university enquiry services, student support, and FAQ-based assistance.
-It mainly examines traditional chatbot approaches, 
-including rule-based, machine-learning-based, retrieval-based, and hybrid methods,
-while modern large language model (LLM)-based generative chatbots are discussed only briefly rather than in detail.
-Another focus of this review is the evaluation of chatbot effectiveness. 
-Common evaluation aspects include classification performance, retrieval accuracy, response quality, and user satisfaction. 
+This review focuses on chatbot systems designed for higher education contexts, particularly those that support university students and freshmen through university enquiry services, student support, and FAQ-based assistance. It mainly examines traditional chatbot approaches, including rule-based, machine-learning-based, retrieval-based, and hybrid methods, while modern large language model (LLM)-based generative chatbots are discussed only briefly rather than in detail. The review also covers the ways chatbot systems have been evaluated in earlier studies. Among the measures most often reported are classification accuracy, retrieval performance, response quality, and user satisfaction.
 
-Together, these studies provide an overview of current developments in university chatbot systems and highlight areas that require further improvement.
+A comparison of these studies shows the different approaches used in university chatbot development and evaluation. It also draws attention to a few issues that remain open for further investigation.
 
 \subsection{Research Questions}
 
@@ -82,59 +59,50 @@ Together, these studies provide an overview of current developments in universit
 
 \subsection{Search Strategy and Selection Criteria}
 
-The literature reviewed in this study was mainly collected through academic databases such as Google Scholar and IEEE Xplore. 
-Sources include journal articles, conference papers, books, and peer-reviewed studies. 
-The search focused on publications from 2008 to 2026, covering both early work on educational chatbots and more recent developments in AI-based conversational systems.
+The sources used in this study were mainly obtained from academic databases, including Google Scholar and IEEE Xplore. To develop a broader understanding of university chatbot research, journal articles, conference papers, and selected academic books were reviewed. Most of the sources reviewed were published between 2008 and 2026. This period covers both early studies on university chatbots and more recent research influenced by developments in artificial intelligence.
 
-A combination of keyword searches and reference tracking was used to identify relevant studies. 
-The main keywords included “college enquiry chatbot”, “university chatbot”, “student support chatbot”, “FAQ chatbot”, “rule-based chatbot”, “retrieval-based chatbot”, “hybrid chatbot”, and “information retrieval in chatbots”. 
-These terms were selected to cover both the common applications of university chatbots and the different technical approaches discussed in this review. 
-For several key papers, the reference lists were also examined to identify additional studies that were relevant to the topic.
+Relevant materials were identified through keyword searches and reference checking. Keywords used in the search included “university counseling chatbot,” “higher education chatbot,” “student support chatbot,” “FAQ chatbot,” “rule-based chatbot,” “retrieval-based chatbot,” “hybrid chatbot,” and “information retrieval in chatbots.” After an initial group of papers had been selected, the reference lists of several key studies were examined to identify additional publications related to the topic. This process helped expand the range of materials included in the review.
 
-During the selection process, attention was given not only to chatbot technologies but also to their use in higher education. 
-Priority was therefore given to studies related to student support services, campus information enquiries, FAQ systems, and chatbot design for educational settings. 
-Since this project focuses on a hybrid chatbot that combines rule-based matching, machine learning classification, and information retrieval, studies discussing these approaches were included as important references.
+As the project is focused on higher education, particular attention was given to studies on student support services, campus information systems, and FAQ-based chatbot applications. Research related to rule matching, machine learning classification, and information retrieval was also included because these techniques are relevant to the chatbot developed in this project.
 
-Studies focusing mainly on e-commerce, customer service, or other non-educational applications were not considered as primary sources. In addition, papers that only introduced chatbot concepts without discussing system implementation, evaluation methods, or practical applications were not examined in detail. The final selection of literature provides an overview of existing university chatbot applications, the technologies used to develop them, and the methods used to evaluate their effectiveness. These studies form the basis for addressing the research questions presented in this review.
+Studies related mainly to e-commerce, customer service, and other non-educational settings were used only for background reference. Papers that discussed chatbot concepts without presenting system development, implementation, or evaluation were also given less emphasis. The selected references provide useful information on current university chatbot applications, commonly used technologies, and evaluation methods. These studies also support the discussion of the research questions addressed in this project.
 \section{Existing Chatbot Applications for University Students and Freshmen}
 
 \subsection{University Enquiry Chatbots}
 
-University enquiry chatbots are primarily designed to improve access to campus-related information and streamline FAQ services. Their main role is to assist students in obtaining administrative information, announcements, and other university resources through a conversational interface. As a result, they represent one of the most common chatbot applications in higher education.
+University enquiry chatbots are widely used in higher education to answer student questions and provide access to campus information. Common uses include administrative enquiries, university announcements, and information about student services.
 
-Susanna et al.\ developed a College Enquiry Chatbot that allows students to access information from links, text notifications, and PDF documents through a single platform \cite{susanna2020}. Similarly, Salve et al.\ proposed a chatbot for university enquiries, but their system additionally incorporates a feedback mechanism that enables students to report inaccurate responses and allows administrators to refine the knowledge base accordingly \cite{salve}.
+Susanna et al.\ introduced a College Enquiry Chatbot that allows students to obtain information from links, text messages, and PDF files through one platform \cite{susanna2020}. Salve et al.\ developed a chatbot for a similar purpose. Their system also allows students to provide feedback when an answer is incorrect, making it possible for administrators to review and update the stored information \cite{salve}.
 
-Although both studies focus on improving information accessibility, they highlight different priorities. Susanna et al.\ emphasize the integration and delivery of information, whereas Salve et al.\ place greater importance on maintaining answer quality through continuous updates. This comparison suggests that effective enquiry chatbots require not only accessible information but also mechanisms to ensure the reliability and relevance of responses over time.
-
-Despite their benefits, these systems largely depend on predefined knowledge bases and structured information sources. Their effectiveness is therefore closely tied to the quality and coverage of the available data. Nevertheless, the studies demonstrate that enquiry chatbots can play an important role in reducing information barriers and supporting students in navigating university services.
+The two studies share a similar goal but use different approaches. Susanna et al.\ concentrate on bringing information from different sources into one system. Salve et al.\ focus more on improving answer quality through user feedback. The studies suggest that easy access to information alone is not enough. The information also needs to remain accurate and updated so that students can continue to receive useful responses.
 
 \subsection{Student Support and FAQ Chatbots}
 
-Compared with enquiry chatbots, student support and FAQ chatbots address a broader range of student needs. Rather than focusing solely on information retrieval, these systems aim to support communication, learning, and student service management.
+Student support and FAQ chatbots generally cover a wider range of functions than enquiry chatbots. Instead of only providing information, they are often designed to assist communication, learning activities, and student services.
 
-Dhandayuthapani proposed a student support chatbot framework that supports multilingual interaction and multiple communication channels, including text, voice, and graphical interfaces \cite{dhandayuthapani2022}. The study argues that such systems can improve service efficiency while reducing staff workload. Similarly, Nourbakhsh and Yaser discussed the wider educational role of chatbots, suggesting that they can support learning, strengthen communication between students and teachers, and improve access to educational opportunities \cite{nourbakhsh2017}.
+Dhandayuthapani introduced a student support chatbot framework that supports multiple languages and different communication methods, including text, voice, and graphical interfaces \cite{dhandayuthapani2022}. The study suggests that such systems may improve service delivery while helping to reduce staff workload. Nourbakhsh and Yaser also discussed the role of chatbots in education, arguing that they can support learning, improve communication between students and teachers, and make educational resources more accessible \cite{nourbakhsh2017}.
 
-Taken together, these studies indicate a gradual shift in higher education chatbots from information-centered systems towards more comprehensive student support platforms. Unlike enquiry chatbots, which mainly provide institutional information, student support chatbots aim to assist students throughout different aspects of their academic journey. This broader focus reflects the growing expectation that chatbots should contribute not only to information delivery but also to the overall student experience.
+The studies reviewed show that higher education chatbots are no longer limited to answering questions or providing campus information. Increasingly, they are being developed to support students in different areas of university life. This development reflects a growing interest in using chatbots not only as information tools but also as part of the broader student support system.
 
-While the potential advantages are widely recognized, much of the literature remains focused on conceptual frameworks and expected outcomes. Consequently, further investigation is needed to understand how these systems perform in real university environments and how students perceive their usefulness in practice.
+Although many studies describe the benefits of these systems, much of the existing work focuses on proposed models and expected benefits rather than real-world implementation. More research is therefore needed to examine how these chatbots operate in actual university settings and how students respond to them during regular use.
 
 \subsection{Limitations of Existing University Chatbot Applications}
 
-Although university chatbots have demonstrated significant potential, several limitations remain. Raval noted that chatbots may struggle to understand slang, informal expressions, or emotionally charged language, which can result in misunderstandings or repetitive response loops \cite{raval2020}. Such issues may reduce response accuracy and negatively affect user experience.
+Previous studies have identified several limitations of university chatbots. According to Raval, chatbots may struggle to understand slang, informal language, and messages that contain strong emotions. When this happens, user requests may be interpreted incorrectly, or the chatbot may repeat the same response several times during a conversation \cite{raval2020}. These problems can reduce the accuracy of chatbot responses and may lead to a less positive user experience.
 
-Another challenge is the highly institution-specific nature of university information. Since each university operates under different policies, procedures, and organizational structures, chatbot systems require extensive data collection and continuous maintenance. Ensuring that information remains accurate and up to date therefore represents an ongoing challenge.
+A further difficulty comes from the nature of university information. Different institutions follow different policies, procedures, and administrative practices. As a result, chatbot databases need to be updated regularly and supported by a large amount of information. Keeping the content correct and up to date can be difficult, particularly when institutional information changes over time.
 
-Furthermore, many existing systems rely heavily on predefined knowledge bases and fixed response patterns. While this approach can effectively handle routine enquiries, it may be less effective when users ask ambiguous, unexpected, or complex questions. Existing studies also place greater emphasis on functionality and system design than on long-term user satisfaction or practical effectiveness.
+Many chatbot applications also rely on predefined knowledge bases and prepared responses. While this approach is suitable for handling common enquiries, it is less effective when users ask unclear questions or requests that fall outside expected patterns. Much of the existing research focuses on system features and technical design. Fewer studies have examined user satisfaction over extended periods or evaluated system performance in everyday use.
 
-Taken together, these limitations suggest that a single approach may not be sufficient to address the diverse needs of university students. This highlights the potential value of hybrid chatbot systems that combine rule-based methods, machine learning techniques, and information retrieval mechanisms to provide more flexible and reliable support.
+Based on the studies reviewed, no single chatbot method appears capable of meeting all student needs. Rule-based approaches, machine learning techniques, and information retrieval methods each perform well in certain areas but also have limitations. For this reason, combining these techniques within a hybrid chatbot may offer a more balanced approach to student support.
 
 \section{Technical Approaches Used in University Chatbots}
 
-In the development of university FAQ chatbots, what to choose of technical architecture directly determines the overall performance of systems. To address the diverse needs of students, modern conversational agents have evolved from single method frameworks into systems integrated with multi-modular. This section evaluates various methods and deeply analyzes the core text classification algorithms supporting intent routing.
+In the development of university FAQ chatbots, it is essential to notice the technical architecture because it directly determines the overall performance of systems. To address the diverse needs of students, modern conversational agents have evolved from single method frameworks into multi-modular systems. This section evaluates various methods and deeply analyzes the core text classification algorithms supporting intent routing.
 
 \subsection{Rule-Based Approaches}
 
-Rule-based chatbots represent the earliest paradigm in educational systems. They provide specific responses relied on predefined rules and patterns for matching user inputs. Among the reviewed studies, we find Artificial Intelligence Markup Language (AIML) is commonly used to create rule-based chatbots. Khin and Soe \cite{khin2020}, for example, developed a university chatbot using AIML to provide predefined responses to frequently asked questions. Since they are easy to build, developers tend to use them to address well-defined queries, such as assignments distribution or course schedules \cite{nguyen2021,alghadhban2020,dinesh2021}, which can greatly reduce the effort and cost to build other chatbots. However, Lopez and Qamber \cite{lopez2022} observed that chatbots in higher education may struggle when users employ unexpected expressions or submit complex and ambiguous questions. Therefore, the reviewed literature suggests that their reliance on fixed patterns and short for semantic understanding makes them appropriate for narrowly defined queries, which are generally insufficient for university chatbot.
+Rule-based chatbots represent the earliest chatbot paradigm in educational systems. They provide specific responses relied on predefined rules and patterns for matching user inputs. Among the reviewed studies, we find Artificial Intelligence Markup Language (AIML) is commonly used to create rule-based chatbots. Khin and Soe \cite{khin2020}, for example, developed a university chatbot using AIML to provide predefined responses to frequently asked questions. Since they are easy to build, developers tend to use them to address well-defined queries, such as assignments distribution or course schedules \cite{nguyen2021,alghadhban2020,dinesh2021}, which can greatly reduce the effort and cost to build other chatbots. However, Lopez and Qamber \cite{lopez2022} observed that chatbots in higher education may struggle when users employ unexpected expressions or submit complex and ambiguous questions. Therefore, the reviewed literature suggests that their reliance on fixed patterns and short for semantic understanding makes them appropriate for narrowly defined queries, which are generally insufficient for university chatbot.
 
 \subsection{Machine-Learning-Based Approaches}
 
@@ -143,12 +111,12 @@ To overcome the rigidity of pattern matching, researchers have increasingly used
 \begin{itemize}
     \item \textbf{Naive Bayes:} Naive Bayes is a probabilistic machine learning algorithm that can be used in a wide variety of classification tasks. In early text classification, the multivariate Bernoulli model only recorded the presence or absence of a word, ignoring the term frequency. A study found that Multinomial Naive Bayes (MNB) model, which incorporates word frequency, performs better at larger vocabulary sizes \cite{mccallum1998}. However, an unseen word may produce a zero probability if it does not occur in the training data. To addressed this issue, Setyaningsih and Listiowarni \cite{setyaningsih2021} applied Laplace smoothing to ensure the robustness of inputs. And it is also proved to minimize misclassification errors. Consequently, MNB with smoothing provides a efficient and relatively robust solution for intent classification, especially when the available training dataset is limited.
 
-    \item \textbf{Logistic Regression:} Among the papers we collected, Logistic Regression is another widely used method. Instead of fitting a joint probability distribution, it directly models the posterior probability, which maps from features to class labels. It can model the relationship between TF-IDF features and intent categories. However, Acito pointed out that some rare or unseen words may be assigned extreme weights, which can cause overfitting, misleading models in real world scenario\cite{acito2024}. To overcome this problem, L2 regularization is applied by many developers to improve generalizability and mitigate overfitting.
+    \item \textbf{Logistic Regression:} Among the papers we collected, Logistic Regression is another widely used method. Unlike MNB fitting a joint probability distribution, it directly models the posterior probability, which maps from features to class labels. It can model the relationship between TF-IDF features and intent categories. However, Acito pointed out that some rare or unseen words may be assigned extreme weights, which can cause overfitting, misleading models in real world scenario \cite{acito2024}. To overcome this problem, many developers apply L2 regularization to improve generalizability and mitigate overfitting.
 
     \item \textbf{Linear SVM:} SVM is also a common geometric classification method based on structural risk minimization. It searches the best compromise between the complexity of the model (the learning accuracy of a particular training sample) and learning ability (error-free ability to identify any samples) in order to expect the best generalization ability \cite{li2009}. Liu et al.\ compared SVM with several other text classification methods and found that SVM achieved stronger text classification performance in their experiment \cite{liu2010}. These findings predicate that Linear SVM is particularly suitable for high-dimensional and sparse textual features.
 \end{itemize}
 
-Overall, the reviewed studies demonstrate that MNB, Logistic Regression, and Linear SVM are all viable algorithms for intent classification. MNB offers computational simplicity and performs effectively with word-frequency features, Logistic Regression provides probabilistic outputs, and Linear SVM often achieves strong classification performance in high-dimensional feature spaces. However, the cited studies were conducted on different datasets and tasks. Their reported numerical results therefore cannot be compared directly. For the proposed chatbot, all three algorithms should be evaluated using the same university-query dataset.
+Overall, the reviewed studies demonstrate that MNB, Logistic Regression, and Linear SVM are all viable algorithms for intent classification. MNB can save computational sources and it also performs well with word-frequency features, Logistic Regression provides probabilistic outputs, and Linear SVM often excels in high-dimensional feature spaces. However, the cited studies were conducted on different datasets and tasks. Their reported numerical results therefore cannot be compared directly. For the proposed chatbot, all three algorithms should be evaluated using the same university-query dataset.
 
 \subsection{Retrieval-Based Approaches}
 
@@ -162,7 +130,7 @@ The reviewed hybrid studies show that different modules can be assigned accordin
 
 \subsection{Comparison of Methods}
 
-To explicitly justify the technical selection, Table~\ref{tab:method-comparison} summarizes the strengths, limitations, and suitability of the discussed chatbot approaches.
+To explicitly justify the technical selection, Table summarizes the strengths, limitations, and suitability of the discussed chatbot approaches.
 
 \begin{table}[htbp]
     \centering
