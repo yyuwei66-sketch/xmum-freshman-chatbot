@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026) (preloaded format=xelatex 2026.3.1)  10 JUN 2026 23:10
+This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026) (preloaded format=xelatex 2026.3.1)  13 JUN 2026 18:42
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -400,31 +400,35 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman (RS)
 ) [1
 
-] [2] [3] [4] [5] [6] [7]
+] [2] [3] [4] [5] [6] [7] [8]
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 185.
+(Font)              <12> on input line 179.
 
-Overfull \hbox (5.03004pt too wide) in paragraph at lines 190--193
+Overfull \hbox (5.03004pt too wide) in paragraph at lines 184--187
 \TU/TimesNewRoman(0)/m/n/12 This literature review examined existing university chatbot applications, the technical approaches
  []
 
-[8] [9
+[9] [10] [11
 
-] [10] [11] (./literature_review.aux)
+] [12] [13] (./literature_review.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
  ***********
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
 Package rerunfilecheck Info: File `literature_review.out' has not changed.
-(rerunfilecheck)             Checksum: 335DF3067D6098DCD55F100C188D1B40;4662.
+(rerunfilecheck)             Checksum: 67F585CE876A8D201BF8F56BAF6B1673;4468.
  ) 
 Here is how much of TeX's memory you used:
- 12612 strings out of 469709
- 253319 string characters out of 5466024
- 732952 words of memory out of 5000000
- 41126 multiletter control sequences out of 15000+600000
+ 12617 strings out of 469709
+ 253386 string characters out of 5466024
+ 733919 words of memory out of 5000000
+ 41131 multiletter control sequences out of 15000+600000
  632862 words of font info for 83 fonts, out of 8000000 for 9000
  319 hyphenation exceptions out of 8191
- 73i,10n,93p,1364b,461s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 73i,10n,93p,1364b,459s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on literature_review.pdf (11 pages).
+Output written on literature_review.pdf (13 pages).
