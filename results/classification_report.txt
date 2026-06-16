@@ -1,22 +1,32 @@
-Best model: Naive Bayes
+Best model: Linear SVM
 ============================================================
                                    precision    recall  f1-score   support
 
-                 Academic Affairs     1.0000    1.0000    1.0000         5
-           Accommodation & Living     0.7143    1.0000    0.8333         5
-                  Campus Services     1.0000    0.6000    0.7500         5
-                   Finance & Fees     1.0000    1.0000    1.0000         6
-       Registration & Orientation     1.0000    1.0000    1.0000         4
-                   Transportation     1.0000    1.0000    1.0000         2
-University Platforms & IT Support     1.0000    1.0000    1.0000         4
+                 Academic Affairs     0.8333    1.0000    0.9091        10
+           Accommodation & Living     0.8667    0.9286    0.8966        14
+                  Campus Services     0.6667    0.8000    0.7273         5
+                      Campus life     1.0000    0.9744    0.9870        39
+                   Finance & Fees     1.0000    0.6000    0.7500         5
+       Registration & Orientation     0.8750    0.8750    0.8750         8
+                   Transportation     1.0000    1.0000    1.0000         9
+University Platforms & IT Support     1.0000    0.7500    0.8571         4
 
-                         accuracy                         0.9355        31
-                        macro avg     0.9592    0.9429    0.9405        31
-                     weighted avg     0.9539    0.9355    0.9328        31
+                         accuracy                         0.9255        94
+                        macro avg     0.9052    0.8660    0.8753        94
+                     weighted avg     0.9340    0.9255    0.9250        94
 
 
-Comparison
+Comparison (test-set metrics)
 ============================================================
-Naive Bayes                    acc=0.9355  f1=0.9405 ← best
-Logistic Regression            acc=0.7742  f1=0.6767
-Linear SVM                     acc=0.9355  f1=0.9405
+Naive Bayes                    acc=0.8511  f1=0.7847
+Logistic Regression            acc=0.8830  f1=0.8044
+Linear SVM                     acc=0.9255  f1=0.8753 <- best
+
+Overfitting diagnostics
+============================================================
+Model                           TrainAcc   TestAcc     Gap   TrainF1    TestF1    CV_f1(mean+/-std)
+Naive Bayes                       0.9759    0.8511  0.1248    0.9618    0.7847    0.7622 +/- 0.0770
+Logistic Regression               1.0000    0.8830  0.1170    1.0000    0.8044    0.7409 +/- 0.0412
+Linear SVM                        0.9866    0.9255  0.0611    0.9805    0.8753    0.7509 +/- 0.0650
+
+Gap = TrainAcc - TestAcc (larger gap => more overfitting). CV is StratifiedKFold(5) f1_macro on the full dataset.
