@@ -33,4 +33,6 @@ data/chunks/*
 !data/processed/.gitkeep
 !data/final/.gitkeep
 
+# macOS metadata
 .DS_Store
+.vscode/

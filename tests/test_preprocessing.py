@@ -1,4 +1,4 @@
-from src.intent_detection import process_user_query
+from src.rule_classify import process_user_query
 
 
 test_queries = [
