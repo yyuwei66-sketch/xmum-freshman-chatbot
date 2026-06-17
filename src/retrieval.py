@@ -1,13 +1,16 @@
 from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.linear_model import Ridge
 from sklearn.metrics.pairwise import cosine_similarity
 from pathlib import Path
 from src.rule_classify import process_user_query
-from src.preprocessing import normalize_text, tokenize, remove_stopwords
+from src.preprocessing import normalize_text, preprocess_text, tokenize, remove_stopwords
 import json
+import numpy as np
 import re
 
 ROOT_DIR=Path(__file__).parent.parent
 DATA_DIR=ROOT_DIR/"data"/"final"
+FALLBACK_SCORE_THRESHOLD=0.2
 
 
 def load_jsonl(file_path):
@@ -107,8 +110,8 @@ def classify_intent(user_question):
             "response": query_info["response"]
         }
 
-    user_vector=vectorizer.transform([user_question])
-    similarities=cosine_similarity(user_vector, question_vectors)[0]
+    user_vector=sentence_vectorizer.transform([user_question])
+    similarities=cosine_similarity(user_vector, sentence_question_vectors)[0]
     best_index=similarities.argmax()
 
     return {
@@ -151,24 +154,131 @@ def entity_overlap_score(item, entities):
     return min(score,0.2)
 
 
+def build_keyword_search_text(item):
+    """Build the text used to check whether an important keyword is present."""
+    return normalize_text(
+        " ".join([
+            item.get("question",""),
+            " ".join(item.get("keywords",[]))
+        ])
+    )
+
+
+def get_important_keyword(user_question):
+    """
+    Return the highest-IDF non-stopword query token.
+
+    This is a lightweight proxy for the most specific word in the user's
+    question. It uses the token-level FAQ vectorizer vocabulary.
+    """
+    tokens=remove_stopwords(tokenize(user_question))
+    scored_tokens=[]
+
+    for token in tokens:
+        vocab_index=token_vectorizer.vocabulary_.get(token)
+        if vocab_index is not None:
+            scored_tokens.append((float(token_idf[vocab_index]),token))
+
+    if not scored_tokens:
+        return None
+
+    scored_tokens.sort(reverse=True)
+    return scored_tokens[0][1]
+
+
+def keyword_missing_penalty(important_keyword, item):
+    """Return -1.0 when the candidate FAQ misses the important query keyword."""
+    if not important_keyword:
+        return 0.0
+
+    if contains_normalized_phrase(item_keyword_texts[item["__index__"]],important_keyword):
+        return 0.0
+
+    return -1.0
+
+
+def build_scoring_features(user_question, intent_info, entities):
+    """Build one feature row per FAQ candidate for the trainable scorer."""
+    sentence_vector=sentence_vectorizer.transform([user_question])
+    sentence_similarities=cosine_similarity(sentence_vector,sentence_question_vectors)[0]
+
+    token_text=preprocess_text(user_question)
+    token_vector=token_vectorizer.transform([token_text])
+    token_similarities=cosine_similarity(token_vector,token_question_vectors)[0]
+
+    important_keyword=get_important_keyword(user_question)
+    features=[]
+
+    for index,item in enumerate(qa_pairs):
+        intent_match=1.0 if item.get("intent") == intent_info["intent"] else 0.0
+        entity_overlap=entity_overlap_score(item,entities)
+        keyword_penalty=keyword_missing_penalty(important_keyword,item)
+
+        features.append([
+            float(sentence_similarities[index]),
+            float(token_similarities[index]),
+            keyword_penalty,
+            intent_match,
+            entity_overlap
+        ])
+
+    return np.array(features,dtype=float)
+
+
+def clip_score(score):
+    """Calibrate and keep public confidence scores in a predictable 0..1 range."""
+    calibrated=(score-retrieval_null_score)/(1.0-retrieval_null_score)
+    return float(np.clip(calibrated,0.0,1.0))
+
+
+def train_retrieval_scorer():
+    """
+    Fit the linear retrieval scorer with weak supervision.
+
+    Each FAQ's original question is treated as a positive match for itself and
+    as a negative match for all other FAQ records. This gives fitted feature
+    weights without requiring a manually labelled query-to-FAQ dataset.
+    """
+    feature_rows=[]
+    labels=[]
+    sample_weights=[]
+    negative_weight=1.0/(len(qa_pairs)-1)
+
+    for query_index,question in enumerate(questions):
+        entities=extract_entities(question)
+        intent_info={
+            "intent": qa_pairs[query_index].get("intent","faq_query"),
+            "score": 1.0,
+            "is_rule_based": False,
+            "response": None
+        }
+        query_features=build_scoring_features(question,intent_info,entities)
+
+        for candidate_index,row in enumerate(query_features):
+            is_positive=candidate_index == query_index
+            feature_rows.append(row)
+            labels.append(1.0 if is_positive else 0.0)
+            sample_weights.append(1.0 if is_positive else negative_weight)
+
+    scorer=Ridge(alpha=1.0)
+    scorer.fit(np.array(feature_rows),np.array(labels),sample_weight=np.array(sample_weights))
+    return scorer
+
+
 def select_response(user_question, intent_info, entities):
     """
     Response selection layer.
 
-    Select the best matching FAQ answer using TF-IDF similarity, then boost
-    records that share the predicted intent and extracted entities.
+    Select the best matching FAQ answer with a weakly supervised linear
+    combination of sentence similarity, token similarity, keyword penalty,
+    intent match, and entity overlap.
     """
-    user_vector=vectorizer.transform([user_question])
-    similarities=cosine_similarity(user_vector, question_vectors)[0]
+    features=build_scoring_features(user_question,intent_info,entities)
+    scores=retrieval_scorer.predict(features)
 
     scored_results=[]
     for index,item in enumerate(qa_pairs):
-        score=float(similarities[index])
-
-        if item.get("intent") == intent_info["intent"]:
-            score+=0.05
-
-        score+=entity_overlap_score(item, entities)
+        score=clip_score(scores[index])
         scored_results.append((score,index))
 
     scored_results.sort(reverse=True)
@@ -178,7 +288,7 @@ def select_response(user_question, intent_info, entities):
         for _,index in scored_results[1:4]
     ]
 
-    if best_score < 0.2:
+    if best_score < FALLBACK_SCORE_THRESHOLD:
         return {
             "answer": "Sorry, I do not have an answer for that.",
             "score": best_score,
@@ -228,12 +338,23 @@ def chatbot_pipeline(user_question):
 
 
 qa_pairs=load_jsonl(DATA_DIR/"faq_dataset_final_merged.jsonl")
+for index,item in enumerate(qa_pairs):
+    item["__index__"]=index
 
 questions = [item["question"] for item in qa_pairs]
+tokenized_questions = [preprocess_text(question) for question in questions]
 entity_vocabulary=build_entity_vocabulary(qa_pairs)
+item_keyword_texts=[build_keyword_search_text(item) for item in qa_pairs]
 
-vectorizer = TfidfVectorizer()
-question_vectors = vectorizer.fit_transform(questions)
+sentence_vectorizer = TfidfVectorizer(ngram_range=(1,2))
+sentence_question_vectors = sentence_vectorizer.fit_transform(questions)
+
+token_vectorizer = TfidfVectorizer()
+token_question_vectors = token_vectorizer.fit_transform(tokenized_questions)
+token_idf = token_vectorizer.idf_
+
+retrieval_scorer = train_retrieval_scorer()
+retrieval_null_score = float(retrieval_scorer.predict(np.zeros((1,5)))[0])
 
 
 def get_response(user_question):
