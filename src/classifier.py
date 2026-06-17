@@ -29,12 +29,9 @@ RESULTS_DIR.mkdir(parents=True, exist_ok=True)
 #Dataset
 def load_dataset(path=DATA_PATH):
     records = [json.loads(l) for l in open(path, encoding="utf-8") if l.strip()]
-    df = pd.DataFrame(records)[["question", "category", "keywords"]].dropna(
+    df = pd.DataFrame(records)[["question", "category"]].dropna(
         subset=["question", "category"])
-    def build(row):
-        kw = " ".join(row["keywords"]) if isinstance(row["keywords"], list) else ""
-        return preprocess_text(row["question"] + " " + kw)
-    df["text"] = df.apply(build, axis=1)
+    df["text"] = df["question"].apply(preprocess_text)
     return df
 
 #Naive Bayes
