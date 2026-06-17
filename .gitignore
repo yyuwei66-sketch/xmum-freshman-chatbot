@@ -32,3 +32,5 @@ data/chunks/*
 !data/chunks/.gitkeep
 !data/processed/.gitkeep
 !data/final/.gitkeep
+
+.DS_Store
