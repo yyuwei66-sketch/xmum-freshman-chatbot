@@ -145,6 +145,11 @@ def evaluate_pipeline(pipeline, X_train, X_test, y_train, y_test, name,
             "cv_f1_std":  cv_std,
             "train_time": t, "pipeline": pipeline, "y_pred": yp}
 
+#Best-model selection
+def _selection_key(r):
+    robustness = r["cv_f1_mean"] - r["cv_f1_std"] - r["gap_acc"]
+    return (robustness, r["accuracy"])
+
 #Full training workflow
 def train_and_compare(data_path=DATA_PATH):
     print("=" * 60)
@@ -172,7 +177,7 @@ def train_and_compare(data_path=DATA_PATH):
         print(f"train_acc={r['train_acc']:.4f}  test_acc={r['accuracy']:.4f}  "
               f"gap={r['gap_acc']:.4f}  cv_f1={r['cv_f1_mean']:.4f}+/-{r['cv_f1_std']:.4f}")
  
-    best = max(results, key=lambda r: r["f1_macro"])
+    best = max(results, key=_selection_key)
     print(f"\nBest: {best['model']}  acc={best['accuracy']:.4f}  f1={best['f1_macro']:.4f}")
     joblib.dump(best["pipeline"], MODEL_PATH)
     print(f"Saved → {MODEL_PATH}")
@@ -218,12 +223,10 @@ def _get_pipeline():
 
 #Public API
 def predict(text: str) -> str:
-    """Predict FAQ category. Preprocessing applied internally."""
     p = preprocess_text(text)
     return _get_pipeline().predict([p])[0]
 
 def predict_proba(text: str) -> dict:
-    """Return {category: probability} sorted descending. For Member 5."""
     p    = preprocess_text(text)
     pipe = _get_pipeline()
     prob = pipe.predict_proba([p])[0]
@@ -231,7 +234,6 @@ def predict_proba(text: str) -> dict:
     return dict(sorted(res.items(), key=lambda x: x[1], reverse=True))
 
 def predict_top_n(text: str, n: int = 3) -> list:
-    """Return top-N [{category, probability}]. For Member 5 medium-confidence."""
     return [{"category": c, "probability": float(p)}
             for c, p in list(predict_proba(text).items())[:n]]
 
