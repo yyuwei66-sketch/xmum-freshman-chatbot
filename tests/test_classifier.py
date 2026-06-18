@@ -23,6 +23,7 @@ EXPECTED_CATEGORIES = {
     "University Platforms & IT Support",
     "Registration & Orientation",
     "Campus Services",
+    "Campus life",
     "Accommodation & Living",
     "Transportation",
     "Finance & Fees",
@@ -102,6 +103,15 @@ class TestLoadDataset:
         sample = df["text"].iloc[0]
         assert sample == sample.lower()
         assert "?" not in sample
+
+    def test_training_text_uses_question_only(self):
+        fixture_path = Path(__file__).resolve().parent / "fixtures" / "question_only_dataset.jsonl"
+        df = load_dataset(fixture_path)
+
+        assert df["text"].iloc[0] == "where library"
+        assert "tuition" not in df["text"].iloc[0]
+        assert "visa" not in df["text"].iloc[0]
+        assert "hostel" not in df["text"].iloc[0]
  
  
 # 2.NaiveBayes
