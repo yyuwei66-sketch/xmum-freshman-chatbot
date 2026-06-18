@@ -7,7 +7,8 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
 from sklearn.svm import LinearSVC
 from sklearn.calibration import CalibratedClassifierCV
-from sklearn.model_selection import train_test_split, StratifiedKFold, cross_val_score
+from sklearn.model_selection import (GroupShuffleSplit, StratifiedGroupKFold,
+                                      cross_val_score)
 from sklearn.metrics import accuracy_score, classification_report, f1_score
 from sklearn.pipeline import Pipeline
 from sklearn.base import BaseEstimator, ClassifierMixin
@@ -17,7 +18,8 @@ from preprocessing import preprocess_text
 
 warnings.filterwarnings("ignore")
 ROOT         = Path(__file__).resolve().parent.parent
-DATA_PATH    = ROOT / "data" / "processed" / "faq_dataset.jsonl"
+DATA_PATH    = ROOT / "data" / "final" / "faq_dataset_final_merged.jsonl"
+EXTEND_PATH  = ROOT / "data" / "train&test" / "extend_data.jsonl"
 MODELS_DIR   = ROOT / "models"
 RESULTS_DIR  = ROOT / "results"
 MODEL_PATH   = MODELS_DIR / "category_classifier.pkl"
@@ -27,11 +29,32 @@ MODELS_DIR.mkdir(parents=True, exist_ok=True)
 RESULTS_DIR.mkdir(parents=True, exist_ok=True)
 
 #Dataset
-def load_dataset(path=DATA_PATH):
-    records = [json.loads(l) for l in open(path, encoding="utf-8") if l.strip()]
-    df = pd.DataFrame(records)[["question", "category"]].dropna(
-        subset=["question", "category"])
-    df["text"] = df["question"].apply(preprocess_text)
+QUERY_VARIANTS = ("standard", "colloquial", "incomplete", "paraphrase", "noisy")
+
+def _read_jsonl(path):
+    return [json.loads(l) for l in open(path, encoding="utf-8") if l.strip()]
+
+def load_dataset(path=DATA_PATH, extend_path=EXTEND_PATH):
+    faq = _read_jsonl(path)
+    cat_by_id = {r["id"]: r["category"] for r in faq
+                 if r.get("id") and r.get("category")}
+
+    rows = [{"id": r["id"], "text": r["question"], "category": r["category"]}
+            for r in faq if r.get("id") and r.get("question") and r.get("category")]
+
+    for r in _read_jsonl(extend_path):
+        fid = r.get("id")
+        category = cat_by_id.get(fid)
+        if not category:
+            continue
+        for variant in QUERY_VARIANTS:
+            q = r.get("queries", {}).get(variant)
+            if q:
+                rows.append({"id": fid, "text": q, "category": category})
+
+    df = pd.DataFrame(rows)
+    df["text"] = df["text"].apply(preprocess_text)
+    df = df[df["text"].str.strip().astype(bool)].reset_index(drop=True)
     return df
 
 #Naive Bayes
@@ -110,7 +133,7 @@ def build_svm_pipeline(cv=5):
 
 #Evaluate
 def evaluate_pipeline(pipeline, X_train, X_test, y_train, y_test, name,
-                      X_all=None, y_all=None, cv_folds=5):
+                      X_all=None, y_all=None, groups=None, cv_folds=5):
     t0 = time.time()
     pipeline.fit(list(X_train), list(y_train))
     t = round(time.time() - t0, 4)
@@ -123,13 +146,11 @@ def evaluate_pipeline(pipeline, X_train, X_test, y_train, y_test, name,
     test_acc  = round(accuracy_score(y_test, yp), 4)
     test_f1   = round(f1_score(y_test, yp, average="macro", zero_division=0), 4)
 
-    # Stratified k-fold CV on the full dataset: mean +/- std measures how
-    # stable generalisation is across splits (independent of one lucky split).
     cv_mean = cv_std = None
-    if X_all is not None and y_all is not None:
-        skf = StratifiedKFold(n_splits=cv_folds, shuffle=True, random_state=42)
-        cv  = cross_val_score(pipeline, list(X_all), y_all,
-                              cv=skf, scoring="f1_macro")
+    if X_all is not None and y_all is not None and groups is not None:
+        sgkf = StratifiedGroupKFold(n_splits=cv_folds, shuffle=True, random_state=42)
+        cv   = cross_val_score(pipeline, list(X_all), y_all, groups=groups,
+                               cv=sgkf, scoring="f1_macro")
         cv_mean, cv_std = round(cv.mean(), 4), round(cv.std(), 4)
 
     return {"model": name,
@@ -156,9 +177,13 @@ def train_and_compare(data_path=DATA_PATH):
     print(f"Dataset: {len(df)} samples")
     print(df["category"].value_counts().to_string())
  
-    X, y = df["text"].values, df["category"].values
-    X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=0.2, random_state=42, stratify=y)
+    X, y, groups = df["text"].values, df["category"].values, df["id"].values
+    # Split by FAQ id: all query variants of one FAQ stay on the same side,
+    # otherwise near-duplicate variants leak across train/test and inflate scores.
+    gss = GroupShuffleSplit(n_splits=1, test_size=0.2, random_state=42)
+    train_idx, test_idx = next(gss.split(X, y, groups))
+    X_train, X_test = X[train_idx], X[test_idx]
+    y_train, y_test = y[train_idx], y[test_idx]
     print(f"\nTrain: {len(X_train)}  |  Test: {len(X_test)}")
  
     models = {"Naive Bayes": build_naive_bayes_pipeline(),
@@ -169,7 +194,7 @@ def train_and_compare(data_path=DATA_PATH):
     for name, pipe in models.items():
         print(f"\nTraining {name} ...", end="  ")
         r = evaluate_pipeline(pipe, X_train, X_test, y_train, y_test, name,
-                              X_all=X, y_all=y)
+                              X_all=X, y_all=y, groups=groups)
         results.append(r)
         print(f"train_acc={r['train_acc']:.4f}  test_acc={r['accuracy']:.4f}  "
               f"gap={r['gap_acc']:.4f}  cv_f1={r['cv_f1_mean']:.4f}+/-{r['cv_f1_std']:.4f}")
@@ -196,7 +221,7 @@ def train_and_compare(data_path=DATA_PATH):
                     f"{r['gap_acc']:7.4f} {r['train_f1']:9.4f} {r['f1_macro']:9.4f} "
                     f"{r['cv_f1_mean']:9.4f} +/- {r['cv_f1_std']:.4f}\n")
         f.write("\nGap = TrainAcc - TestAcc (larger gap => more overfitting). "
-                "CV is StratifiedKFold(5) f1_macro on the full dataset.\n")
+                "CV is StratifiedGroupKFold(5) f1_macro grouped by FAQ id.\n")
     print(f"Report → {REPORT_PATH}")
 
     pd.DataFrame([{"model":r["model"],"accuracy":r["accuracy"],

@@ -20,20 +20,20 @@
 <text x="82.0" y="183.0" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="11" font-weight="400" fill="#6B7280" text-anchor="end">1.0</text>
 <line x1="90.0" y1="178.0" x2="90.0" y2="312.0" stroke="#9CA3AF" stroke-width="1"/>
 <line x1="90.0" y1="312.0" x2="672.0" y2="312.0" stroke="#9CA3AF" stroke-width="1"/>
-<rect x="149.0" y="200.5" width="34.0" height="111.5" rx="4" fill="#2563EB"/>
-<rect x="191.0" y="205.7" width="34.0" height="106.3" rx="4" fill="#16A34A"/>
-<text x="166.0" y="194.5" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="11" font-weight="600" fill="#111827" text-anchor="middle">0.83</text>
-<text x="208.0" y="199.7" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="11" font-weight="600" fill="#111827" text-anchor="middle">0.79</text>
+<rect x="149.0" y="201.8" width="34.0" height="110.2" rx="4" fill="#2563EB"/>
+<rect x="191.0" y="215.5" width="34.0" height="96.5" rx="4" fill="#16A34A"/>
+<text x="166.0" y="195.8" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="11" font-weight="600" fill="#111827" text-anchor="middle">0.82</text>
+<text x="208.0" y="209.5" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="11" font-weight="600" fill="#111827" text-anchor="middle">0.72</text>
 <text x="187.0" y="340.0" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="12" font-weight="600" fill="#111827" text-anchor="middle">Naive Bayes</text>
-<rect x="343.0" y="209.1" width="34.0" height="102.9" rx="4" fill="#2563EB"/>
-<rect x="385.0" y="216.6" width="34.0" height="95.4" rx="4" fill="#16A34A"/>
-<text x="360.0" y="203.1" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="11" font-weight="600" fill="#111827" text-anchor="middle">0.77</text>
-<text x="402.0" y="210.6" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="11" font-weight="600" fill="#111827" text-anchor="middle">0.71</text>
+<rect x="343.0" y="202.5" width="34.0" height="109.5" rx="4" fill="#2563EB"/>
+<rect x="385.0" y="215.6" width="34.0" height="96.4" rx="4" fill="#16A34A"/>
+<text x="360.0" y="196.5" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="11" font-weight="600" fill="#111827" text-anchor="middle">0.82</text>
+<text x="402.0" y="209.6" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="11" font-weight="600" fill="#111827" text-anchor="middle">0.72</text>
 <text x="381.0" y="340.0" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="12" font-weight="600" fill="#111827" text-anchor="middle">Logistic Regression</text>
-<rect x="537.0" y="202.7" width="34.0" height="109.3" rx="4" fill="#2563EB"/>
-<rect x="579.0" y="209.3" width="34.0" height="102.7" rx="4" fill="#16A34A"/>
-<text x="554.0" y="196.7" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="11" font-weight="600" fill="#111827" text-anchor="middle">0.82</text>
-<text x="596.0" y="203.3" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="11" font-weight="600" fill="#111827" text-anchor="middle">0.77</text>
+<rect x="537.0" y="199.6" width="34.0" height="112.4" rx="4" fill="#2563EB"/>
+<rect x="579.0" y="212.7" width="34.0" height="99.3" rx="4" fill="#16A34A"/>
+<text x="554.0" y="193.6" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="11" font-weight="600" fill="#111827" text-anchor="middle">0.84</text>
+<text x="596.0" y="206.7" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="11" font-weight="600" fill="#111827" text-anchor="middle">0.74</text>
 <text x="575.0" y="340.0" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="12" font-weight="600" fill="#111827" text-anchor="middle">Linear SVM</text>
 <rect x="281.0" y="365.0" width="12.0" height="12.0" rx="2" fill="#2563EB"/>
 <text x="299.0" y="375.0" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="12" font-weight="400" fill="#6B7280" text-anchor="start">Accuracy</text>
@@ -42,16 +42,16 @@
 <text x="784.0" y="142.0" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="18" font-weight="700" fill="#111827" text-anchor="start">Training Time</text>
 <text x="784.0" y="197.0" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="600" fill="#111827" text-anchor="start">Naive Bayes</text>
 <rect x="954.0" y="180.0" width="140.0" height="22.0" rx="3" fill="#F3F4F6"/>
-<rect x="954.0" y="180.0" width="3.3" height="22.0" rx="3" fill="#2F80ED"/>
-<text x="965.3" y="196.0" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="12" font-weight="600" fill="#111827" text-anchor="start">0.0055s</text>
+<rect x="954.0" y="180.0" width="2.0" height="22.0" rx="3" fill="#2F80ED"/>
+<text x="964.0" y="196.0" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="12" font-weight="600" fill="#111827" text-anchor="start">0.0175s</text>
 <text x="784.0" y="264.3" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="600" fill="#111827" text-anchor="start">Logistic Regression</text>
 <rect x="954.0" y="247.3" width="140.0" height="22.0" rx="3" fill="#F3F4F6"/>
 <rect x="954.0" y="247.3" width="140.0" height="22.0" rx="3" fill="#F2994A"/>
-<text x="1102.0" y="263.3" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="12" font-weight="600" fill="#111827" text-anchor="start">0.2366s</text>
+<text x="1102.0" y="263.3" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="12" font-weight="600" fill="#111827" text-anchor="start">1.2243s</text>
 <text x="784.0" y="331.7" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="600" fill="#111827" text-anchor="start">Linear SVM</text>
 <rect x="954.0" y="314.7" width="140.0" height="22.0" rx="3" fill="#F3F4F6"/>
-<rect x="954.0" y="314.7" width="76.1" height="22.0" rx="3" fill="#27AE60"/>
-<text x="1038.1" y="330.7" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="12" font-weight="600" fill="#111827" text-anchor="start">0.1286s</text>
+<rect x="954.0" y="314.7" width="45.2" height="22.0" rx="3" fill="#27AE60"/>
+<text x="1007.2" y="330.7" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="12" font-weight="600" fill="#111827" text-anchor="start">0.3954s</text>
 <text x="784.0" y="390.0" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="12" font-weight="400" fill="#6B7280" text-anchor="start">Shorter bars indicate faster training.</text>
 <text x="66.0" y="498.0" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="18" font-weight="700" fill="#111827" text-anchor="start">Long-Tail Category Distribution in the Full FAQ Dataset</text>
 <text x="66.0" y="549.0" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="12" font-weight="600" fill="#111827" text-anchor="start">Campus life</text>
