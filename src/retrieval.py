@@ -1,16 +1,24 @@
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.linear_model import Ridge
-from sklearn.metrics.pairwise import cosine_similarity
 from pathlib import Path
-from src.rule_classify import process_user_query
-from src.preprocessing import normalize_text, preprocess_text, tokenize, remove_stopwords
 import json
-import numpy as np
 import re
+
+import numpy as np
+from sentence_transformers import SentenceTransformer
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
+
+from src.preprocessing import normalize_text, preprocess_text, remove_stopwords, tokenize
+from src.rule_classify import process_user_query
+
 
 ROOT_DIR=Path(__file__).parent.parent
 DATA_DIR=ROOT_DIR/"data"/"final"
+EMBEDDING_MODEL_NAME="sentence-transformers/all-MiniLM-L6-v2"
 FALLBACK_SCORE_THRESHOLD=0.2
+MIN_RETRIEVAL_EVIDENCE=0.25
+RRF_K=60
+RRF_TIE_EPSILON=0.01
+_embedding_cache={}
 
 
 def load_jsonl(file_path):
@@ -92,6 +100,163 @@ def extract_entities(user_question):
     }
 
 
+def encode_texts(texts):
+    """Encode texts with unit-normalized MiniLM embeddings."""
+    if not texts:
+        return np.empty((0,embedding_dimension),dtype=float)
+
+    missing_texts=[]
+    for text in texts:
+        if text not in _embedding_cache:
+            missing_texts.append(text)
+
+    if missing_texts:
+        embeddings=embedding_model.encode(
+            missing_texts,
+            convert_to_numpy=True,
+            normalize_embeddings=True,
+            show_progress_bar=False
+        )
+        for text,embedding in zip(missing_texts,embeddings):
+            _embedding_cache[text]=embedding
+
+    return np.vstack([_embedding_cache[text] for text in texts])
+
+
+def candidate_token_text(item):
+    """Build the candidate text used for token-level semantic matching."""
+    return " ".join([
+        item.get("question",""),
+        " ".join(item.get("keywords",[]))
+    ])
+
+
+def unique_tokens(text):
+    """Tokenize text for semantic token matching, preserving first occurrence."""
+    seen=set()
+    result=[]
+    for token in remove_stopwords(tokenize(text)):
+        if token not in seen:
+            seen.add(token)
+            result.append(token)
+    return result
+
+
+def rank_descending(scores):
+    """Return one-based ranks where a larger score gets a smaller rank."""
+    order=np.argsort(-scores,kind="mergesort")
+    ranks=np.empty(len(scores),dtype=int)
+    ranks[order]=np.arange(1,len(scores)+1)
+    return ranks
+
+
+def normalized_rrf_score(*rank_arrays):
+    """Calculate normalized reciprocal rank fusion scores."""
+    if not rank_arrays:
+        return np.zeros(len(qa_pairs),dtype=float)
+
+    raw_scores=np.zeros(len(rank_arrays[0]),dtype=float)
+    for ranks in rank_arrays:
+        raw_scores+=1.0/(RRF_K+ranks)
+
+    max_score=len(rank_arrays)/(RRF_K+1)
+    return np.clip(raw_scores/max_score,0.0,1.0)
+
+
+def max_token_similarity(query_embeddings, candidate_embeddings):
+    """Average each query token's best semantic match in one candidate."""
+    if query_embeddings.size == 0 or candidate_embeddings.size == 0:
+        return 0.0
+
+    similarities=query_embeddings @ candidate_embeddings.T
+    return float(np.mean(np.max(similarities,axis=1)))
+
+
+def token_embedding_similarities(query_tokens):
+    """Score query tokens against each FAQ candidate's question + keywords."""
+    query_embeddings=encode_texts(query_tokens)
+    return np.array([
+        max_token_similarity(query_embeddings,candidate_embeddings)
+        for candidate_embeddings in candidate_token_embeddings
+    ],dtype=float)
+
+
+def get_important_keyword(user_question):
+    """
+    Return the highest-IDF non-stopword query token.
+
+    The IDF values come from FAQ question tokens and are used only to choose the
+    query token for the keyword tie-breaker.
+    """
+    tokens=remove_stopwords(tokenize(user_question))
+    scored_tokens=[]
+
+    for token in tokens:
+        vocab_index=keyword_vectorizer.vocabulary_.get(token)
+        if vocab_index is not None:
+            scored_tokens.append((float(keyword_idf[vocab_index]),token))
+
+    if not scored_tokens:
+        return None
+
+    scored_tokens.sort(reverse=True)
+    return scored_tokens[0][1]
+
+
+def keyword_token_similarities(important_keyword):
+    """Score the important keyword against each candidate's closest token."""
+    if not important_keyword:
+        return np.zeros(len(qa_pairs),dtype=float)
+
+    keyword_embedding=encode_texts([important_keyword])
+    return np.array([
+        max_token_similarity(keyword_embedding,candidate_embeddings)
+        for candidate_embeddings in candidate_token_embeddings
+    ],dtype=float)
+
+
+def build_retrieval_scores(user_question):
+    """Build final RRF scores, keyword tie-break scores, and evidence scores."""
+    question_embedding=encode_texts([user_question])
+    sentence_embedding_similarities=question_embeddings @ question_embedding[0]
+
+    tfidf_vector=sentence_vectorizer.transform([user_question])
+    tfidf_sentence_similarities=cosine_similarity(tfidf_vector,sentence_question_vectors)[0]
+
+    query_tokens=remove_stopwords(tokenize(user_question))
+    embedding_token_similarities=token_embedding_similarities(query_tokens)
+
+    important_keyword=get_important_keyword(user_question)
+    keyword_similarities=keyword_token_similarities(important_keyword)
+
+    final_scores=normalized_rrf_score(
+        rank_descending(sentence_embedding_similarities),
+        rank_descending(tfidf_sentence_similarities),
+        rank_descending(embedding_token_similarities)
+    )
+    evidence_scores=np.maximum.reduce([
+        sentence_embedding_similarities,
+        tfidf_sentence_similarities,
+        embedding_token_similarities
+    ])
+
+    has_lexical_anchor=important_keyword is not None or float(np.max(tfidf_sentence_similarities)) > 0.0
+
+    return final_scores,keyword_similarities,evidence_scores,has_lexical_anchor
+
+
+def score_sort_key(result):
+    """
+    Sort by RRF score, using keyword similarity only when scores are close.
+
+    The score bucket implements the tie window without changing the public
+    confidence score returned to callers.
+    """
+    score,keyword_similarity,_,index=result
+    score_bucket=round(score/RRF_TIE_EPSILON)
+    return (score_bucket,keyword_similarity,score,-index)
+
+
 def classify_intent(user_question):
     """
     Intent classification layer.
@@ -110,8 +275,8 @@ def classify_intent(user_question):
             "response": query_info["response"]
         }
 
-    user_vector=sentence_vectorizer.transform([user_question])
-    similarities=cosine_similarity(user_vector, sentence_question_vectors)[0]
+    question_embedding=encode_texts([user_question])
+    similarities=question_embeddings @ question_embedding[0]
     best_index=similarities.argmax()
 
     return {
@@ -122,176 +287,53 @@ def classify_intent(user_question):
     }
 
 
-def entity_overlap_score(item, entities):
-    """Score how many extracted entities match one FAQ record."""
-    score=0.0
-
-    item_keywords={
-        normalize_text(keyword)
-        for keyword in item.get("keywords",[])
-    }
-    score+=0.03*len(item_keywords.intersection(entities["keywords"]))
-
-    category=normalize_text(item.get("category",""))
-    sub_category=normalize_text(item.get("sub_category",""))
-
-    if category in entities["categories"]:
-        score+=0.05
-    if sub_category in entities["sub_categories"]:
-        score+=0.05
-
-    item_text=normalize_text(
-        " ".join([
-            item.get("question",""),
-            item.get("answer",""),
-            " ".join(item.get("keywords",[]))
-        ])
-    )
-    for token in entities["tokens"]:
-        if token in item_text:
-            score+=0.005
-
-    return min(score,0.2)
-
-
-def build_keyword_search_text(item):
-    """Build the text used to check whether an important keyword is present."""
-    return normalize_text(
-        " ".join([
-            item.get("question",""),
-            " ".join(item.get("keywords",[]))
-        ])
-    )
-
-
-def get_important_keyword(user_question):
-    """
-    Return the highest-IDF non-stopword query token.
-
-    This is a lightweight proxy for the most specific word in the user's
-    question. It uses the token-level FAQ vectorizer vocabulary.
-    """
-    tokens=remove_stopwords(tokenize(user_question))
-    scored_tokens=[]
-
-    for token in tokens:
-        vocab_index=token_vectorizer.vocabulary_.get(token)
-        if vocab_index is not None:
-            scored_tokens.append((float(token_idf[vocab_index]),token))
-
-    if not scored_tokens:
-        return None
-
-    scored_tokens.sort(reverse=True)
-    return scored_tokens[0][1]
-
-
-def keyword_missing_penalty(important_keyword, item):
-    """Return -1.0 when the candidate FAQ misses the important query keyword."""
-    if not important_keyword:
-        return 0.0
-
-    if contains_normalized_phrase(item_keyword_texts[item["__index__"]],important_keyword):
-        return 0.0
-
-    return -1.0
-
-
-def build_scoring_features(user_question, intent_info, entities):
-    """Build one feature row per FAQ candidate for the trainable scorer."""
-    sentence_vector=sentence_vectorizer.transform([user_question])
-    sentence_similarities=cosine_similarity(sentence_vector,sentence_question_vectors)[0]
-
-    token_text=preprocess_text(user_question)
-    token_vector=token_vectorizer.transform([token_text])
-    token_similarities=cosine_similarity(token_vector,token_question_vectors)[0]
-
-    important_keyword=get_important_keyword(user_question)
-    features=[]
-
-    for index,item in enumerate(qa_pairs):
-        intent_match=1.0 if item.get("intent") == intent_info["intent"] else 0.0
-        entity_overlap=entity_overlap_score(item,entities)
-        keyword_penalty=keyword_missing_penalty(important_keyword,item)
-
-        features.append([
-            float(sentence_similarities[index]),
-            float(token_similarities[index]),
-            keyword_penalty,
-            intent_match,
-            entity_overlap
-        ])
-
-    return np.array(features,dtype=float)
-
-
-def clip_score(score):
-    """Calibrate and keep public confidence scores in a predictable 0..1 range."""
-    calibrated=(score-retrieval_null_score)/(1.0-retrieval_null_score)
-    return float(np.clip(calibrated,0.0,1.0))
-
-
-def train_retrieval_scorer():
-    """
-    Fit the linear retrieval scorer with weak supervision.
-
-    Each FAQ's original question is treated as a positive match for itself and
-    as a negative match for all other FAQ records. This gives fitted feature
-    weights without requiring a manually labelled query-to-FAQ dataset.
-    """
-    feature_rows=[]
-    labels=[]
-    sample_weights=[]
-    negative_weight=1.0/(len(qa_pairs)-1)
-
-    for query_index,question in enumerate(questions):
-        entities=extract_entities(question)
-        intent_info={
-            "intent": qa_pairs[query_index].get("intent","faq_query"),
-            "score": 1.0,
-            "is_rule_based": False,
-            "response": None
-        }
-        query_features=build_scoring_features(question,intent_info,entities)
-
-        for candidate_index,row in enumerate(query_features):
-            is_positive=candidate_index == query_index
-            feature_rows.append(row)
-            labels.append(1.0 if is_positive else 0.0)
-            sample_weights.append(1.0 if is_positive else negative_weight)
-
-    scorer=Ridge(alpha=1.0)
-    scorer.fit(np.array(feature_rows),np.array(labels),sample_weight=np.array(sample_weights))
-    return scorer
-
-
 def select_response(user_question, intent_info, entities):
     """
     Response selection layer.
 
-    Select the best matching FAQ answer with a weakly supervised linear
-    combination of sentence similarity, token similarity, keyword penalty,
-    intent match, and entity overlap.
+    Select the best matching FAQ answer using RRF over sentence embedding,
+    sentence TF-IDF, and semantic token rankings. Keyword similarity is used
+    only as a tie-breaker when RRF scores are close.
     """
-    features=build_scoring_features(user_question,intent_info,entities)
-    scores=retrieval_scorer.predict(features)
+    del intent_info, entities
 
-    scored_results=[]
-    for index,item in enumerate(qa_pairs):
-        score=clip_score(scores[index])
-        scored_results.append((score,index))
-
-    scored_results.sort(reverse=True)
-    best_score,best_index=scored_results[0]
-    related_questions=[
-        qa_pairs[index]["question"]
-        for _,index in scored_results[1:4]
-    ]
-
-    if best_score < FALLBACK_SCORE_THRESHOLD:
+    if not user_question.strip():
         return {
             "answer": "Sorry, I do not have an answer for that.",
-            "score": best_score,
+            "score": 0.0,
+            "matched_question": None,
+            "related_questions": []
+        }
+
+    scores,keyword_similarities,evidence_scores,has_lexical_anchor=build_retrieval_scores(user_question)
+    scored_results=[
+        (
+            float(scores[index]),
+            float(keyword_similarities[index]),
+            float(evidence_scores[index]),
+            index
+        )
+        for index in range(len(qa_pairs))
+    ]
+    scored_results.sort(key=score_sort_key,reverse=True)
+
+    best_score,_,best_evidence,best_index=scored_results[0]
+    related_questions=[
+        qa_pairs[index]["question"]
+        for _,_,_,index in scored_results[1:4]
+    ]
+
+    should_fallback=(
+        not has_lexical_anchor
+        or best_score < FALLBACK_SCORE_THRESHOLD
+        or best_evidence < MIN_RETRIEVAL_EVIDENCE
+    )
+
+    if should_fallback:
+        fallback_score=0.0 if not has_lexical_anchor else min(best_score,best_evidence)
+        return {
+            "answer": "Sorry, I do not have an answer for that.",
+            "score": fallback_score,
             "matched_question": None,
             "related_questions": related_questions
         }
@@ -341,20 +383,29 @@ qa_pairs=load_jsonl(DATA_DIR/"faq_dataset_final_merged.jsonl")
 for index,item in enumerate(qa_pairs):
     item["__index__"]=index
 
-questions = [item["question"] for item in qa_pairs]
-tokenized_questions = [preprocess_text(question) for question in questions]
+questions=[item["question"] for item in qa_pairs]
+tokenized_questions=[preprocess_text(question) for question in questions]
+candidate_tokens=[unique_tokens(candidate_token_text(item)) for item in qa_pairs]
+tokenized_candidate_texts=[" ".join(tokens) for tokens in candidate_tokens]
 entity_vocabulary=build_entity_vocabulary(qa_pairs)
-item_keyword_texts=[build_keyword_search_text(item) for item in qa_pairs]
 
-sentence_vectorizer = TfidfVectorizer(ngram_range=(1,2))
-sentence_question_vectors = sentence_vectorizer.fit_transform(questions)
+embedding_model=SentenceTransformer(EMBEDDING_MODEL_NAME)
+if hasattr(embedding_model,"get_embedding_dimension"):
+    embedding_dimension=embedding_model.get_embedding_dimension()
+else:
+    embedding_dimension=embedding_model.get_sentence_embedding_dimension()
+question_embeddings=encode_texts(questions)
+candidate_token_embeddings=[
+    encode_texts(tokens)
+    for tokens in candidate_tokens
+]
 
-token_vectorizer = TfidfVectorizer()
-token_question_vectors = token_vectorizer.fit_transform(tokenized_questions)
-token_idf = token_vectorizer.idf_
+sentence_vectorizer=TfidfVectorizer(ngram_range=(1,2))
+sentence_question_vectors=sentence_vectorizer.fit_transform(questions)
 
-retrieval_scorer = train_retrieval_scorer()
-retrieval_null_score = float(retrieval_scorer.predict(np.zeros((1,5)))[0])
+keyword_vectorizer=TfidfVectorizer()
+keyword_vectorizer.fit(tokenized_candidate_texts)
+keyword_idf=keyword_vectorizer.idf_
 
 
 def get_response(user_question):
@@ -363,7 +414,7 @@ def get_response(user_question):
 
 if __name__ == "__main__":
     while True:
-        user_input = input("You: ")
+        user_input=input("You: ")
 
         if user_input.lower() == "exit":
             break

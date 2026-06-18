@@ -38,23 +38,22 @@ def test_paraphrased_dormitory_fee_question_matches_expected_faq():
     assert "double room" in selection["answer"]
 
 
-def test_keyword_missing_penalty_penalizes_candidates_without_keyword():
+def test_keyword_token_similarity_scores_related_candidate_higher():
     query="What daily services can TNG eWallet be used for in Malaysia?"
-    entities=retrieval.extract_entities(query)
-    intent_info={
-        "intent": "ask_definition",
-        "score": 1.0,
-        "is_rule_based": False,
-        "response": None
-    }
-
-    features=retrieval.build_scoring_features(query,intent_info,entities)
+    important_keyword=retrieval.get_important_keyword(query)
+    keyword_similarities=retrieval.keyword_token_similarities(important_keyword)
     matching_index=_faq_index(query)
     unrelated_index=_faq_index("How to apply for school certificate via email?")
 
-    assert retrieval.get_important_keyword(query) == "ewallet"
-    assert features[matching_index][2] == 0.0
-    assert features[unrelated_index][2] == -1.0
+    assert important_keyword == "ewallet"
+    assert keyword_similarities[matching_index] > keyword_similarities[unrelated_index]
+
+
+def test_keyword_similarity_breaks_close_rrf_ties():
+    high_keyword=(0.505,0.9,0.8,1)
+    low_keyword=(0.500,0.1,0.9,2)
+
+    assert retrieval.score_sort_key(high_keyword) > retrieval.score_sort_key(low_keyword)
 
 
 def test_unrelated_input_uses_fallback_without_crashing():

@@ -6,6 +6,7 @@
 __pycache__/
 *.py[cod]
 *.pyc
+.pytest_cache/
 
 # Virtual environments
 .venv/
@@ -37,3 +38,18 @@ data/chunks/*
 # macOS metadata
 .DS_Store
 .vscode/
+
+# Logs and local run artifacts
+*.log
+
+# LaTeX build artifacts
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.out
+*.run.xml
+*.synctex.gz
+*.xdv
