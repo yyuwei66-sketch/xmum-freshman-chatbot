@@ -1,0 +1,224 @@
+.cl-scene {
+  color: var(--text);
+  position: relative;
+  overflow: hidden;
+}
+
+.cl-scene::before {
+  content: "";
+  position: absolute;
+  inset: 86px 110px auto auto;
+  width: 360px;
+  height: 360px;
+  border: 1px solid var(--rule);
+  border-radius: 50%;
+  opacity: 0.55;
+}
+
+.cl-hero-content {
+  flex: 1;
+  display: grid;
+  align-content: center;
+  gap: 52px;
+  padding-bottom: 24px;
+  transform: translateY(160px);
+}
+
+.cl-hero-grid {
+  display: grid;
+  grid-template-columns: 1.04fr 0.96fr;
+  gap: 58px;
+  align-items: center;
+  position: relative;
+}
+
+.cl-title {
+  margin: 24px 0 0;
+  font-family: var(--font-display-en);
+  font-size: 140px;
+  line-height: 0.96;
+  max-width: 820px;
+}
+
+.cl-title span {
+  display: block;
+  color: var(--accent);
+}
+
+.cl-input-card {
+  min-height: 500px;
+  padding: 56px;
+  display: grid;
+  gap: 30px;
+  transform: rotate(-1.5deg);
+  animation: cl-rise 760ms ease both;
+}
+
+.cl-input-card p {
+  margin: 0;
+  font-family: var(--font-display-en);
+  font-size: 58px;
+  line-height: 1.12;
+}
+
+.cl-noise {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.cl-noise span {
+  padding: 12px 16px;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  color: var(--text-2);
+  font-size: 24px;
+  background: var(--surface);
+}
+
+.cl-bottom-line {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  min-height: 70px;
+  padding-top: 20px;
+  border-top: 1px solid var(--rule);
+  color: var(--text);
+  font-size: 32px;
+  font-weight: 600;
+}
+
+.cl-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.cl-branch-title {
+  margin: 16px 0 30px;
+  max-width: 1400px;
+  font-family: var(--font-display-en);
+  font-size: 84px;
+  line-height: 1.04;
+}
+
+.cl-branch-flow {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 290px 70px 410px 140px 1fr;
+  gap: 22px;
+  align-items: center;
+  padding-bottom: 36px;
+}
+
+.cl-branch-source {
+  min-height: 250px;
+  padding: 34px;
+  display: grid;
+  align-content: center;
+  gap: 18px;
+}
+
+.cl-branch-source strong {
+  font-size: 42px;
+  line-height: 1.08;
+}
+
+.cl-flow-arrow {
+  color: var(--accent);
+  font-size: 72px;
+  text-align: center;
+}
+
+.cl-layer-card {
+  min-height: 470px;
+  padding: 34px;
+  display: grid;
+  align-content: center;
+  gap: 10px;
+}
+
+.cl-layer-stage {
+  min-height: 128px;
+  display: grid;
+  grid-template-columns: 58px 1fr;
+  align-items: center;
+  gap: 14px;
+  padding: 22px;
+  border: 1px solid var(--rule);
+  border-radius: 22px;
+  background: var(--surface);
+}
+
+.cl-layer-stage span {
+  color: var(--text-mute);
+  font-family: var(--font-mono);
+  font-size: 18px;
+}
+
+.cl-layer-stage strong {
+  font-size: 32px;
+  line-height: 1.08;
+}
+
+.cl-stage-arrow {
+  height: 34px;
+  display: grid;
+  place-items: center;
+  color: var(--text-mute);
+  font-size: 34px;
+  line-height: 1;
+}
+
+.cl-branch-lines {
+  width: 140px;
+  height: 360px;
+  overflow: visible;
+}
+
+.cl-branch-lines path {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 7;
+  stroke-linecap: round;
+}
+
+.cl-branch-lines circle {
+  fill: var(--accent);
+}
+
+.cl-outcomes {
+  display: grid;
+  gap: 24px;
+}
+
+.cl-outcome {
+  min-height: 205px;
+  padding: 30px 34px;
+  display: grid;
+  align-content: center;
+  gap: 12px;
+}
+
+.cl-outcome strong {
+  font-size: 46px;
+  line-height: 1;
+}
+
+.cl-outcome p {
+  margin: 0;
+  color: var(--text-2);
+  font-size: 25px;
+}
+
+@keyframes cl-rise {
+  from {
+    opacity: 0;
+    transform: translateY(24px) rotate(-1.5deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) rotate(-1.5deg);
+  }
+}

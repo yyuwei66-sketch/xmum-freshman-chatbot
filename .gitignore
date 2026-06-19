@@ -42,6 +42,15 @@ data/chunks/*
 # Logs and local run artifacts
 *.log
 
+# Node.js dependencies and build artifacts
+node_modules/
+dist/
+dist-ssr/
+
+# Project-local package manager runtime and cache
+.codex-npm/
+.pnpm-store/
+
 # LaTeX build artifacts
 *.aux
 *.bbl
