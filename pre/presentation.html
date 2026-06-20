@@ -394,6 +394,7 @@
       align-items: center;
       justify-content: center;
       min-height: 38px;
+      max-width: 170px;
       padding: 8px 13px;
       border: 1px solid var(--line);
       border-radius: 999px;
@@ -403,6 +404,18 @@
       font-weight: 750;
       box-shadow: 0 10px 24px rgba(24, 36, 51, .06);
       animation: tokenIn 360ms var(--ease) both;
+      overflow: hidden;
+      white-space: nowrap;
+      transition:
+        max-width 420ms var(--ease),
+        min-height 420ms var(--ease),
+        padding 420ms var(--ease),
+        border-width 420ms var(--ease),
+        opacity 300ms var(--ease),
+        color 300ms var(--ease),
+        background 300ms var(--ease),
+        box-shadow 300ms var(--ease),
+        transform 300ms var(--ease);
     }
 
     .token.removed {
@@ -412,15 +425,39 @@
       box-shadow: none;
     }
 
+    .token.exiting {
+      max-width: 0;
+      min-height: 38px;
+      padding-left: 0;
+      padding-right: 0;
+      border-width: 0;
+      opacity: 0;
+      transform: scale(.9);
+    }
+
+    .token.collapsed {
+      display: none;
+    }
+
     .token.stemmed {
       border-color: rgba(117, 136, 120, .42);
       color: var(--sage);
       background: rgba(117, 136, 120, .10);
     }
 
+    .token.changed {
+      animation: tokenMorph 520ms var(--ease) both;
+    }
+
     @keyframes tokenIn {
       from { opacity: 0; transform: translateY(10px) scale(.96); }
       to { opacity: 1; transform: none; }
+    }
+
+    @keyframes tokenMorph {
+      0% { transform: translateY(0) scale(1); }
+      45% { transform: translateY(-5px) scale(1.06); }
+      100% { transform: translateY(0) scale(1); }
     }
 
     .prep-hint {
@@ -728,54 +765,46 @@
       let index = Math.max(0, Math.min(slides.length - 1, Number(location.hash.slice(1)) - 1 || 0));
       let touchStartX = null;
       let prepStep = 0;
+      let stemTimer = null;
 
       const prepStates = [
         {
           label: 'Raw input',
           phrase: '“Can I find the Student Clubs’ application forms, please?”',
-          tokens: [],
           hint: 'Click to start preprocessing'
         },
         {
           label: '1 · Text normalization',
           phrase: 'can i find the student clubs application forms please',
-          tokens: [],
           hint: 'Lowercase text; remove punctuation and extra spaces'
         },
         {
           label: '2 · Tokenization',
           phrase: '',
-          tokens: ['can', 'i', 'find', 'the', 'student', 'clubs', 'application', 'forms', 'please'],
           hint: 'Split the sentence into individual word tokens'
         },
         {
           label: '3 · Stopword removal',
           phrase: '',
-          tokens: [
-            { text: 'can', removed: true },
-            { text: 'i', removed: true },
-            'find',
-            { text: 'the', removed: true },
-            'student',
-            'clubs',
-            'application',
-            'forms',
-            { text: 'please', removed: true }
-          ],
           hint: 'Remove low-information words and keep the useful signal'
         },
         {
           label: '4 · Conservative stemming',
-          phrase: 'find student club application form',
-          tokens: [
-            'find',
-            'student',
-            { text: 'club', stemmed: true },
-            'application',
-            { text: 'form', stemmed: true }
-          ],
+          phrase: '',
           hint: 'Unify simple plural forms: clubs → club, forms → form'
         }
+      ];
+
+      const prepTokenModel = [
+        { key: 'can', text: 'can', stopword: true },
+        { key: 'i', text: 'i', stopword: true },
+        { key: 'find', text: 'find' },
+        { key: 'the', text: 'the', stopword: true },
+        { key: 'student', text: 'student' },
+        { key: 'clubs', text: 'clubs', stem: 'club' },
+        { key: 'application', text: 'application' },
+        { key: 'forms', text: 'forms', stem: 'form' },
+        { key: 'please', text: 'please', stopword: true }
       ];
 
       function resizeStage() {
@@ -785,27 +814,76 @@
 
       const isEditing = (target) => target instanceof Element && Boolean(target.closest('input, textarea, select, button:not(.nav-zone), [contenteditable="true"]'));
 
+      function ensurePrepTokens() {
+        if (!prepTokens || prepTokens.children.length) return;
+        prepTokens.innerHTML = prepTokenModel.map((token, tokenIndex) => (
+          '<span class="token" data-key="' + token.key + '" style="animation-delay: ' + (tokenIndex * 42) + 'ms">' + token.text + '</span>'
+        )).join('');
+      }
+
+      function resetPrepTokens() {
+        if (!prepTokens) return;
+        ensurePrepTokens();
+        prepTokenModel.forEach((token) => {
+          const node = prepTokens.querySelector('[data-key="' + token.key + '"]');
+          if (!node) return;
+          node.textContent = token.text;
+          node.className = 'token';
+          node.style.removeProperty('display');
+        });
+      }
+
       function drawPrepStep(nextStep, animate = true) {
         if (!preprocessSlide || !prepLabel || !prepPhrase || !prepTokens || !prepHint) return;
+        window.clearTimeout(stemTimer);
         prepStep = Math.max(0, Math.min(prepStates.length - 1, nextStep));
         const state = prepStates[prepStep];
         preprocessSlide.dataset.prepStep = String(prepStep);
         prepLabel.textContent = state.label;
         prepHint.textContent = prepStep < prepStates.length - 1 ? state.hint : 'Preprocessed text is ready for intent detection';
 
-        if (animate) prepPhrase.classList.add('is-changing');
-        window.setTimeout(() => {
-          prepPhrase.textContent = state.phrase;
-          prepPhrase.style.display = state.phrase ? 'block' : 'none';
-          prepTokens.innerHTML = state.tokens.map((token, tokenIndex) => {
-            const item = typeof token === 'string' ? { text: token } : token;
-            const classes = ['token'];
-            if (item.removed) classes.push('removed');
-            if (item.stemmed) classes.push('stemmed');
-            return '<span class="' + classes.join(' ') + '" style="animation-delay: ' + (tokenIndex * 42) + 'ms">' + item.text + '</span>';
-          }).join('');
-          prepPhrase.classList.remove('is-changing');
-        }, animate ? 150 : 0);
+        prepPhrase.textContent = state.phrase;
+        prepPhrase.style.display = state.phrase ? 'block' : 'none';
+
+        if (prepStep < 2) {
+          resetPrepTokens();
+          prepTokens.style.display = 'none';
+          return;
+        }
+
+        prepTokens.style.display = 'flex';
+        resetPrepTokens();
+
+        if (prepStep >= 3) {
+          prepTokenModel.forEach((token) => {
+            if (!token.stopword) return;
+            const node = prepTokens.querySelector('[data-key="' + token.key + '"]');
+            node?.classList.add('removed');
+          });
+        }
+
+        if (prepStep === 4) {
+          prepTokenModel.forEach((token) => {
+            if (!token.stopword) return;
+            const node = prepTokens.querySelector('[data-key="' + token.key + '"]');
+            node?.classList.add('exiting');
+          });
+
+          stemTimer = window.setTimeout(() => {
+            prepTokenModel.forEach((token) => {
+              const node = prepTokens.querySelector('[data-key="' + token.key + '"]');
+              if (!node) return;
+              if (token.stopword) {
+                node.classList.add('collapsed');
+                return;
+              }
+              if (token.stem) {
+                node.textContent = token.stem;
+                node.classList.add('stemmed', 'changed');
+              }
+            });
+          }, animate ? 430 : 0);
+        }
       }
 
       function goForward() {
