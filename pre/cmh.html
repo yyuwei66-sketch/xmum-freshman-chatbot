@@ -387,6 +387,7 @@
       gap: 10px;
       min-height: 44px;
       align-items: center;
+      transition: gap 360ms var(--ease);
     }
 
     .token {
@@ -402,8 +403,9 @@
       color: var(--blue-dark);
       font-size: 17px;
       font-weight: 750;
+      font-family: "Avenir Next", Avenir, "Segoe UI", Arial, sans-serif;
+      line-height: 1.2;
       box-shadow: 0 10px 24px rgba(24, 36, 51, .06);
-      animation: tokenIn 360ms var(--ease) both;
       overflow: hidden;
       white-space: nowrap;
       transition:
@@ -411,11 +413,41 @@
         min-height 420ms var(--ease),
         padding 420ms var(--ease),
         border-width 420ms var(--ease),
+        border-color 420ms var(--ease),
+        border-radius 420ms var(--ease),
         opacity 300ms var(--ease),
         color 300ms var(--ease),
         background 300ms var(--ease),
+        font-size 420ms var(--ease),
+        font-weight 420ms var(--ease),
+        line-height 420ms var(--ease),
         box-shadow 300ms var(--ease),
         transform 300ms var(--ease);
+    }
+
+    .token.sentence-token {
+      min-height: auto;
+      max-width: 250px;
+      padding: 0;
+      border-width: 0;
+      border-radius: 0;
+      background: transparent;
+      color: var(--ink);
+      font-family: Georgia, serif;
+      font-size: 27px;
+      font-weight: 500;
+      line-height: 1.25;
+      box-shadow: none;
+    }
+
+    .token.normalized {
+      animation: tokenMorph 520ms var(--ease) both;
+    }
+
+    .token.pre-chip {
+      border-color: transparent;
+      background: transparent;
+      box-shadow: none;
     }
 
     .token.removed {
@@ -469,9 +501,17 @@
     }
 
     .preprocess[data-prep-step="0"] .prep-stage-label,
-    .preprocess[data-prep-step="0"] .token-row,
     .preprocess[data-prep-step="0"] .prep-hint {
       display: none;
+    }
+
+    .preprocess[data-prep-step="0"] .token-row,
+    .preprocess[data-prep-step="1"] .token-row {
+      gap: 7px;
+    }
+
+    .preprocess[data-prep-step="2"] .token-row {
+      gap: 10px;
     }
 
     .prototype-note { margin-top: 14px; color: var(--muted); font-size: 14px; line-height: 1.35; }
@@ -578,13 +618,18 @@
       right: 92px;
       bottom: 84px;
       padding: 23px 34px 23px 76px;
-      background: var(--blue-dark);
-      color: var(--white);
+      border: 1px solid rgba(200, 101, 70, .25);
+      border-left: 5px solid var(--terracotta);
+      border-radius: 22px;
+      background: rgba(255, 253, 248, .72);
+      color: var(--blue-dark);
       font-family: Georgia, serif;
       font-size: 22px;
       line-height: 1.35;
+      box-shadow: 0 18px 45px rgba(24, 36, 51, .08);
     }
-    .closing-quote::before { content: "“"; position: absolute; left: 25px; top: 5px; color: var(--saffron); font-size: 62px; }
+    .closing-quote::before { content: "“"; position: absolute; left: 25px; top: 5px; color: var(--terracotta); font-size: 62px; }
+    .closing-quote::after { content: "”"; position: absolute; right: 27px; bottom: -16px; color: rgba(213, 166, 63, .72); font-size: 62px; }
 
     .progress {
       position: absolute;
@@ -770,12 +815,12 @@
       const prepStates = [
         {
           label: 'Raw input',
-          phrase: '“Can I find the Student Clubs’ application forms, please?”',
+          phrase: '',
           hint: 'Click to start preprocessing'
         },
         {
           label: '1 · Text normalization',
-          phrase: 'can i find the student clubs application forms please',
+          phrase: '',
           hint: 'Lowercase text; remove punctuation and extra spaces'
         },
         {
@@ -796,15 +841,15 @@
       ];
 
       const prepTokenModel = [
-        { key: 'can', text: 'can', stopword: true },
-        { key: 'i', text: 'i', stopword: true },
-        { key: 'find', text: 'find' },
-        { key: 'the', text: 'the', stopword: true },
-        { key: 'student', text: 'student' },
-        { key: 'clubs', text: 'clubs', stem: 'club' },
-        { key: 'application', text: 'application' },
-        { key: 'forms', text: 'forms', stem: 'form' },
-        { key: 'please', text: 'please', stopword: true }
+        { key: 'can', raw: '“Can', text: 'can', stopword: true },
+        { key: 'i', raw: 'I', text: 'i', stopword: true },
+        { key: 'find', raw: 'find', text: 'find' },
+        { key: 'the', raw: 'the', text: 'the', stopword: true },
+        { key: 'student', raw: 'Student', text: 'student' },
+        { key: 'clubs', raw: 'Clubs’', text: 'clubs', stem: 'club' },
+        { key: 'application', raw: 'application', text: 'application' },
+        { key: 'forms', raw: 'forms,', text: 'forms', stem: 'form' },
+        { key: 'please', raw: 'please?”', text: 'please', stopword: true }
       ];
 
       function resizeStage() {
@@ -817,18 +862,19 @@
       function ensurePrepTokens() {
         if (!prepTokens || prepTokens.children.length) return;
         prepTokens.innerHTML = prepTokenModel.map((token, tokenIndex) => (
-          '<span class="token" data-key="' + token.key + '" style="animation-delay: ' + (tokenIndex * 42) + 'ms">' + token.text + '</span>'
+          '<span class="token sentence-token" data-key="' + token.key + '" style="animation-delay: ' + (tokenIndex * 42) + 'ms">' + token.raw + '</span>'
         )).join('');
       }
 
-      function resetPrepTokens() {
+      function resetPrepTokens(step = prepStep) {
         if (!prepTokens) return;
         ensurePrepTokens();
         prepTokenModel.forEach((token) => {
           const node = prepTokens.querySelector('[data-key="' + token.key + '"]');
           if (!node) return;
-          node.textContent = token.text;
-          node.className = 'token';
+          node.textContent = step === 0 ? token.raw : token.text;
+          node.className = step < 2 ? 'token sentence-token' : 'token';
+          if (step === 1 && token.raw !== token.text) node.classList.add('normalized');
           node.style.removeProperty('display');
         });
       }
@@ -842,16 +888,9 @@
         prepLabel.textContent = state.label;
         prepHint.textContent = prepStep < prepStates.length - 1 ? state.hint : 'Preprocessed text is ready for intent detection';
 
-        prepPhrase.textContent = state.phrase;
-        prepPhrase.style.display = state.phrase ? 'block' : 'none';
-
-        if (prepStep < 2) {
-          resetPrepTokens();
-          prepTokens.style.display = 'none';
-          return;
-        }
-
         prepTokens.style.display = 'flex';
+        prepPhrase.textContent = '';
+        prepPhrase.style.display = 'none';
         resetPrepTokens();
 
         if (prepStep >= 3) {
