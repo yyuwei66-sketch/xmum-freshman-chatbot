@@ -41,15 +41,27 @@ data/chunks/*
 
 # Logs and local run artifacts
 *.log
+logs/
 
 # Node.js dependencies and build artifacts
 node_modules/
 dist/
 dist-ssr/
+coverage/
+*.tsbuildinfo
+.vite/
+.vite-temp/
 
 # Project-local package manager runtime and cache
 .codex-npm/
 .pnpm-store/
+
+# Generated presentation artifacts
+pre/dist/
+pre/presentation/dist/
+pre/presentation/node_modules/
+pre/presentation/audio-segments.json
+pre/presentation/public/audio/
 
 # LaTeX build artifacts
 *.aux
