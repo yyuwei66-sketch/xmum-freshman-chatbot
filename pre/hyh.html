@@ -1,0 +1,1541 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#f4efe5">
+  <title>Machine Learning Classification — Presentation</title>
+  <style>
+    :root {
+      --paper: #f4efe5;
+      --paper-deep: #e9dfcf;
+      --ink: #182433;
+      --muted: #66707a;
+      --blue: #165a91;
+      --blue-dark: #0c3f69;
+      --terracotta: #c86546;
+      --saffron: #d5a63f;
+      --sage: #758878;
+      --line: rgba(24, 36, 51, .16);
+      --white: #fffdf8;
+      --pad-x: 92px;
+      --pad-y: 70px;
+      --ease: cubic-bezier(.2, .8, .2, 1);
+    }
+
+    * { box-sizing: border-box; }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background: #201f1d;
+      color: var(--ink);
+      font-family: "Avenir Next", Avenir, "Segoe UI", Arial, sans-serif;
+    }
+
+    body { display: grid; place-items: center; }
+    button { font: inherit; }
+    h1, h2, h3, p { margin: 0; }
+
+    h1,
+    h2 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight: 500;
+      letter-spacing: 0;
+    }
+
+    .stage {
+      position: relative;
+      width: min(100vw, calc(100vh * 16 / 9));
+      height: min(100vh, calc(100vw * 9 / 16));
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      box-shadow: 0 32px 100px rgba(0, 0, 0, .42);
+    }
+
+    .deck {
+      position: absolute;
+      inset: 0 auto auto 0;
+      width: 1600px;
+      height: 900px;
+      transform: scale(var(--deck-scale, 1));
+      transform-origin: top left;
+      background: var(--paper);
+      isolation: isolate;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      padding: var(--pad-y) var(--pad-x);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateX(1.5%);
+      transition: opacity 260ms var(--ease), transform 400ms var(--ease), visibility 0s linear 400ms;
+      background:
+        radial-gradient(circle at 91% 8%, rgba(213, 166, 63, .13) 0 118px, transparent 119px),
+        linear-gradient(110deg, rgba(255, 255, 255, .40), transparent 42%),
+        var(--paper);
+      overflow: hidden;
+    }
+
+    .slide::after {
+      content: "";
+      position: absolute;
+      inset: 22px;
+      border: 1px solid rgba(24, 36, 51, .06);
+      pointer-events: none;
+    }
+
+    .slide.is-active {
+      opacity: 1;
+      visibility: visible;
+      transform: none;
+      transition-delay: 0s;
+    }
+
+    .slide.is-active .reveal { animation: rise .55s var(--ease) both; }
+    .slide.is-active .d2 { animation-delay: 80ms; }
+    .slide.is-active .d3 { animation-delay: 160ms; }
+    .slide.is-active .d4 { animation-delay: 240ms; }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: none; }
+    }
+
+    .kicker {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin: 0 0 16px;
+      color: var(--blue);
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .kicker::before {
+      content: "";
+      width: 36px;
+      height: 3px;
+      background: var(--terracotta);
+    }
+
+    .slide-title {
+      max-width: 13ch;
+      font-size: 58px;
+      line-height: 1;
+    }
+
+    .subtitle {
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 24px;
+      line-height: 1.34;
+    }
+
+    .slide-no {
+      position: absolute;
+      top: 73px;
+      right: 94px;
+      color: rgba(24, 36, 51, .18);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 46px;
+      font-style: italic;
+    }
+
+    .footer {
+      position: absolute;
+      z-index: 3;
+      right: 92px;
+      bottom: 42px;
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      color: var(--blue-dark);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+    }
+
+    .footer span { color: var(--muted); font-weight: 650; }
+
+    .mini-label {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .classification-board {
+      position: relative;
+      align-self: center;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      min-height: 610px;
+      padding: 34px 36px 30px;
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(145deg, rgba(255, 253, 248, .88), rgba(233, 223, 207, .45)),
+        var(--white);
+      box-shadow: 0 26px 68px rgba(24, 36, 51, .10);
+    }
+
+    .classification-board::before {
+      content: "";
+      position: absolute;
+      inset: 18px;
+      border: 1px solid rgba(24, 36, 51, .07);
+      pointer-events: none;
+    }
+
+    .board-head {
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 24px;
+      padding-bottom: 22px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .board-head h3 {
+      max-width: 13ch;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 34px;
+      font-weight: 500;
+      line-height: 1.05;
+    }
+
+    .board-badge {
+      display: grid;
+      place-items: center;
+      width: 86px;
+      height: 86px;
+      border: 1px solid rgba(22, 90, 145, .30);
+      border-radius: 50%;
+      color: var(--blue-dark);
+      font-size: 15px;
+      font-weight: 850;
+      line-height: 1.08;
+      text-align: center;
+      text-transform: uppercase;
+      background: rgba(22, 90, 145, .08);
+    }
+
+    .query-card {
+      position: relative;
+      margin-top: 28px;
+      padding: 22px 24px;
+      border-left: 4px solid var(--terracotta);
+      background: rgba(255, 253, 248, .82);
+      box-shadow: 0 14px 34px rgba(24, 36, 51, .07);
+    }
+
+    .query-card p {
+      margin-top: 8px;
+      color: var(--ink);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 24px;
+      line-height: 1.22;
+    }
+
+    .classifier-core {
+      position: relative;
+      display: grid;
+      place-items: center;
+      width: 180px;
+      height: 180px;
+      margin: 30px auto 26px;
+      border-radius: 50%;
+      color: var(--white);
+      text-align: center;
+      background:
+        radial-gradient(circle at 50% 45%, rgba(255, 253, 248, .18), transparent 42%),
+        var(--blue);
+      box-shadow: 0 20px 42px rgba(22, 90, 145, .22);
+    }
+
+    .classifier-core::before,
+    .classifier-core::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      width: 1px;
+      height: 42px;
+      background: var(--terracotta);
+    }
+
+    .classifier-core::before { top: -42px; }
+    .classifier-core::after { bottom: -42px; }
+
+    .classifier-core strong {
+      display: block;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 34px;
+      font-weight: 500;
+      line-height: 1;
+    }
+
+    .classifier-core span {
+      display: block;
+      margin-top: 8px;
+      font-size: 13px;
+      font-weight: 850;
+      letter-spacing: .10em;
+      text-transform: uppercase;
+    }
+
+    .category-mini-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    .category-mini-grid span {
+      display: flex;
+      align-items: center;
+      min-height: 42px;
+      padding: 9px 12px;
+      border: 1px solid var(--line);
+      background: rgba(244, 239, 229, .62);
+      color: var(--blue-dark);
+      font-size: 13px;
+      font-weight: 800;
+      line-height: 1.15;
+    }
+
+    .category-mini-grid span:nth-child(1),
+    .category-mini-grid span:nth-child(4) {
+      border-color: rgba(200, 101, 70, .32);
+      color: var(--terracotta);
+    }
+
+    .title-metrics {
+      position: absolute;
+      left: 92px;
+      bottom: 154px;
+      display: flex;
+      gap: 34px;
+      color: var(--muted);
+    }
+
+    .title-metrics b {
+      display: block;
+      color: var(--blue-dark);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 34px;
+      font-weight: 500;
+      line-height: 1;
+    }
+
+    .title-metrics span {
+      display: block;
+      margin-top: 7px;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .chart svg,
+    .flow svg,
+    .pipeline-card svg { display: block; width: 100%; height: 100%; }
+
+    .title-slide {
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      align-items: center;
+      gap: 72px;
+    }
+
+    .title-slide h1 {
+      max-width: 10ch;
+      font-size: 88px;
+      line-height: .94;
+    }
+
+    .title-slide h1 em {
+      color: var(--blue);
+      font-style: normal;
+    }
+
+    .title-slide .subtitle {
+      max-width: 31ch;
+      margin-top: 28px;
+      font-size: 26px;
+    }
+
+    .purpose {
+      position: absolute;
+      left: 92px;
+      bottom: 82px;
+      width: 690px;
+      padding-left: 17px;
+      border-left: 3px solid var(--terracotta);
+      color: var(--ink);
+      font-size: 17px;
+      line-height: 1.45;
+    }
+
+    .pipeline-slide {
+      display: grid;
+      grid-template-rows: auto 1fr;
+      gap: 24px;
+    }
+
+    .pipeline-body {
+      display: grid;
+      grid-template-columns: 1.18fr .82fr;
+      gap: 46px;
+      align-items: stretch;
+      min-height: 520px;
+    }
+
+    .flow {
+      min-height: 0;
+      height: auto;
+      margin-top: 0;
+      display: grid;
+      align-items: stretch;
+      padding: 22px 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .routing-board {
+      display: grid;
+      grid-template-rows: auto 1fr;
+      gap: 18px;
+      height: 100%;
+    }
+
+    .incoming-card {
+      display: grid;
+      grid-template-columns: 56px 1fr;
+      align-items: center;
+      min-height: 86px;
+      border: 1px solid var(--line);
+      background: rgba(255, 253, 248, .78);
+    }
+
+    .incoming-card b {
+      display: grid;
+      place-items: center;
+      height: 100%;
+      background: var(--blue);
+      color: var(--white);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 26px;
+      font-weight: 500;
+    }
+
+    .incoming-card div { padding: 0 24px; }
+
+    .incoming-card strong {
+      display: block;
+      color: var(--ink);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 30px;
+      font-weight: 500;
+      line-height: 1.06;
+    }
+
+    .incoming-card span {
+      display: block;
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 750;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    .routing-lanes {
+      display: grid;
+      grid-template-columns: .82fr 1.18fr;
+      gap: 18px;
+    }
+
+    .route-lane {
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      min-height: 280px;
+      border: 1px solid var(--line);
+      background: rgba(255, 253, 248, .56);
+    }
+
+    .route-lane header {
+      padding: 16px 18px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .route-lane header span {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 850;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .route-lane header h3 {
+      margin-top: 7px;
+      color: var(--ink);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 27px;
+      font-weight: 500;
+      line-height: 1.05;
+    }
+
+    .route-lane.rule header { border-top: 4px solid var(--terracotta); }
+    .route-lane.ml header { border-top: 4px solid var(--blue); }
+
+    .route-lane ul {
+      display: grid;
+      gap: 10px;
+      margin: 0;
+      padding: 17px 18px;
+      list-style: none;
+    }
+
+    .route-lane li {
+      display: grid;
+      grid-template-columns: 28px 1fr;
+      align-items: start;
+      gap: 10px;
+      color: var(--ink);
+      font-size: 15px;
+      line-height: 1.25;
+    }
+
+    .route-lane li b {
+      display: grid;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--paper-deep);
+      color: var(--blue-dark);
+      font-size: 13px;
+      font-weight: 850;
+    }
+
+    .route-result {
+      margin: 0 18px 18px;
+      padding: 12px 14px;
+      background: var(--ink);
+      color: var(--white);
+      font-size: 17px;
+      font-weight: 850;
+      text-align: center;
+    }
+
+    .route-lane.rule .route-result {
+      background: var(--terracotta);
+    }
+
+    .category-cloud {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 6px 8px;
+      margin: 0;
+    }
+
+    .category-cloud span,
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 32px;
+      padding: 6px 9px;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      background: rgba(255, 253, 248, .76);
+      color: var(--blue-dark);
+      font-size: 12px;
+      font-weight: 800;
+      text-align: center;
+      line-height: 1.18;
+    }
+
+    .route-note {
+      display: grid;
+      grid-template-columns: 1fr;
+      align-content: start;
+      gap: 18px;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid rgba(24, 36, 51, .08);
+      padding: 22px 0;
+      margin: 0;
+    }
+
+    .route-note article {
+      min-height: 98px;
+      padding: 16px 18px;
+      border-left: 3px solid var(--terracotta);
+      background: rgba(255, 253, 248, .62);
+    }
+
+    .route-note article:nth-child(2) {
+      border-left-color: var(--blue);
+    }
+
+    .route-note b {
+      display: block;
+      color: var(--ink);
+      font-size: 19px;
+      line-height: 1.15;
+    }
+
+    .route-note p {
+      margin-top: 7px;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.34;
+    }
+
+    .category-block {
+      display: grid;
+      grid-template-columns: 1fr;
+      align-items: start;
+      gap: 10px;
+      padding: 16px 18px 18px;
+      border-left: 3px solid var(--sage);
+      background: rgba(255, 253, 248, .62);
+    }
+
+    .category-block .mini-label {
+      color: var(--blue-dark);
+      line-height: 1.3;
+    }
+
+    .training-grid {
+      display: grid;
+      grid-template-columns: .78fr 1.22fr;
+      gap: 54px;
+      align-items: center;
+      margin-top: 26px;
+    }
+
+    .feature-note {
+      display: grid;
+      gap: 16px;
+      padding-top: 28px;
+    }
+
+    .feature-note article {
+      border-left: 3px solid var(--terracotta);
+      padding: 13px 0 13px 20px;
+    }
+
+    .feature-note h3 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 29px;
+      font-weight: 500;
+      line-height: 1.05;
+    }
+
+    .feature-note p {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.4;
+    }
+
+    .model-lanes {
+      display: grid;
+      gap: 17px;
+      padding-top: 28px;
+    }
+
+    .lane {
+      display: grid;
+      grid-template-columns: 82px 1fr;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .lane-label {
+      display: grid;
+      place-items: center;
+      width: 76px;
+      height: 76px;
+      border-radius: 50%;
+      background: var(--ink);
+      color: var(--white);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 24px;
+      font-weight: 500;
+    }
+
+    .lane:nth-child(2) .lane-label { background: var(--blue); }
+    .lane:nth-child(3) .lane-label { background: var(--terracotta); }
+
+    .lane-steps {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      align-items: stretch;
+      gap: 9px;
+    }
+
+    .lane-steps span {
+      position: relative;
+      display: grid;
+      place-items: center;
+      min-height: 70px;
+      padding: 9px 11px;
+      border: 1px solid var(--line);
+      background: rgba(255, 253, 248, .78);
+      color: var(--ink);
+      font-size: 14px;
+      font-weight: 750;
+      line-height: 1.18;
+      text-align: center;
+    }
+
+    .lane-steps span:not(:last-child)::after {
+      content: "→";
+      position: absolute;
+      right: -12px;
+      top: 50%;
+      z-index: 2;
+      transform: translateY(-50%);
+      color: var(--terracotta);
+      font-size: 19px;
+    }
+
+    .setup-strip {
+      position: absolute;
+      left: 92px;
+      right: 92px;
+      bottom: 102px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      border-top: 1px solid var(--line);
+      padding-top: 18px;
+    }
+
+    .setup-strip p {
+      min-height: 76px;
+      padding: 14px 18px;
+      border-left: 3px solid var(--blue);
+      background: rgba(255, 253, 248, .62);
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.32;
+    }
+
+    .setup-strip b {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--ink);
+      font-size: 18px;
+      line-height: 1.15;
+    }
+
+    .setup-strip p:nth-child(2) { border-left-color: var(--terracotta); }
+    .setup-strip p:nth-child(3) { border-left-color: var(--sage); }
+
+    .method-grid {
+      display: grid;
+      grid-template-columns: .8fr 1.2fr;
+      gap: 46px;
+      align-items: center;
+      margin-top: 18px;
+    }
+
+    .chart {
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 18px 0 12px;
+    }
+
+    .method-copy {
+      display: grid;
+      gap: 18px;
+    }
+
+    .metric-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .metric-list span {
+      padding: 13px 14px;
+      border-left: 3px solid var(--blue);
+      background: rgba(255, 253, 248, .66);
+      color: var(--ink);
+      font-size: 16px;
+      line-height: 1.28;
+    }
+
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: rgba(255, 253, 248, .66);
+      font-size: 15px;
+      line-height: 1.26;
+      box-shadow: 0 14px 34px rgba(24, 36, 51, .05);
+    }
+
+    .comparison-table th,
+    .comparison-table td {
+      padding: 12px 13px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .comparison-table th {
+      color: var(--blue-dark);
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .comparison-table tr:last-child td { border-bottom: 0; }
+
+    .performance-grid {
+      display: grid;
+      grid-template-columns: 1.12fr .88fr;
+      gap: 54px;
+      align-items: start;
+      margin-top: 18px;
+    }
+
+    .bar-chart {
+      height: 470px;
+      border-left: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 22px 22px 0 34px;
+    }
+
+    .bar-row {
+      display: grid;
+      grid-template-columns: 148px 1fr;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 34px;
+    }
+
+    .bar-label {
+      color: var(--ink);
+      font-size: 18px;
+      font-weight: 800;
+      line-height: 1.18;
+    }
+
+    .bars { display: grid; gap: 9px; }
+
+    .bar {
+      position: relative;
+      height: 34px;
+      background: rgba(24, 36, 51, .07);
+      overflow: hidden;
+    }
+
+    .bar span {
+      display: block;
+      height: 100%;
+      background: var(--blue);
+    }
+
+    .bar.f1 span { background: var(--terracotta); }
+
+    .bar b {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--ink);
+      font-size: 13px;
+      font-weight: 800;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .legend {
+      display: flex;
+      gap: 18px;
+      margin: 3px 0 24px 166px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .legend span::before {
+      content: "";
+      display: inline-block;
+      width: 24px;
+      height: 9px;
+      margin-right: 8px;
+      background: var(--blue);
+      vertical-align: 1px;
+    }
+
+    .legend span:last-child::before { background: var(--terracotta); }
+
+    .callout-stack {
+      display: grid;
+      gap: 18px;
+      margin-top: 40px;
+    }
+
+    .result-card {
+      padding: 22px 26px;
+      border: 1px solid rgba(22, 90, 145, .18);
+      background: rgba(255, 253, 248, .74);
+      box-shadow: 0 18px 42px rgba(24, 36, 51, .07);
+    }
+
+    .result-card strong {
+      display: block;
+      color: var(--terracotta);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 46px;
+      font-weight: 500;
+      line-height: 1;
+    }
+
+    .result-card p {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.35;
+    }
+
+    .small-facts {
+      display: grid;
+      gap: 11px;
+      color: var(--ink);
+      font-size: 17px;
+      line-height: 1.32;
+    }
+
+    .small-facts p {
+      padding: 12px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .small-facts b { color: var(--blue-dark); }
+
+    .conclusion {
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap: 60px;
+      align-items: start;
+    }
+
+    .insights {
+      display: grid;
+      gap: 15px;
+      margin-top: 28px;
+    }
+
+    .insight {
+      display: grid;
+      grid-template-columns: 54px 1fr;
+      align-items: start;
+      gap: 18px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .insight b {
+      color: var(--terracotta);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 27px;
+      font-style: italic;
+      font-weight: 500;
+    }
+
+    .insight p {
+      font-size: 20px;
+      line-height: 1.3;
+    }
+
+    .insight span { color: var(--muted); }
+
+    .f1-panel {
+      margin-top: 91px;
+    }
+
+    .f1-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 16px;
+      font-size: 15px;
+      line-height: 1.2;
+      background: rgba(255, 253, 248, .66);
+    }
+
+    .f1-table th,
+    .f1-table td {
+      padding: 10px 11px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: middle;
+    }
+
+    .f1-table th {
+      color: var(--blue-dark);
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .f1-table td:last-child {
+      color: var(--terracotta);
+      font-weight: 800;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .improvement-strip {
+      position: absolute;
+      left: 92px;
+      right: 92px;
+      bottom: 230px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .improvement-strip article {
+      min-height: 78px;
+      padding: 13px 18px;
+      border-top: 1px solid var(--line);
+      background: rgba(255, 253, 248, .56);
+    }
+
+    .improvement-strip b {
+      display: block;
+      color: var(--terracotta);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 25px;
+      font-weight: 500;
+      line-height: 1;
+    }
+
+    .improvement-strip p {
+      margin-top: 7px;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.26;
+    }
+
+    .closing-quote {
+      position: absolute;
+      left: 92px;
+      right: 92px;
+      bottom: 84px;
+      padding: 22px 34px 22px 74px;
+      border: 1px solid rgba(200, 101, 70, .25);
+      border-left: 5px solid var(--terracotta);
+      border-radius: 8px;
+      background: rgba(255, 253, 248, .72);
+      color: var(--blue-dark);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 22px;
+      line-height: 1.34;
+      box-shadow: 0 18px 45px rgba(24, 36, 51, .08);
+    }
+
+    .closing-quote::before {
+      content: "“";
+      position: absolute;
+      left: 25px;
+      top: 5px;
+      color: var(--terracotta);
+      font-size: 62px;
+    }
+
+    .progress {
+      position: absolute;
+      z-index: 10;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 3px;
+      pointer-events: none;
+    }
+
+    .progress > span {
+      display: block;
+      width: 0;
+      height: 100%;
+      background: var(--terracotta);
+      transition: width 240ms var(--ease);
+    }
+
+    .counter {
+      position: absolute;
+      z-index: 10;
+      left: 92px;
+      bottom: 43px;
+      color: rgba(24, 36, 51, .42);
+      font-size: 12px;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: .12em;
+      pointer-events: none;
+    }
+
+    .nav-zone:focus-visible {
+      outline: 3px solid var(--blue);
+      outline-offset: -6px;
+    }
+
+    .nav-zone {
+      position: absolute;
+      z-index: 5;
+      top: 0;
+      bottom: 0;
+      width: 12%;
+      border: 0;
+      padding: 0;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    .nav-zone.prev { left: 0; }
+    .nav-zone.next { right: 0; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+      }
+    }
+
+    @page { size: 16in 9in; margin: 0; }
+
+    @media print {
+      html,
+      body {
+        display: block;
+        width: auto;
+        height: auto;
+        overflow: visible;
+        background: #fff;
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+      }
+
+      .stage {
+        width: 16in;
+        height: auto;
+        overflow: visible;
+        box-shadow: none;
+      }
+
+      .deck {
+        position: relative;
+        width: 16in;
+        height: auto;
+        transform: none;
+        overflow: visible;
+      }
+
+      .slide {
+        position: relative;
+        width: 16in;
+        height: 9in;
+        break-after: page;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        transition: none;
+      }
+
+      .slide .reveal { animation: none !important; }
+      .progress,
+      .counter,
+      .nav-zone { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="stage">
+    <main class="deck" aria-label="Machine Learning Classification slide presentation">
+      <section class="slide title-slide is-active" data-title="Machine Learning Classification" aria-hidden="false">
+        <div>
+          <p class="kicker reveal">XMUM Freshman FAQ Chatbot</p>
+          <h1 class="reveal d2">Machine Learning <em>Classification</em></h1>
+          <p class="subtitle reveal d3">Comparing Naive Bayes, Logistic Regression, and Linear SVM</p>
+        </div>
+        <div class="classification-board reveal d3" role="img" aria-label="A freshman question is converted into text features, classified by a machine learning model, and routed to one of eight FAQ categories">
+          <div class="board-head">
+            <div>
+              <p class="mini-label">Classification task</p>
+              <h3>Predict the FAQ topic before retrieval.</h3>
+            </div>
+            <div class="board-badge">8<br>classes</div>
+          </div>
+          <div>
+            <div class="query-card">
+              <span class="mini-label">User question</span>
+              <p>“How do I access the university Wi-Fi?”</p>
+            </div>
+            <div class="classifier-core">
+              <div><strong>SVM</strong><span>best test result</span></div>
+            </div>
+            <div class="category-mini-grid">
+              <span>Academic Affairs</span>
+              <span>Accommodation</span>
+              <span>Campus Services</span>
+              <span>Campus life</span>
+              <span>Finance & Fees</span>
+              <span>Registration</span>
+              <span>Transportation</span>
+              <span>IT Support</span>
+            </div>
+          </div>
+        </div>
+        <div class="title-metrics reveal d4" aria-label="Deck summary metrics">
+          <p><b>3</b><span>models compared</span></p>
+          <p><b>8</b><span>target categories</span></p>
+          <p><b>0.7186</b><span>best macro F1</span></p>
+        </div>
+        <p class="purpose reveal d4">This presentation focuses on the model layer that predicts the FAQ topic before retrieval and response selection.</p>
+        <div class="footer">HUANG YUHAN <span>/ TCM2409003</span></div>
+      </section>
+
+      <section class="slide pipeline-slide" data-title="Role of Classification" aria-hidden="true">
+        <header>
+          <p class="kicker reveal">01 · Route the real FAQ query</p>
+          <h2 class="slide-title reveal d2">Role of Classification</h2>
+          <p class="subtitle reveal d3">Rule-based intents handle small talk; ML predicts the category for genuine freshman questions.</p>
+        </header>
+        <div class="pipeline-body">
+          <div class="flow reveal d3" role="img" aria-label="Routing board showing simple intents handled by rules and FAQ questions handled by machine learning classification">
+            <div class="routing-board">
+              <div class="incoming-card">
+                <b>?</b>
+                <div>
+                  <strong>Incoming freshman message</strong>
+                  <span>Classify the message route before selecting a response</span>
+                </div>
+              </div>
+              <div class="routing-lanes">
+                <section class="route-lane rule" aria-label="Rule-based direct reply lane">
+                  <header><span>Small talk intent</span><h3>Rule-based reply</h3></header>
+                  <ul>
+                    <li><b>1</b><span>Greeting, thanks, goodbye, help, or identity</span></li>
+                    <li><b>2</b><span>Matched by simple intent rules</span></li>
+                  </ul>
+                  <p class="route-result">Direct reply</p>
+                </section>
+                <section class="route-lane ml" aria-label="Machine learning FAQ route lane">
+                  <header><span>Real FAQ question</span><h3>ML classification route</h3></header>
+                  <ul>
+                    <li><b>1</b><span>Text preprocessing cleans the question</span></li>
+                    <li><b>2</b><span>Classifier predicts one of eight categories</span></li>
+                    <li><b>3</b><span>FAQ retrieval selects the response</span></li>
+                  </ul>
+                  <p class="route-result">Predicted category → answer</p>
+                </section>
+              </div>
+            </div>
+          </div>
+          <div class="route-note reveal d4">
+            <article>
+              <b>Rule-based layer</b>
+              <p>Greetings, thanks, goodbye, help, and identity are answered directly.</p>
+            </article>
+            <article>
+              <b>ML layer</b>
+              <p>Real FAQ questions are classified before retrieval.</p>
+            </article>
+            <div class="category-block" aria-label="Eight target FAQ categories">
+              <p class="mini-label">8 target categories</p>
+              <div class="category-cloud">
+                <span>Academic Affairs</span>
+                <span>Accommodation</span>
+                <span>Campus Services</span>
+                <span>Campus life</span>
+                <span>Finance & Fees</span>
+                <span>Registration</span>
+                <span>Transportation</span>
+                <span>IT Support</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <span class="slide-no">02</span>
+        <div class="footer">HUANG YUHAN <span>/ TCM2409003</span></div>
+      </section>
+
+      <section class="slide" data-title="Training Pipeline" aria-hidden="true">
+        <header>
+          <p class="kicker reveal">02 · Same text, different representations</p>
+          <h2 class="slide-title reveal d2">Training Pipeline</h2>
+        </header>
+        <div class="training-grid">
+          <div class="feature-note reveal d3">
+            <article>
+              <h3>Shared preprocessing</h3>
+              <p>Lowercasing, punctuation removal, tokenization, stopword removal, and simple stemming.</p>
+            </article>
+            <article>
+              <h3>Two feature routes</h3>
+              <p>Naive Bayes uses word counts; Logistic Regression and Linear SVM use TF-IDF unigram and bigram features.</p>
+            </article>
+            <article>
+              <h3>Controlled comparison</h3>
+              <p>The same FAQ dataset is split with an 80/20 stratified train-test workflow.</p>
+            </article>
+          </div>
+          <div class="model-lanes reveal d4" aria-label="Training pipelines for Naive Bayes, Logistic Regression, and Linear SVM">
+            <div class="lane">
+              <div class="lane-label">NB</div>
+              <div class="lane-steps"><span>Data</span><span>Preprocessing</span><span>Word Counts</span><span>Naive Bayes Training</span><span>Prediction</span></div>
+            </div>
+            <div class="lane">
+              <div class="lane-label">LR</div>
+              <div class="lane-steps"><span>Data</span><span>Preprocessing</span><span>TF-IDF Features</span><span>Logistic Regression</span><span>Prediction</span></div>
+            </div>
+            <div class="lane">
+              <div class="lane-label">SVM</div>
+              <div class="lane-steps"><span>Data</span><span>Preprocessing</span><span>TF-IDF Features</span><span>Linear SVM Training</span><span>Prediction</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="setup-strip reveal d4" aria-label="Training setup details">
+          <p><b>80/20 stratified split</b>Each category remains represented in both training and testing data.</p>
+          <p><b>TF-IDF text features</b>Logistic Regression and Linear SVM use unigram + bigram features, max 2000.</p>
+          <p><b>Laplace smoothing</b>Naive Bayes keeps a custom word-count probabilistic route.</p>
+        </div>
+        <span class="slide-no">03</span>
+        <div class="footer">HUANG YUHAN <span>/ TCM2409003</span></div>
+      </section>
+
+      <section class="slide" data-title="Evaluation Method" aria-hidden="true">
+        <header>
+          <p class="kicker reveal">03 · Why macro F1 matters</p>
+          <h2 class="slide-title reveal d2">Evaluation Method</h2>
+        </header>
+        <div class="method-grid">
+          <div class="chart reveal d3" role="img" aria-label="Category distribution chart showing Campus life has 193 samples and IT Support has 43 samples">
+            <svg viewBox="0 0 560 520">
+              <g font-family="Avenir Next, Segoe UI, Arial, sans-serif" font-size="17" fill="#182433">
+                <text x="0" y="23" font-weight="800" fill="#66707a">Dataset Category Distribution</text>
+                <g transform="translate(0 54)">
+                  <text x="0" y="22">Campus life</text><rect x="220" y="2" width="300" height="24" fill="#165a91"/><text x="532" y="22" text-anchor="end" font-weight="800">193</text>
+                  <text x="0" y="76">Accommodation</text><rect x="220" y="56" width="146" height="24" fill="#758878"/><text x="532" y="76" text-anchor="end" font-weight="800">94</text>
+                  <text x="0" y="130">Academic Affairs</text><rect x="220" y="110" width="110" height="24" fill="#758878"/><text x="532" y="130" text-anchor="end" font-weight="800">71</text>
+                  <text x="0" y="184">Registration</text><rect x="220" y="164" width="99" height="24" fill="#758878"/><text x="532" y="184" text-anchor="end" font-weight="800">64</text>
+                  <text x="0" y="238">Transportation</text><rect x="220" y="218" width="82" height="24" fill="#758878"/><text x="532" y="238" text-anchor="end" font-weight="800">53</text>
+                  <text x="0" y="292">Finance & Fees</text><rect x="220" y="272" width="81" height="24" fill="#758878"/><text x="532" y="292" text-anchor="end" font-weight="800">52</text>
+                  <text x="0" y="346">Campus Services</text><rect x="220" y="326" width="81" height="24" fill="#d5a63f"/><text x="532" y="346" text-anchor="end" font-weight="800">52</text>
+                  <text x="0" y="400">IT Support</text><rect x="220" y="380" width="67" height="24" fill="#c86546"/><text x="532" y="400" text-anchor="end" font-weight="800">43</text>
+                </g>
+              </g>
+            </svg>
+          </div>
+          <div class="method-copy reveal d4">
+            <div class="metric-list" aria-label="Evaluation workflow and metrics">
+              <span>Stratified 80/20 train-test split</span>
+              <span>Train on labeled FAQ questions</span>
+              <span>Test on unseen questions</span>
+              <span>Compare accuracy, precision, recall, and macro F1</span>
+              <span>Check train-test accuracy gap</span>
+              <span>Use 5-fold CV macro F1 for stability</span>
+            </div>
+            <table class="comparison-table" aria-label="Model comparison table">
+              <thead><tr><th>Model</th><th>Main idea</th><th>Strength</th><th>Limitation</th></tr></thead>
+              <tbody>
+                <tr><td>Naive Bayes</td><td>Word probabilities and class priors</td><td>Very fast and simple</td><td>Lower macro F1; assumes word independence</td></tr>
+                <tr><td>Logistic Regression</td><td>Class probabilities from TF-IDF features</td><td>Strong baseline and interpretable</td><td>Highest train-test gap in this result</td></tr>
+                <tr><td>Linear SVM</td><td>Linear decision boundaries for text features</td><td>Best test accuracy and macro F1</td><td>Less transparent than Naive Bayes</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <span class="slide-no">04</span>
+        <div class="footer">HUANG YUHAN <span>/ TCM2409003</span></div>
+      </section>
+
+      <section class="slide" data-title="Performance Comparison" aria-hidden="true">
+        <header>
+          <p class="kicker reveal">04 · Held-out test evidence</p>
+          <h2 class="slide-title reveal d2">Performance Comparison</h2>
+        </header>
+        <div class="performance-grid">
+          <div class="reveal d3">
+            <div class="legend"><span>Test Accuracy</span><span>Macro F1</span></div>
+            <div class="bar-chart" role="img" aria-label="Grouped bar chart comparing test accuracy and macro F1 for Naive Bayes, Logistic Regression, and Linear SVM">
+              <div class="bar-row">
+                <p class="bar-label">Naive<br>Bayes</p>
+                <div class="bars">
+                  <div class="bar"><span style="width:72.80%"></span><b>0.7280</b></div>
+                  <div class="bar f1"><span style="width:64.28%"></span><b>0.6428</b></div>
+                </div>
+              </div>
+              <div class="bar-row">
+                <p class="bar-label">Logistic<br>Regression</p>
+                <div class="bars">
+                  <div class="bar"><span style="width:74.40%"></span><b>0.7440</b></div>
+                  <div class="bar f1"><span style="width:69.05%"></span><b>0.6905</b></div>
+                </div>
+              </div>
+              <div class="bar-row">
+                <p class="bar-label">Linear<br>SVM</p>
+                <div class="bars">
+                  <div class="bar"><span style="width:76.80%"></span><b>0.7680</b></div>
+                  <div class="bar f1"><span style="width:71.86%"></span><b>0.7186</b></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="callout-stack reveal d4">
+            <div class="result-card">
+              <p class="mini-label">Best test-set model</p>
+              <strong>Linear SVM</strong>
+              <p>Accuracy 0.7680, macro F1 0.7186, and the smallest train-test accuracy gap at 0.2119.</p>
+            </div>
+            <div class="small-facts">
+              <p><b>Naive Bayes</b> was fastest: 0.0034s training time.</p>
+              <p><b>Logistic Regression</b> had highest 5-fold CV macro F1: 0.7668 +/- 0.0466.</p>
+              <p><b>Linear SVM</b> gave the strongest held-out test result.</p>
+            </div>
+          </div>
+        </div>
+        <span class="slide-no">05</span>
+        <div class="footer">HUANG YUHAN <span>/ TCM2409003</span></div>
+      </section>
+
+      <section class="slide conclusion" data-title="Conclusion and Insights" aria-hidden="true">
+        <div>
+          <p class="kicker reveal">05 · Practical choice</p>
+          <h2 class="slide-title reveal d2">Conclusion and Insights</h2>
+          <div class="insights reveal d3">
+            <div class="insight"><b>01</b><p>Linear SVM achieved the best held-out test performance: <span>0.7680 accuracy and 0.7186 macro F1.</span></p></div>
+            <div class="insight"><b>02</b><p>Campus life and Academic Affairs performed strongly.</p></div>
+            <div class="insight"><b>03</b><p>Campus Services and IT Support were harder, likely due to fewer samples and overlapping wording.</p></div>
+            <div class="insight"><b>04</b><p>Next steps: add balanced data, tune parameters, and improve category-specific examples.</p></div>
+          </div>
+        </div>
+        <div class="f1-panel reveal d4">
+          <p class="mini-label">Linear SVM per-class F1</p>
+          <table class="f1-table" aria-label="Linear SVM per-class F1 scores">
+            <thead><tr><th>Category</th><th>Precision</th><th>Recall</th><th>F1</th></tr></thead>
+            <tbody>
+              <tr><td>Campus life</td><td>0.8780</td><td>0.9231</td><td>0.9000</td></tr>
+              <tr><td>Academic Affairs</td><td>0.8571</td><td>0.8571</td><td>0.8571</td></tr>
+              <tr><td>Registration & Orientation</td><td>1.0000</td><td>0.6923</td><td>0.8182</td></tr>
+              <tr><td>Accommodation & Living</td><td>0.7500</td><td>0.7895</td><td>0.7692</td></tr>
+              <tr><td>Transportation</td><td>0.6667</td><td>0.7273</td><td>0.6957</td></tr>
+              <tr><td>Finance & Fees</td><td>0.7500</td><td>0.6000</td><td>0.6667</td></tr>
+              <tr><td>IT Support</td><td>0.7143</td><td>0.5556</td><td>0.6250</td></tr>
+              <tr><td>Campus Services</td><td>0.3571</td><td>0.5000</td><td>0.4167</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="improvement-strip reveal d4" aria-label="Future improvement directions">
+          <article><b>Balance</b><p>Add more examples for smaller categories such as IT Support and Campus Services.</p></article>
+          <article><b>Tune</b><p>Adjust model parameters and feature settings after collecting more FAQ questions.</p></article>
+          <article><b>Refine</b><p>Improve category-specific wording so overlapping questions become easier to separate.</p></article>
+        </div>
+        <blockquote class="closing-quote reveal d4">Overall, Linear SVM is the most suitable classifier for the current chatbot because it gives the best balance between test accuracy, macro F1, and generalization.</blockquote>
+        <span class="slide-no">06</span>
+        <div class="footer">HUANG YUHAN <span>/ TCM2409003</span></div>
+      </section>
+
+      <button class="nav-zone prev" type="button" aria-label="Previous slide"></button>
+      <button class="nav-zone next" type="button" aria-label="Next slide"></button>
+      <div class="progress" aria-hidden="true"><span></span></div>
+      <div class="counter" aria-live="polite"></div>
+    </main>
+  </div>
+
+  <script>
+    (() => {
+      const deck = document.querySelector('.deck');
+      const stage = document.querySelector('.stage');
+      const slides = [...document.querySelectorAll('.slide')];
+      const counter = document.querySelector('.counter');
+      const progress = document.querySelector('.progress > span');
+      const prevButton = document.querySelector('.nav-zone.prev');
+      const nextButton = document.querySelector('.nav-zone.next');
+      let index = Math.max(0, Math.min(slides.length - 1, Number(location.hash.slice(1)) - 1 || 0));
+      let touchStartX = null;
+
+      function resizeStage() {
+        const scale = Math.min(stage.clientWidth / 1600, stage.clientHeight / 900);
+        deck.style.setProperty('--deck-scale', String(scale));
+      }
+
+      const isEditing = (target) => target instanceof Element && Boolean(target.closest('input, textarea, select, button:not(.nav-zone), [contenteditable="true"]'));
+
+      function render(nextIndex, updateHash = true) {
+        index = Math.max(0, Math.min(slides.length - 1, nextIndex));
+        slides.forEach((slide, slideIndex) => {
+          const active = slideIndex === index;
+          slide.classList.toggle('is-active', active);
+          slide.setAttribute('aria-hidden', String(!active));
+        });
+        counter.textContent = `${String(index + 1).padStart(2, '0')} / ${String(slides.length).padStart(2, '0')}`;
+        progress.style.width = `${((index + 1) / slides.length) * 100}%`;
+        const title = slides[index]?.dataset.title;
+        document.title = title ? `${title} — Machine Learning Classification` : 'Machine Learning Classification';
+        if (updateHash) history.replaceState(null, '', `#${index + 1}`);
+        slides[index]?.focus({ preventScroll: true });
+      }
+
+      function goForward() { render(index + 1); }
+      function goBack() { render(index - 1); }
+
+      function enterFullscreen() {
+        if (!document.fullscreenElement) deck.requestFullscreen?.().catch(() => {});
+        else document.exitFullscreen?.().catch(() => {});
+      }
+
+      document.addEventListener('keydown', (event) => {
+        if (isEditing(event.target)) return;
+        const nextKeys = ['ArrowRight', 'ArrowDown', 'PageDown', ' '];
+        const prevKeys = ['ArrowLeft', 'ArrowUp', 'PageUp'];
+        if (nextKeys.includes(event.key)) { event.preventDefault(); goForward(); }
+        else if (prevKeys.includes(event.key)) { event.preventDefault(); goBack(); }
+        else if (event.key === 'Home') { event.preventDefault(); render(0); }
+        else if (event.key === 'End') { event.preventDefault(); render(slides.length - 1); }
+        else if (event.key.toLowerCase() === 'f') { event.preventDefault(); enterFullscreen(); }
+      });
+
+      prevButton.addEventListener('click', () => goBack());
+      nextButton.addEventListener('click', () => goForward());
+      deck.addEventListener('click', (event) => {
+        if (isEditing(event.target) || event.target.closest('.nav-zone')) return;
+        goForward();
+      });
+      window.addEventListener('hashchange', () => render(Number(location.hash.slice(1)) - 1 || 0, false));
+      deck.addEventListener('touchstart', (event) => { touchStartX = event.changedTouches[0]?.clientX ?? null; }, { passive: true });
+      deck.addEventListener('touchend', (event) => {
+        if (touchStartX === null) return;
+        const distance = (event.changedTouches[0]?.clientX ?? touchStartX) - touchStartX;
+        touchStartX = null;
+        if (Math.abs(distance) < 48) return;
+        if (distance < 0) goForward();
+        else goBack();
+      }, { passive: true });
+
+      window.addEventListener('resize', resizeStage);
+      resizeStage();
+      render(index, false);
+    })();
+  </script>
+</body>
+</html>
