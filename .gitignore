@@ -42,6 +42,7 @@ data/chunks/*
 # Logs and local run artifacts
 *.log
 logs/
+temp/
 
 # Node.js dependencies and build artifacts
 node_modules/

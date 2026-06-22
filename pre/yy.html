@@ -208,18 +208,6 @@
     .hero h1 { max-width: 10ch; font-size: 91px; line-height: .91; }
     .hero h1 em { color: var(--blue); font-style: normal; font-weight: 500; }
     .subtitle { margin-top: 28px; max-width: 31ch; color: var(--muted); font-size: 25px; line-height: 1.35; }
-    .hero-purpose {
-      position: absolute;
-      left: 136px;
-      bottom: 82px;
-      width: 630px;
-      padding-left: 17px;
-      border-left: 3px solid var(--terracotta);
-      color: var(--ink);
-      font-size: 17px;
-      line-height: 1.45;
-    }
-
     .converge {
       position: relative;
       height: 640px;
@@ -355,9 +343,7 @@
 
     .data-row:nth-child(2) span:last-child { width: 82%; background: rgba(200, 101, 70, .28); }
     .data-row:nth-child(3) span:last-child { width: 64%; background: rgba(117, 136, 120, .30); }
-    }
-
-    .pipeline-slide { display: grid; grid-template-rows: auto 1fr auto; gap: 24px; }
+    .pipeline-slide { display: grid; grid-template-rows: auto 1fr; gap: 24px; }
     .flow-track {
       position: relative;
       display: grid;
@@ -420,7 +406,12 @@
       font-weight: 500;
     }
 
-    .flow-arrow { display: none; }
+    .flow-arrow {
+      display: block;
+      right: -20px;
+      top: 22px;
+      font-size: 30px;
+    }
     .flow-name { margin-top: 18px; font-family: Georgia, serif; font-size: 25px; line-height: 1.02; }
     .flow-note { width: 134px; color: var(--muted); font-size: 14px; line-height: 1.25; }
 
@@ -552,6 +543,35 @@
     .rule-card:nth-child(4) .rule-mark { background: var(--saffron); }
     .rule-card h3 { margin-top: 18px; font-family: Georgia, serif; font-size: 27px; font-weight: 500; line-height: 1.08; }
     .rule-card p { margin-top: 14px; color: var(--muted); font-size: 16px; line-height: 1.35; }
+
+    .rule-spec {
+      display: grid;
+      gap: 11px;
+      margin: 20px 0 0;
+    }
+
+    .rule-spec div {
+      display: grid;
+      grid-template-columns: 66px 1fr;
+      gap: 10px;
+      align-items: baseline;
+    }
+
+    .rule-spec dt {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 850;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .rule-spec dd {
+      margin: 0;
+      color: var(--ink);
+      font-size: 15px;
+      font-weight: 750;
+      line-height: 1.25;
+    }
 
     .mini-diagram {
       display: flex;
@@ -974,6 +994,19 @@
 
     .nav-zone.prev { left: 0; }
     .nav-zone.next { right: 0; }
+    .nav-zone::before {
+      position: absolute;
+      top: 50%;
+      color: rgba(24, 36, 51, .24);
+      font-size: 28px;
+      transform: translateY(-50%);
+      transition: color 180ms var(--ease), transform 180ms var(--ease);
+    }
+    .nav-zone.prev::before { content: "←"; left: 30px; }
+    .nav-zone.next::before { content: "→"; right: 30px; }
+    .nav-zone:hover::before { color: var(--blue); }
+    .nav-zone.prev:hover::before { transform: translate(-4px, -50%); }
+    .nav-zone.next:hover::before { transform: translate(4px, -50%); }
     .nav-zone:focus-visible { outline: 3px solid var(--blue); outline-offset: -8px; }
 
     @media (prefers-reduced-motion: reduce) {
@@ -1053,7 +1086,6 @@
             </div>
           </div>
         </div>
-        <p class="hero-purpose reveal d4">A controlled pipeline turns messy freshman information into searchable, categorized FAQ knowledge.</p>
         <span class="slide-no">01</span>
         <div class="footer">Freshmen Chatbot <span>/ Data Pipeline</span></div>
       </section>
@@ -1073,7 +1105,6 @@
           <article class="flow-step" style="--i:6"><div class="flow-dot"><svg class="icon" viewBox="0 0 64 64" aria-hidden="true"><path d="m15 34 11 11 23-26"/><path d="M14 14h36v36H14z"/></svg></div><span class="flow-arrow">&rarr;</span><p class="flow-name">Validate</p><p class="flow-note">Check format</p></article>
           <article class="flow-step" style="--i:7"><div class="flow-dot"><svg class="icon" viewBox="0 0 64 64" aria-hidden="true"><path d="M18 12h28l6 7v33H18z"/><path d="M27 30h10M24 40h16M46 12v9h6"/></svg></div><p class="flow-name">Export JSON</p><p class="flow-note">Load knowledge base</p></article>
         </div>
-        <div class="pipeline-tags reveal d4"><span class="chip">206 Chunks</span><span class="chip">492 FAQs</span><span class="chip">8 Categories</span><span class="chip">0 Errors</span></div>
         <span class="slide-no">02</span>
         <div class="footer">Freshmen Chatbot <span>/ Data Pipeline</span></div>
       </section>
@@ -1114,10 +1145,10 @@
         </header>
         <p class="rule-line reveal d3">Default: each H2 and H3 generates one independent chunk</p>
         <div class="rule-cards reveal d3">
-          <article class="rule-card"><div class="rule-mark">@</div><h3><span class="code">@</span> after <span class="code">###</span></h3><p>H3 merges into parent H2</p><div class="mini-diagram"><div class="block thin"></div><span>+</span><div class="block"></div><span>&rarr;</span><div class="block big"></div></div></article>
-          <article class="rule-card"><div class="rule-mark">@</div><h3><span class="code">@</span> after <span class="code">##</span></h3><p>Entire H2 becomes one chunk</p><div class="mini-diagram"><div class="block"></div><div class="block"></div><span>&rarr;</span><div class="block big"></div></div></article>
-          <article class="rule-card"><div class="rule-mark">@</div><h3><span class="code">@</span> after <span class="code">#</span></h3><p>All H3s ignored, split by H2 only</p><div class="mini-diagram"><div class="block big"></div><span>|</span><div class="block big"></div></div></article>
-          <article class="rule-card"><div class="rule-mark">%</div><h3><span class="code">%</span> after <span class="code">#</span></h3><p>Normal split plus one extra H1-level chunk</p><div class="mini-diagram"><div class="block"></div><div class="block"></div><span>+</span><div class="block big"></div></div></article>
+          <article class="rule-card"><div class="rule-mark">@</div><dl class="rule-spec"><div><dt>Marker</dt><dd class="code">@</dd></div><div><dt>Position</dt><dd>After <span class="code">###</span></dd></div><div><dt>Effect</dt><dd>H3 merges into parent H2</dd></div></dl><div class="mini-diagram"><div class="block thin"></div><span>+</span><div class="block"></div><span>&rarr;</span><div class="block big"></div></div></article>
+          <article class="rule-card"><div class="rule-mark">@</div><dl class="rule-spec"><div><dt>Marker</dt><dd class="code">@</dd></div><div><dt>Position</dt><dd>After <span class="code">##</span></dd></div><div><dt>Effect</dt><dd>Entire H2 becomes one chunk</dd></div></dl><div class="mini-diagram"><div class="block"></div><div class="block"></div><span>&rarr;</span><div class="block big"></div></div></article>
+          <article class="rule-card"><div class="rule-mark">@</div><dl class="rule-spec"><div><dt>Marker</dt><dd class="code">@</dd></div><div><dt>Position</dt><dd>After <span class="code">#</span></dd></div><div><dt>Effect</dt><dd>Ignore H3s; split by H2 only</dd></div></dl><div class="mini-diagram"><div class="block big"></div><span>|</span><div class="block big"></div></div></article>
+          <article class="rule-card"><div class="rule-mark">%</div><dl class="rule-spec"><div><dt>Marker</dt><dd class="code">%</dd></div><div><dt>Position</dt><dd>After <span class="code">#</span></dd></div><div><dt>Effect</dt><dd>Normal split + one H1-level chunk</dd></div></dl><div class="mini-diagram"><div class="block"></div><div class="block"></div><span>+</span><div class="block big"></div></div></article>
         </div>
         <div class="chip-row reveal d4"><span class="chip">Output levels: <span class="code">h2</span></span><span class="chip"><span class="code">h3</span></span><span class="chip"><span class="code">h1_full</span></span></div>
         <span class="slide-no">04</span>
@@ -1162,11 +1193,11 @@
           <h2 class="slide-title reveal d2">Progressive 3-Stage Testing</h2>
         </header>
         <div class="stage-row reveal d3">
-          <article class="test-stage"><b>Stage 1</b><h3>Micro Test</h3><ul><li>2 chunks</li><li>No fabrication</li><li>Correct format</li><li>H2 vs H3 depth</li></ul></article>
+          <article class="test-stage"><b>Stage 1 · 2 chunks</b><h3>Micro Test</h3><ul><li>No fabrication</li><li>Correct format</li><li>H2 vs H3 depth</li></ul></article>
           <div class="test-arrow">&rarr;</div>
           <article class="test-stage"><b>Stage 2</b><h3>Single Category Full Run</h3><ul><li>Concurrency delay</li><li>Timeout retry</li><li>Markdown cleanup</li></ul></article>
           <div class="test-arrow">&rarr;</div>
-          <article class="test-stage"><b>Stage 3</b><h3>All 8 Categories</h3><ul><li>Zero errors</li><li>Full production</li><li>Ready to export</li></ul></article>
+          <article class="test-stage"><b>Stage 3</b><h3>All 8 Categories</h3><ul><li>Zero errors</li><li>Full production</li></ul></article>
         </div>
         <p class="bottom-note reveal d4">Progressive, not all-at-once</p>
         <span class="slide-no">06</span>
