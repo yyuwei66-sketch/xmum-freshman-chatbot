@@ -1,0 +1,1155 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#f4efe5">
+  <title>Nova FAQ Chatbot — Presentation</title>
+  <style>
+    :root {
+      --paper: #f4efe5;
+      --paper-deep: #e9dfcf;
+      --ink: #182433;
+      --muted: #66707a;
+      --blue: #165a91;
+      --blue-dark: #0c3f69;
+      --terracotta: #c86546;
+      --saffron: #d5a63f;
+      --sage: #758878;
+      --line: rgba(24, 36, 51, .16);
+      --white: #fffdf8;
+      --pad-x: 92px;
+      --pad-y: 70px;
+      --ease: cubic-bezier(.2, .8, .2, 1);
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background: #201f1d;
+      color: var(--ink);
+      font-family: "Avenir Next", Avenir, "Segoe UI", Arial, sans-serif;
+    }
+
+    body { display: grid; place-items: center; }
+    button { font: inherit; }
+    h1, h2, h3, p { margin: 0; }
+
+    h1, h2 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight: 500;
+      letter-spacing: 0;
+    }
+
+    .stage {
+      position: relative;
+      width: min(100vw, calc(100vh * 16 / 9));
+      height: min(100vh, calc(100vw * 9 / 16));
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      box-shadow: 0 32px 100px rgba(0, 0, 0, .42);
+    }
+
+    .deck {
+      position: absolute;
+      inset: 0 auto auto 0;
+      width: 1600px;
+      height: 900px;
+      transform: scale(var(--deck-scale, 1));
+      transform-origin: top left;
+      background: var(--paper);
+      isolation: isolate;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      padding: var(--pad-y) var(--pad-x);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateX(1.5%);
+      transition: opacity 260ms var(--ease), transform 400ms var(--ease), visibility 0s linear 400ms;
+      background:
+        radial-gradient(circle at 91% 8%, rgba(213, 166, 63, .13) 0 118px, transparent 119px),
+        linear-gradient(rgba(22, 90, 145, .055) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(22, 90, 145, .055) 1px, transparent 1px),
+        linear-gradient(110deg, rgba(255, 255, 255, .44), transparent 42%),
+        var(--paper);
+      background-size: auto, 46px 46px, 46px 46px, auto, auto;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .slide::after {
+      content: "";
+      position: absolute;
+      inset: 22px;
+      border: 1px solid rgba(24, 36, 51, .06);
+      pointer-events: none;
+    }
+
+    .slide.is-active {
+      opacity: 1;
+      visibility: visible;
+      transform: none;
+      transition-delay: 0s;
+      pointer-events: auto;
+    }
+
+    .slide.is-active .reveal { animation: rise .55s var(--ease) both; }
+    .slide.is-active .d2 { animation-delay: 80ms; }
+    .slide.is-active .d3 { animation-delay: 160ms; }
+    .slide.is-active .d4 { animation-delay: 240ms; }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: none; }
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { box-shadow: 0 16px 38px rgba(24, 36, 51, .08), 0 0 0 rgba(213, 166, 63, 0); }
+      50% { box-shadow: 0 20px 48px rgba(24, 36, 51, .10), 0 0 30px rgba(213, 166, 63, .18); }
+    }
+
+    @keyframes flowDot {
+      from { offset-distance: 0%; opacity: 0; }
+      12%, 88% { opacity: 1; }
+      to { offset-distance: 100%; opacity: 0; }
+    }
+
+    .kicker {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin: 0 0 18px;
+      color: var(--blue);
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    .kicker::before { content: ""; width: 36px; height: 3px; background: var(--terracotta); }
+
+    .slide-title {
+      max-width: 15ch;
+      font-size: 64px;
+      line-height: .98;
+    }
+
+    .slide-no {
+      position: absolute;
+      top: 73px;
+      right: 94px;
+      color: rgba(24, 36, 51, .18);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 46px;
+      font-style: italic;
+    }
+
+    .footer {
+      position: absolute;
+      z-index: 3;
+      right: 92px;
+      bottom: 42px;
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      color: var(--blue-dark);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+    }
+
+    .footer span { color: var(--muted); font-weight: 650; }
+
+    .mini-label {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+
+    .chip-row { display: flex; flex-wrap: wrap; gap: 10px; }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      min-height: 38px;
+      padding: 8px 14px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 253, 248, .80);
+      color: var(--blue-dark);
+      font-size: 15px;
+      font-weight: 800;
+      line-height: 1.15;
+      box-shadow: 0 10px 24px rgba(24, 36, 51, .04);
+    }
+
+    .code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+      letter-spacing: 0;
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: rgba(255, 253, 248, .82);
+      box-shadow: 0 16px 38px rgba(24, 36, 51, .08);
+    }
+
+    /* Slide 1 */
+    .hero {
+      display: grid;
+      grid-template-columns: .92fr 1.08fr;
+      align-items: center;
+      gap: 52px;
+    }
+
+    .hero-copy { padding-bottom: 36px; }
+    .hero h1 { max-width: 8ch; font-size: 112px; line-height: .88; }
+    .hero h1 em { color: var(--blue); font-style: normal; font-weight: 500; }
+    .subtitle { margin-top: 24px; max-width: 31ch; color: var(--muted); font-size: 28px; line-height: 1.32; }
+
+    .hero-purpose {
+      margin-top: 30px;
+      max-width: 680px;
+      padding-left: 17px;
+      border-left: 3px solid var(--terracotta);
+      color: var(--ink);
+      font-size: 19px;
+      line-height: 1.42;
+    }
+
+    .hero-keywords {
+      margin-top: 30px;
+      max-width: 670px;
+    }
+
+    .nova-map {
+      position: relative;
+      height: 650px;
+      border-radius: 28px;
+    }
+
+    .nova-node {
+      position: absolute;
+      z-index: 2;
+      left: 50%;
+      top: 50%;
+      display: grid;
+      place-items: center;
+      width: 212px;
+      height: 212px;
+      transform: translate(-50%, -50%);
+      border: 1px solid rgba(22, 90, 145, .34);
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 34% 24%, rgba(255, 255, 255, .92), transparent 46%),
+        linear-gradient(145deg, rgba(22, 90, 145, .15), rgba(213, 166, 63, .12)),
+        var(--white);
+      color: var(--blue-dark);
+      text-align: center;
+      box-shadow: 0 24px 62px rgba(22, 90, 145, .17);
+      animation: pulseGlow 3.4s var(--ease) infinite;
+    }
+
+    .nova-node strong {
+      display: block;
+      font-family: Georgia, serif;
+      font-size: 48px;
+      font-weight: 500;
+      letter-spacing: 0;
+    }
+
+    .nova-node span { margin-top: 6px; color: var(--muted); font-size: 15px; font-weight: 800; letter-spacing: .11em; text-transform: uppercase; }
+
+    .module {
+      position: absolute;
+      z-index: 2;
+      display: grid;
+      align-content: center;
+      width: 228px;
+      min-height: 92px;
+      padding: 18px 20px;
+      border-left: 4px solid var(--module-color, var(--blue));
+    }
+
+    .module h3 { font-family: Georgia, serif; font-size: 25px; font-weight: 500; line-height: 1.05; }
+    .module p { margin-top: 7px; color: var(--muted); font-size: 13px; font-weight: 750; line-height: 1.28; }
+    .module.kb { --module-color: var(--blue); left: 52px; top: 72px; }
+    .module.rule { --module-color: var(--terracotta); right: 34px; top: 88px; }
+    .module.ml { --module-color: var(--saffron); left: 12px; bottom: 108px; }
+    .module.ret { --module-color: var(--sage); right: 40px; bottom: 122px; }
+    .module.ui { --module-color: var(--blue-dark); left: 50%; bottom: 20px; transform: translateX(-50%); }
+
+    .flow-lines {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .flow-lines path {
+      fill: none;
+      stroke: rgba(22, 90, 145, .28);
+      stroke-width: 2;
+      stroke-dasharray: 8 10;
+    }
+
+    .flow-dot {
+      position: absolute;
+      z-index: 1;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--blue);
+      box-shadow: 0 0 14px rgba(22, 90, 145, .42);
+      offset-rotate: 0deg;
+      animation: flowDot 3.2s linear infinite;
+    }
+
+    .dot-a { offset-path: path("M 164 124 C 286 156 328 238 388 312"); }
+    .dot-b { offset-path: path("M 628 140 C 534 180 492 250 425 314"); animation-delay: .45s; background: var(--terracotta); }
+    .dot-c { offset-path: path("M 126 520 C 254 470 321 408 389 348"); animation-delay: .9s; background: var(--saffron); }
+    .dot-d { offset-path: path("M 642 510 C 545 474 485 408 423 348"); animation-delay: 1.35s; background: var(--sage); }
+    .dot-e { offset-path: path("M 388 548 C 396 480 399 428 400 356"); animation-delay: 1.8s; background: var(--blue-dark); }
+
+    /* Slide 2 */
+    .problem { display: grid; grid-template-rows: auto auto auto; gap: 14px; }
+    .problem header { max-width: 1140px; }
+    .problem .lead { margin-top: 14px; max-width: 53ch; color: var(--muted); font-size: 23px; line-height: 1.3; }
+
+    .problem-grid {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      align-items: stretch;
+      margin-top: 0;
+    }
+
+    .problem-card {
+      min-height: 258px;
+      padding: 22px 24px 20px;
+    }
+
+    .problem-card h3 {
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      align-items: center;
+      gap: 16px;
+      font-family: Georgia, serif;
+      font-size: 32px;
+      font-weight: 500;
+      line-height: 1.04;
+    }
+
+    .problem-card h3 span {
+      display: grid;
+      place-items: center;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: rgba(22, 90, 145, .10);
+      color: var(--blue-dark);
+      font-size: 21px;
+      font-style: italic;
+    }
+
+    .problem-card:nth-child(2) h3 span { background: rgba(213, 166, 63, .16); color: #956b13; }
+    .problem-card:nth-child(3) h3 span { background: rgba(117, 136, 120, .16); color: var(--sage); }
+
+    .problem-card ul {
+      margin: 18px 0 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 8px;
+      color: var(--ink);
+      font-size: 18px;
+      line-height: 1.28;
+    }
+
+    .problem-card li {
+      position: relative;
+      padding-left: 22px;
+    }
+
+    .problem-card li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: .63em;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--terracotta);
+    }
+
+    .example {
+      margin-top: 12px;
+      padding: 10px 14px;
+      border-radius: 16px;
+      background: rgba(22, 90, 145, .08);
+      color: var(--blue-dark);
+      font-size: 17px;
+      font-weight: 780;
+      line-height: 1.28;
+    }
+
+    .formula-wrap {
+      position: relative;
+      display: grid;
+      place-items: center;
+      min-height: 88px;
+      margin-top: -10px;
+      padding-bottom: 0;
+      transform: translateY(-32px);
+    }
+
+    .formula-wrap::before,
+    .formula-wrap::after {
+      content: "";
+      position: absolute;
+      top: -12px;
+      width: 2px;
+      height: 34px;
+      background: linear-gradient(rgba(22, 90, 145, .20), rgba(22, 90, 145, 0));
+    }
+
+    .formula-wrap::before { left: 25%; }
+    .formula-wrap::after { right: 25%; }
+
+    .formula {
+      display: grid;
+      gap: 8px;
+      width: min(1000px, 100%);
+      padding: 13px 36px 15px;
+      border: 1px solid rgba(22, 90, 145, .24);
+      border-top: 4px solid var(--terracotta);
+      border-radius: 22px;
+      background: rgba(255, 253, 248, .92);
+      color: var(--blue-dark);
+      text-align: center;
+      font-family: Georgia, serif;
+      font-size: 28px;
+      line-height: 1.16;
+      box-shadow: 0 18px 42px rgba(22, 90, 145, .10);
+    }
+
+    .formula span {
+      color: var(--blue);
+      font-family: "Avenir Next", Avenir, "Segoe UI", Arial, sans-serif;
+      font-size: 17px;
+      font-weight: 850;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    /* Slide 3 */
+    .structure {
+      display: grid;
+      grid-template-rows: auto 1fr;
+      gap: 24px;
+    }
+
+    .structure header {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: end;
+      gap: 48px;
+    }
+
+    .structure .lead {
+      max-width: 39ch;
+      color: var(--muted);
+      font-size: 22px;
+      line-height: 1.3;
+      padding-bottom: 6px;
+    }
+
+    .architecture {
+      display: grid;
+      grid-template-columns: 1fr 1.22fr 1fr;
+      gap: 28px;
+      align-items: start;
+      margin-top: 12px;
+    }
+
+    .zone {
+      position: relative;
+      display: grid;
+      grid-template-rows: auto auto;
+      gap: 16px;
+      padding: 22px;
+      border-top: 5px solid var(--zone-color, var(--blue));
+    }
+
+    .zone h3 {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+      color: var(--zone-color, var(--blue));
+      font-family: Georgia, serif;
+      font-size: 31px;
+      font-weight: 500;
+      line-height: 1.05;
+    }
+
+    .zone h3 span {
+      color: rgba(24, 36, 51, .22);
+      font-size: 28px;
+      font-style: italic;
+    }
+
+    .data-zone { --zone-color: var(--blue); }
+    .runtime-zone { --zone-color: var(--terracotta); padding: 20px 22px; }
+    .eval-zone { --zone-color: var(--sage); }
+
+    .zone-stack { display: grid; gap: 11px; align-content: start; }
+
+    .mini-card {
+      padding: 15px 16px;
+      border: 1px solid rgba(24, 36, 51, .12);
+      border-radius: 17px;
+      background: rgba(255, 253, 248, .78);
+      box-shadow: 0 10px 22px rgba(24, 36, 51, .045);
+    }
+
+    .mini-card b {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--ink);
+      font-size: 17px;
+      line-height: 1.15;
+    }
+
+    .mini-card p {
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 650;
+      line-height: 1.3;
+    }
+
+    .runtime-grid {
+      display: grid;
+      grid-template-columns: 178px 1fr 198px;
+      grid-template-rows: auto auto 1fr auto;
+      gap: 10px;
+      align-items: stretch;
+      padding-bottom: 92px;
+    }
+
+    .runtime-node {
+      display: grid;
+      align-content: center;
+      min-height: 64px;
+      padding: 11px 12px;
+      border: 1px solid rgba(200, 101, 70, .22);
+      border-radius: 17px;
+      background: rgba(255, 253, 248, .82);
+      text-align: center;
+      box-shadow: 0 10px 22px rgba(24, 36, 51, .045);
+    }
+
+    .runtime-node b { color: var(--ink); font-size: 15px; line-height: 1.12; }
+    .runtime-node span { margin-top: 5px; color: var(--muted); font-size: 11px; font-weight: 720; line-height: 1.2; }
+
+    .input-node { grid-column: 1 / 4; border-color: rgba(22, 90, 145, .28); }
+    .prep-node { grid-column: 1 / 4; border-color: rgba(22, 90, 145, .24); }
+    .intent-node { grid-column: 1; grid-row: 3; border-color: rgba(200, 101, 70, .28); }
+    .simple-node { grid-column: 1; grid-row: 4; border-color: rgba(117, 136, 120, .28); background: rgba(117, 136, 120, .10); }
+
+    .ml-box {
+      grid-column: 2 / 4;
+      grid-row: 3 / 5;
+      display: grid;
+      gap: 8px;
+      padding: 16px;
+      border: 1px solid rgba(213, 166, 63, .34);
+      border-radius: 22px;
+      background:
+        linear-gradient(145deg, rgba(213, 166, 63, .14), rgba(22, 90, 145, .06)),
+        rgba(255, 253, 248, .86);
+      box-shadow: 0 20px 48px rgba(24, 36, 51, .08);
+      animation: pulseGlow 4s var(--ease) infinite;
+    }
+
+    .ml-box h4 {
+      margin: 0;
+      color: var(--blue-dark);
+      font-family: Georgia, serif;
+      font-size: 24px;
+      font-weight: 500;
+      line-height: 1.05;
+    }
+
+    .ml-steps {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .ml-step {
+      min-height: 58px;
+      padding: 9px 10px;
+      border-radius: 14px;
+      background: rgba(255, 253, 248, .80);
+      border: 1px solid rgba(24, 36, 51, .10);
+    }
+
+    .ml-step b { display: block; color: var(--ink); font-size: 12px; line-height: 1.12; }
+    .ml-step span { display: block; margin-top: 4px; color: var(--muted); font-size: 10px; font-weight: 700; line-height: 1.2; }
+    .ml-step.wide { grid-column: 1 / 3; }
+
+    .output-strip {
+      position: absolute;
+      left: 24px;
+      right: 24px;
+      bottom: 18px;
+      display: grid;
+      grid-template-columns: 178px 1fr;
+      gap: 12px;
+      align-items: center;
+      padding: 13px 16px;
+      border: 1px solid rgba(117, 136, 120, .34);
+      border-left: 5px solid var(--sage);
+      border-radius: 18px;
+      background: rgba(117, 136, 120, .10);
+    }
+
+    .output-strip b {
+      color: var(--sage);
+      font-family: Georgia, serif;
+      font-size: 22px;
+      font-weight: 500;
+      line-height: 1.05;
+    }
+
+    .output-strip p { color: var(--ink); font-size: 12px; font-weight: 750; line-height: 1.28; }
+
+    .architecture-summary {
+      position: absolute;
+      left: 92px;
+      right: 92px;
+      bottom: 74px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      align-items: center;
+      padding: 13px 28px;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 253, 248, .48);
+    }
+
+    .summary-piece {
+      display: grid;
+      gap: 5px;
+      min-height: 58px;
+      align-content: center;
+      padding-left: 18px;
+      border-left: 3px solid var(--blue);
+    }
+
+    .summary-piece:nth-child(2) { border-left-color: var(--terracotta); }
+    .summary-piece:nth-child(3) { border-left-color: var(--sage); }
+
+    .summary-piece b {
+      color: var(--blue-dark);
+      font-family: Georgia, serif;
+      font-size: 24px;
+      font-weight: 500;
+      line-height: 1.05;
+    }
+
+    .summary-piece span {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 760;
+      line-height: 1.25;
+    }
+
+    .retrieval {
+      display: grid;
+      grid-template-rows: auto 1fr;
+      gap: 26px;
+    }
+
+    .retrieval header {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: end;
+      gap: 46px;
+    }
+
+    .retrieval .lead {
+      max-width: 38ch;
+      color: var(--muted);
+      font-size: 22px;
+      line-height: 1.3;
+      padding-bottom: 6px;
+    }
+
+    .retrieval-layout {
+      display: grid;
+      grid-template-columns: 1.08fr .92fr;
+      gap: 38px;
+      align-items: stretch;
+      min-height: 590px;
+    }
+
+    .retrieval-chain {
+      position: relative;
+      display: grid;
+      gap: 14px;
+      align-content: center;
+      padding: 28px;
+      border-top: 5px solid var(--saffron);
+    }
+
+    .retrieval-chain::before {
+      content: "";
+      position: absolute;
+      left: 54px;
+      top: 92px;
+      bottom: 92px;
+      width: 2px;
+      background: linear-gradient(var(--blue), var(--terracotta), var(--sage));
+    }
+
+    .retrieval-step {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 58px 1fr;
+      gap: 18px;
+      align-items: center;
+      min-height: 82px;
+    }
+
+    .retrieval-index {
+      display: grid;
+      place-items: center;
+      width: 48px;
+      height: 48px;
+      border: 5px solid var(--paper);
+      border-radius: 50%;
+      background: var(--ink);
+      color: var(--white);
+      font-family: Georgia, serif;
+      font-size: 20px;
+      box-shadow: 0 0 0 1px var(--line);
+    }
+
+    .retrieval-step:nth-child(2) .retrieval-index { background: var(--blue); }
+    .retrieval-step:nth-child(3) .retrieval-index { background: var(--terracotta); }
+    .retrieval-step:nth-child(4) .retrieval-index { background: var(--saffron); }
+    .retrieval-step:nth-child(5) .retrieval-index { background: var(--sage); }
+
+    .retrieval-step h3 {
+      font-family: Georgia, serif;
+      font-size: 27px;
+      font-weight: 500;
+      line-height: 1.05;
+    }
+
+    .retrieval-step p {
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 16px;
+      font-weight: 650;
+      line-height: 1.28;
+    }
+
+    .strategy-panel {
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      gap: 18px;
+      padding: 30px;
+      border-top: 5px solid var(--sage);
+    }
+
+    .strategy-panel h3 {
+      color: var(--sage);
+      font-family: Georgia, serif;
+      font-size: 34px;
+      font-weight: 500;
+      line-height: 1.05;
+    }
+
+    .confidence-list {
+      display: grid;
+      gap: 14px;
+      align-content: center;
+    }
+
+    .confidence-row {
+      display: grid;
+      grid-template-columns: 122px 1fr;
+      gap: 16px;
+      align-items: center;
+      padding: 16px 18px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 253, 248, .56);
+    }
+
+    .confidence-row b {
+      color: var(--terracotta);
+      font-family: Georgia, serif;
+      font-size: 25px;
+      font-weight: 500;
+    }
+
+    .confidence-row span {
+      color: var(--ink);
+      font-size: 18px;
+      font-weight: 760;
+      line-height: 1.25;
+    }
+
+    .output-card {
+      padding: 20px 22px;
+      border-left: 5px solid var(--blue);
+      border-radius: 18px;
+      background: rgba(22, 90, 145, .08);
+    }
+
+    .output-card b {
+      display: block;
+      color: var(--blue-dark);
+      font-family: Georgia, serif;
+      font-size: 26px;
+      font-weight: 500;
+      line-height: 1.1;
+    }
+
+    .output-card p {
+      margin-top: 9px;
+      color: var(--ink);
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1.35;
+    }
+
+    .progress {
+      position: absolute;
+      z-index: 10;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 3px;
+      pointer-events: none;
+    }
+
+    .progress > span { display: block; width: 0; height: 100%; background: var(--terracotta); transition: width 240ms var(--ease); }
+
+    .counter {
+      position: absolute;
+      z-index: 10;
+      left: 92px;
+      bottom: 43px;
+      color: rgba(24, 36, 51, .42);
+      font-size: 12px;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: .12em;
+      pointer-events: none;
+    }
+
+    .nav-zone { position: absolute; z-index: 5; top: 0; bottom: 0; width: 12%; border: 0; padding: 0; background: transparent; cursor: pointer; }
+    .nav-zone.prev { left: 0; }
+    .nav-zone.next { right: 0; }
+    .nav-zone:focus-visible { outline: 3px solid var(--blue); outline-offset: -8px; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
+    }
+
+    @page { size: 16in 9in; margin: 0; }
+
+    @media print {
+      html, body { display: block; width: auto; height: auto; overflow: visible; background: #fff; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+      .stage { width: 16in; height: auto; overflow: visible; box-shadow: none; }
+      .deck { position: relative; width: 16in; height: auto; transform: none; overflow: visible; }
+      .slide { position: relative; width: 16in; height: 9in; break-after: page; opacity: 1; visibility: visible; transform: none; transition: none; }
+      .slide .reveal { animation: none !important; }
+      .progress, .counter, .nav-zone { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="stage">
+    <main class="deck" aria-label="Nova FAQ Chatbot slide presentation">
+      <section class="slide hero is-active" data-title="Project Introduction" aria-hidden="false">
+        <div class="hero-copy">
+          <p class="kicker reveal">AIT103 · XMUM Freshman Enquiries</p>
+          <h1 class="reveal d2"><em>Nova</em></h1>
+          <p class="subtitle reveal d3">A Hybrid and ML-Enhanced FAQ Chatbot</p>
+          <p class="hero-purpose reveal d3">A text-based HTML chatbot that retrieves reliable campus information from a structured FAQ knowledge base.</p>
+          <div class="chip-row hero-keywords reveal d4" aria-label="Nova project keywords">
+            <span class="chip">Structured FAQ Knowledge Base</span>
+            <span class="chip">Rule-based Handling</span>
+            <span class="chip">ML Classification</span>
+            <span class="chip">Retrieval-based Answering</span>
+            <span class="chip">HTML UI</span>
+          </div>
+        </div>
+
+        <div class="nova-map reveal d3" role="img" aria-label="Nova chatbot node connected to FAQ knowledge base, rule-based handling, ML classification, retrieval matching, and Nova HTML UI">
+          <svg class="flow-lines" viewBox="0 0 760 650" aria-hidden="true">
+            <path d="M164 124 C286 156 328 238 388 312"></path>
+            <path d="M628 140 C534 180 492 250 425 314"></path>
+            <path d="M126 520 C254 470 321 408 389 348"></path>
+            <path d="M642 510 C545 474 485 408 423 348"></path>
+            <path d="M388 548 C396 480 399 428 400 356"></path>
+          </svg>
+          <span class="flow-dot dot-a"></span>
+          <span class="flow-dot dot-b"></span>
+          <span class="flow-dot dot-c"></span>
+          <span class="flow-dot dot-d"></span>
+          <span class="flow-dot dot-e"></span>
+          <div class="nova-node"><div><strong>Nova</strong><span>chatbot core</span></div></div>
+          <article class="module card kb"><h3>FAQ Knowledge Base</h3><p>Verified structured campus answers</p></article>
+          <article class="module card rule"><h3>Rule-based Handling</h3><p>Greeting, thanks, help, identity</p></article>
+          <article class="module card ml"><h3>ML Classification</h3><p>Predict the enquiry category</p></article>
+          <article class="module card ret"><h3>Retrieval Matching</h3><p>Rank the most relevant FAQ items</p></article>
+          <article class="module card ui"><h3>Nova HTML UI</h3><p>Text input, answer, history</p></article>
+        </div>
+
+        <span class="slide-no">01</span>
+        <div class="footer">Yang Yuwei <span>/ AIT2509049</span></div>
+      </section>
+
+      <section class="slide problem" data-title="Problem Formulation" aria-hidden="true">
+        <header>
+          <p class="kicker reveal">Problem formulation</p>
+          <h2 class="slide-title reveal d2">Freshman Enquiries as an NLP + Retrieval Problem</h2>
+          <p class="lead reveal d3">The system must understand informal student questions and retrieve reliable university answers.</p>
+        </header>
+
+        <div class="problem-grid reveal d3">
+          <article class="problem-card card">
+            <h3><span>1</span>Scattered Information</h3>
+            <ul>
+              <li>Official emails</li>
+              <li>Student handbook</li>
+              <li>University platforms</li>
+              <li>Orientation materials</li>
+              <li>Peer group discussions</li>
+            </ul>
+          </article>
+          <article class="problem-card card">
+            <h3><span>2</span>Unstructured Questions</h3>
+            <ul>
+              <li>Same meaning, different wording</li>
+              <li>Short and informal input</li>
+              <li>Different student expressions</li>
+            </ul>
+            <p class="example">“Moodle login problem” vs “cannot access learning platform”</p>
+          </article>
+          <article class="problem-card card">
+            <h3><span>3</span>Reliable Answers</h3>
+            <ul>
+              <li>Policy-related</li>
+              <li>Procedure-related</li>
+              <li>Need verified sources</li>
+              <li>Avoid unsupported free-form generation</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="formula-wrap reveal d4">
+          <div class="formula"><span>Technical Formulation</span><br>Natural Language Understanding + Information Retrieval</div>
+        </div>
+        <span class="slide-no">02</span>
+        <div class="footer">Yang Yuwei <span>/ AIT2509049</span></div>
+      </section>
+
+      <section class="slide structure" data-title="Overall System Structure" aria-hidden="true">
+        <header>
+          <div>
+            <p class="kicker reveal">System architecture</p>
+            <h2 class="slide-title reveal d2">Overall Structure of Nova</h2>
+          </div>
+          <p class="lead reveal d3">A three-part flow: prepare verified FAQ data, route each student question, then measure answer quality.</p>
+        </header>
+
+        <div class="architecture reveal d3">
+          <section class="zone card data-zone">
+            <h3>Data Preparation <span>01</span></h3>
+            <div class="zone-stack">
+              <article class="mini-card"><b>Data Sources</b><p>official emails, student handbook, platforms, orientation materials, peer group chats</p></article>
+              <article class="mini-card"><b>Standardization</b><p>clean, normalize, deduplicate, then store in JSONL format</p></article>
+              <article class="mini-card"><b>FAQ Knowledge Base</b><p><span class="code">faq_dataset.jsonl</span> with question, answer, category, keywords, intent, verified</p></article>
+            </div>
+          </section>
+
+          <section class="zone card runtime-zone">
+            <h3>Runtime Pipeline <span>02</span></h3>
+            <div class="zone-stack">
+              <article class="mini-card"><b>User Input</b><p>student question entered through the Nova HTML UI</p></article>
+              <article class="mini-card"><b>Text Preprocessing</b><p>normalization, tokenization, stopword removal</p></article>
+              <article class="mini-card"><b>Simple Intent Check</b><p>greeting, thanks, help, identity can return a rule-based response</p></article>
+              <article class="mini-card"><b>FAQ Retrieval Route</b><p>FAQ-related queries continue to ML-enhanced retrieval</p></article>
+            </div>
+          </section>
+
+          <section class="zone card eval-zone">
+            <h3>Evaluation <span>03</span></h3>
+            <div class="zone-stack">
+              <article class="mini-card"><b>Classification Accuracy</b><p>Precision / Recall / F1</p></article>
+              <article class="mini-card"><b>Model Comparison</b><p>baseline vs proposed</p></article>
+              <article class="mini-card"><b>Retrieval Quality</b><p>Precision@K / Recall@K / MRR</p></article>
+              <article class="mini-card"><b>User Experience</b><p>usability testing / user feedback</p></article>
+            </div>
+          </section>
+        </div>
+        <div class="architecture-summary reveal d4" aria-label="Architecture summary from verified FAQ data to runtime answering and evaluation">
+          <div class="summary-piece"><b>Verified FAQ data</b><span>structured source of truth</span></div>
+          <div class="summary-piece"><b>Runtime answering</b><span>route, retrieve, respond</span></div>
+          <div class="summary-piece"><b>Quality feedback</b><span>measure accuracy and experience</span></div>
+        </div>
+        <span class="slide-no">03</span>
+        <div class="footer">Yang Yuwei <span>/ AIT2509049</span></div>
+      </section>
+
+      <section class="slide retrieval" data-title="ML-Enhanced Retrieval" aria-hidden="true">
+        <header>
+          <div>
+            <p class="kicker reveal">Retrieval strategy</p>
+            <h2 class="slide-title reveal d2">ML-Enhanced FAQ Retrieval</h2>
+          </div>
+          <p class="lead reveal d3">After simple intents are filtered out, Nova narrows the search space before ranking candidate answers.</p>
+        </header>
+
+        <div class="retrieval-layout">
+          <div class="retrieval-chain card reveal d3" role="img" aria-label="Five-step ML-enhanced FAQ retrieval pipeline">
+            <article class="retrieval-step">
+              <span class="retrieval-index">1</span>
+              <div><h3>Category Classification</h3><p>TF-IDF features + Logistic Regression predict the likely FAQ category.</p></div>
+            </article>
+            <article class="retrieval-step">
+              <span class="retrieval-index">2</span>
+              <div><h3>Category-specific Retrieval</h3><p>Search only within the predicted category to reduce noise.</p></div>
+            </article>
+            <article class="retrieval-step">
+              <span class="retrieval-index">3</span>
+              <div><h3>Similarity Ranking</h3><p>TF-IDF + Cosine Similarity rank Top-K FAQ candidates.</p></div>
+            </article>
+            <article class="retrieval-step">
+              <span class="retrieval-index">4</span>
+              <div><h3>Confidence Assessment</h3><p>Similarity score and thresholds decide how direct the answer should be.</p></div>
+            </article>
+          </div>
+
+          <aside class="strategy-panel card reveal d4">
+            <h3>Response Strategy</h3>
+            <div class="confidence-list">
+              <div class="confidence-row"><b>High</b><span>Return the direct verified FAQ answer.</span></div>
+              <div class="confidence-row"><b>Medium</b><span>Show the top 3 related questions for student confirmation.</span></div>
+              <div class="confidence-row"><b>Low</b><span>Use fallback or ask for clarification.</span></div>
+            </div>
+            <div class="output-card">
+              <b>Chatbot Output · HTML UI</b>
+              <p>FAQ answer · predicted category · confidence score · top 3 related questions · recent chats / session history</p>
+            </div>
+          </aside>
+        </div>
+
+        <span class="slide-no">04</span>
+        <div class="footer">Yang Yuwei <span>/ AIT2509049</span></div>
+      </section>
+
+      <button class="nav-zone prev" type="button" aria-label="Previous slide"></button>
+      <button class="nav-zone next" type="button" aria-label="Next slide"></button>
+      <div class="progress" aria-hidden="true"><span></span></div>
+      <div class="counter" aria-live="polite"></div>
+    </main>
+  </div>
+
+  <script>
+    (() => {
+      const deck = document.querySelector('.deck');
+      const stage = document.querySelector('.stage');
+      const slides = [...document.querySelectorAll('.slide')];
+      const counter = document.querySelector('.counter');
+      const progress = document.querySelector('.progress > span');
+      const prevButton = document.querySelector('.nav-zone.prev');
+      const nextButton = document.querySelector('.nav-zone.next');
+      let index = Math.max(0, Math.min(slides.length - 1, Number(location.hash.slice(1)) - 1 || 0));
+      let touchStartX = null;
+
+      function resizeStage() {
+        const scale = Math.min(stage.clientWidth / 1600, stage.clientHeight / 900);
+        deck.style.setProperty('--deck-scale', String(scale));
+      }
+
+      const isEditing = (target) => target instanceof Element && Boolean(target.closest('input, textarea, select, button:not(.nav-zone), [contenteditable="true"]'));
+
+      function render(nextIndex, updateHash = true) {
+        index = Math.max(0, Math.min(slides.length - 1, nextIndex));
+        slides.forEach((slide, slideIndex) => {
+          const active = slideIndex === index;
+          slide.classList.toggle('is-active', active);
+          slide.setAttribute('aria-hidden', String(!active));
+        });
+        counter.textContent = `${String(index + 1).padStart(2, '0')} / ${String(slides.length).padStart(2, '0')}`;
+        progress.style.width = `${((index + 1) / slides.length) * 100}%`;
+        const title = slides[index]?.dataset.title;
+        document.title = title ? `${title} — Nova FAQ Chatbot` : 'Nova FAQ Chatbot';
+        if (updateHash) history.replaceState(null, '', `#${index + 1}`);
+        slides[index]?.focus({ preventScroll: true });
+      }
+
+      function enterFullscreen() {
+        if (!document.fullscreenElement) deck.requestFullscreen?.().catch(() => {});
+        else document.exitFullscreen?.().catch(() => {});
+      }
+
+      document.addEventListener('keydown', (event) => {
+        if (isEditing(event.target)) return;
+        const nextKeys = ['ArrowRight', 'ArrowDown', 'PageDown', ' '];
+        const prevKeys = ['ArrowLeft', 'ArrowUp', 'PageUp'];
+        if (nextKeys.includes(event.key)) { event.preventDefault(); render(index + 1); }
+        else if (prevKeys.includes(event.key)) { event.preventDefault(); render(index - 1); }
+        else if (event.key === 'Home') { event.preventDefault(); render(0); }
+        else if (event.key === 'End') { event.preventDefault(); render(slides.length - 1); }
+        else if (event.key.toLowerCase() === 'f') { event.preventDefault(); enterFullscreen(); }
+      });
+
+      prevButton.addEventListener('click', () => render(index - 1));
+      nextButton.addEventListener('click', () => render(index + 1));
+      deck.addEventListener('click', (event) => {
+        if (isEditing(event.target) || event.target.closest('.nav-zone')) return;
+        render(index + 1);
+      });
+      window.addEventListener('hashchange', () => render(Number(location.hash.slice(1)) - 1 || 0, false));
+      deck.addEventListener('touchstart', (event) => { touchStartX = event.changedTouches[0]?.clientX ?? null; }, { passive: true });
+      deck.addEventListener('touchend', (event) => {
+        if (touchStartX === null) return;
+        const distance = (event.changedTouches[0]?.clientX ?? touchStartX) - touchStartX;
+        touchStartX = null;
+        if (Math.abs(distance) < 48) return;
+        if (distance < 0) render(index + 1);
+        else render(index - 1);
+      }, { passive: true });
+
+      window.addEventListener('resize', resizeStage);
+      resizeStage();
+      render(index, false);
+    })();
+  </script>
+</body>
+</html>

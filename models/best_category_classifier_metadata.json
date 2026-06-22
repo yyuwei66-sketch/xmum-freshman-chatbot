@@ -1,0 +1,50 @@
+{
+  "best_model": "SVM",
+  "data_path": "data/final/faq_dataset_final_merged.jsonl",
+  "test_size": 0.2,
+  "random_state": 42,
+  "metrics": [
+    {
+      "model": "SVM",
+      "accuracy": 0.752,
+      "precision_macro": 0.7211436847466258,
+      "recall_macro": 0.7041537409958463,
+      "f1_macro": 0.7086891371308643,
+      "f1_weighted": 0.7579482663731426
+    },
+    {
+      "model": "Logistic Regression",
+      "accuracy": 0.736,
+      "precision_macro": 0.7113433441558441,
+      "recall_macro": 0.6938346740978321,
+      "f1_macro": 0.6964243011398441,
+      "f1_weighted": 0.7405209922642125
+    },
+    {
+      "model": "KNN",
+      "accuracy": 0.728,
+      "precision_macro": 0.6972222222222222,
+      "recall_macro": 0.666912400465032,
+      "f1_macro": 0.6771308900581992,
+      "f1_weighted": 0.7263553707621819
+    },
+    {
+      "model": "MLP",
+      "accuracy": 0.728,
+      "precision_macro": 0.6904380341880342,
+      "recall_macro": 0.6600129402760981,
+      "f1_macro": 0.6667251709643014,
+      "f1_weighted": 0.7284532580463015
+    }
+  ],
+  "labels": [
+    "Academic Affairs",
+    "Accommodation & Living",
+    "Campus Services",
+    "Campus life",
+    "Finance & Fees",
+    "Registration & Orientation",
+    "Transportation",
+    "University Platforms & IT Support"
+  ]
+}

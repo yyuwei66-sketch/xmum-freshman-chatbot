@@ -1,0 +1,1251 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#f4efe5">
+  <title>Hybrid Chatbot Evaluation — Presentation</title>
+  <style>
+    :root {
+      --paper: #f4efe5;
+      --paper-deep: #e9dfcf;
+      --ink: #182433;
+      --muted: #66707a;
+      --blue: #165a91;
+      --blue-dark: #0c3f69;
+      --terracotta: #c86546;
+      --saffron: #d5a63f;
+      --sage: #758878;
+      --line: rgba(24, 36, 51, .16);
+      --white: #fffdf8;
+      --pad-x: 92px;
+      --pad-y: 70px;
+      --ease: cubic-bezier(.2, .8, .2, 1);
+    }
+
+    * { box-sizing: border-box; }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background: #201f1d;
+      color: var(--ink);
+      font-family: "Avenir Next", Avenir, "Segoe UI", Arial, sans-serif;
+    }
+
+    body { display: grid; place-items: center; }
+    button { font: inherit; }
+    h1, h2, h3, p { margin: 0; }
+
+    h1,
+    h2 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight: 500;
+      letter-spacing: 0;
+    }
+
+    .stage {
+      position: relative;
+      width: min(100vw, calc(100vh * 16 / 9));
+      height: min(100vh, calc(100vw * 9 / 16));
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      box-shadow: 0 32px 100px rgba(0, 0, 0, .42);
+    }
+
+    .deck {
+      position: absolute;
+      inset: 0 auto auto 0;
+      width: 1600px;
+      height: 900px;
+      transform: scale(var(--deck-scale, 1));
+      transform-origin: top left;
+      background: var(--paper);
+      isolation: isolate;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      padding: var(--pad-y) var(--pad-x);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateX(1.5%);
+      transition: opacity 260ms var(--ease), transform 400ms var(--ease), visibility 0s linear 400ms;
+      background:
+        radial-gradient(circle at 91% 8%, rgba(213, 166, 63, .13) 0 118px, transparent 119px),
+        linear-gradient(110deg, rgba(255, 255, 255, .40), transparent 42%),
+        var(--paper);
+      overflow: hidden;
+    }
+
+    .slide::after {
+      content: "";
+      position: absolute;
+      inset: 22px;
+      border: 1px solid rgba(24, 36, 51, .06);
+      pointer-events: none;
+    }
+
+    .slide.is-active {
+      opacity: 1;
+      visibility: visible;
+      transform: none;
+      transition-delay: 0s;
+    }
+
+    .slide.is-active .reveal { animation: rise .55s var(--ease) both; }
+    .slide.is-active .d2 { animation-delay: 80ms; }
+    .slide.is-active .d3 { animation-delay: 160ms; }
+    .slide.is-active .d4 { animation-delay: 240ms; }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: none; }
+    }
+
+    .kicker {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin: 0 0 16px;
+      color: var(--blue);
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .kicker::before {
+      content: "";
+      width: 36px;
+      height: 3px;
+      background: var(--terracotta);
+    }
+
+    .slide-title {
+      max-width: 13ch;
+      font-size: 58px;
+      line-height: 1;
+    }
+
+    .subtitle {
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 24px;
+      line-height: 1.34;
+    }
+
+    .slide-no {
+      position: absolute;
+      top: 73px;
+      right: 94px;
+      color: rgba(24, 36, 51, .18);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 46px;
+      font-style: italic;
+    }
+
+    .footer {
+      position: absolute;
+      z-index: 3;
+      right: 92px;
+      bottom: 42px;
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      color: var(--blue-dark);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+    }
+
+    .footer span { color: var(--muted); font-weight: 650; }
+
+    .mini-label {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .icon {
+      display: grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: var(--ink);
+      color: var(--white);
+      font-size: 15px;
+      font-weight: 900;
+      line-height: 1;
+      flex: 0 0 auto;
+    }
+
+    .icon.blue { background: var(--blue); }
+    .icon.terra { background: var(--terracotta); }
+    .icon.sage { background: var(--sage); }
+    .icon.saffron { background: var(--saffron); }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      padding: 6px 10px;
+      border: 1px solid var(--line);
+      background: rgba(255, 253, 248, .62);
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    .system-equation,
+    .insight-box,
+    .finding-box,
+    .warning-box,
+    .takeaway-box {
+      border: 1px solid rgba(22, 90, 145, .18);
+      border-left: 5px solid var(--blue);
+      background: rgba(255, 253, 248, .72);
+      box-shadow: 0 16px 36px rgba(24, 36, 51, .07);
+    }
+
+    .system-equation strong,
+    .insight-box strong,
+    .finding-box strong,
+    .warning-box strong,
+    .takeaway-box strong {
+      display: block;
+      margin-bottom: 7px;
+      color: var(--blue-dark);
+      font-size: 13px;
+      font-weight: 850;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .system-equation p,
+    .insight-box p,
+    .finding-box p,
+    .warning-box p,
+    .takeaway-box p {
+      color: var(--ink);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 25px;
+      line-height: 1.24;
+    }
+
+    /* Slide 1 */
+    .architecture {
+      display: grid;
+      grid-template-columns: 1.16fr .84fr;
+      gap: 46px;
+      align-items: start;
+    }
+
+    .architecture-main {
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      gap: 18px;
+      min-height: 760px;
+    }
+
+    .pipeline-vertical {
+      position: relative;
+      display: grid;
+      gap: 11px;
+      padding: 4px 0 2px 28px;
+    }
+
+    .pipeline-vertical::before {
+      content: "";
+      position: absolute;
+      left: 49px;
+      top: 28px;
+      bottom: 28px;
+      width: 2px;
+      background: linear-gradient(var(--terracotta), var(--blue), var(--sage));
+    }
+
+    .flow-node {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 54px 1fr;
+      align-items: center;
+      min-height: 68px;
+      gap: 16px;
+    }
+
+    .flow-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      min-height: 68px;
+      padding: 13px 19px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 253, 248, .76);
+      box-shadow: 0 12px 28px rgba(24, 36, 51, .06);
+    }
+
+    .flow-card h3 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 25px;
+      font-weight: 500;
+      line-height: 1.05;
+    }
+
+    .flow-card p {
+      color: var(--muted);
+      max-width: 190px;
+      font-size: 13px;
+      font-weight: 760;
+      line-height: 1.25;
+      text-align: right;
+      text-transform: uppercase;
+    }
+
+    .architecture-side {
+      display: grid;
+      grid-template-rows: auto auto 1fr;
+      gap: 18px;
+      padding-top: 6px;
+    }
+
+    .criteria-panel {
+      padding: 24px 24px 22px;
+      border: 1px solid var(--line);
+      background: rgba(255, 253, 248, .66);
+      box-shadow: 0 16px 36px rgba(24, 36, 51, .07);
+    }
+
+    .criteria-panel h3 {
+      margin-bottom: 16px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 30px;
+      font-weight: 500;
+    }
+
+    .criteria-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+
+    .criterion {
+      display: grid;
+      grid-template-columns: 34px 1fr;
+      align-items: center;
+      gap: 10px;
+      min-height: 42px;
+      padding: 7px 10px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .criterion .mark {
+      display: grid;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(22, 90, 145, .10);
+      color: var(--blue-dark);
+      font-weight: 900;
+    }
+
+    .criterion span:last-child {
+      color: var(--ink);
+      font-size: 17px;
+      font-weight: 760;
+      line-height: 1.12;
+    }
+
+    .insight-box { padding: 21px 24px; border-left-color: var(--terracotta); }
+
+    .system-equation {
+      display: grid;
+      align-content: center;
+      min-height: 168px;
+      padding: 23px 24px;
+      border-left-color: var(--sage);
+    }
+
+    .system-equation p {
+      display: grid;
+      gap: 10px;
+      font-size: 23px;
+    }
+
+    .system-equation span {
+      display: block;
+      padding-bottom: 9px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    /* Slide 2 */
+    .behavior {
+      display: grid;
+      grid-template-rows: auto 430px 58px 74px;
+      gap: 10px;
+    }
+
+    .radial-wrap {
+      position: relative;
+      height: 430px;
+      margin-top: 0;
+    }
+
+    .radial-center {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      z-index: 3;
+      display: grid;
+      place-items: center;
+      width: 184px;
+      height: 184px;
+      margin: -92px 0 0 -92px;
+      border-radius: 50%;
+      background: var(--ink);
+      color: var(--white);
+      box-shadow: 0 26px 60px rgba(24, 36, 51, .22);
+      text-align: center;
+    }
+
+    .radial-center h3 {
+      max-width: 10ch;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 27px;
+      font-weight: 500;
+      line-height: 1.04;
+    }
+
+    .connector-map {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+      pointer-events: none;
+    }
+
+    .connector-map line {
+      stroke: rgba(24, 36, 51, .18);
+      stroke-width: 2;
+      stroke-dasharray: 7 8;
+      stroke-linecap: round;
+    }
+
+    .radial-node {
+      position: absolute;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 46px 1fr;
+      gap: 13px;
+      align-items: center;
+      width: 270px;
+      min-height: 78px;
+      padding: 12px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 253, 248, .78);
+      box-shadow: 0 15px 34px rgba(24, 36, 51, .08);
+    }
+
+    .radial-node h3 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 20px;
+      font-weight: 500;
+      line-height: 1.05;
+    }
+
+    .radial-node p {
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.28;
+    }
+
+    .node-rule { left: 138px; top: 174px; }
+    .node-intent { left: 420px; top: 26px; }
+    .node-retrieval { right: 420px; top: 26px; }
+    .node-confidence { right: 138px; top: 174px; }
+    .node-fallback { left: 573px; bottom: 10px; }
+
+    .impact-flow {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      align-items: center;
+      margin-top: 0;
+    }
+
+    .impact-item {
+      position: relative;
+      display: grid;
+      place-items: center;
+      min-height: 54px;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 253, 248, .42);
+      color: var(--blue-dark);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 23px;
+      line-height: 1;
+    }
+
+    .impact-item:not(:last-child)::after {
+      content: ">";
+      position: absolute;
+      right: -19px;
+      color: var(--terracotta);
+      font-family: "Avenir Next", Avenir, "Segoe UI", Arial, sans-serif;
+      font-size: 24px;
+      font-weight: 900;
+    }
+
+    .finding-box {
+      position: static;
+      width: 100%;
+      padding: 10px 20px;
+      border-left-color: var(--sage);
+    }
+
+    .finding-box strong { margin-bottom: 4px; }
+    .finding-box p { font-size: 20px; }
+
+    /* Slide 3 */
+    .limitations {
+      display: grid;
+      grid-template-rows: auto 492px auto;
+      gap: 18px;
+    }
+
+    .mindmap {
+      position: relative;
+      min-height: 492px;
+    }
+
+    .mind-connectors {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+      pointer-events: none;
+    }
+
+    .mind-connectors line {
+      stroke: rgba(24, 36, 51, .18);
+      stroke-width: 2;
+      stroke-linecap: round;
+    }
+
+    .mind-center {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      z-index: 2;
+      display: grid;
+      place-items: center;
+      width: 232px;
+      height: 142px;
+      margin: -71px 0 0 -116px;
+      border: 2px solid var(--ink);
+      background: rgba(255, 253, 248, .78);
+      box-shadow: 0 18px 42px rgba(24, 36, 51, .10);
+      text-align: center;
+    }
+
+    .mind-center h3 {
+      max-width: 9ch;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 33px;
+      font-weight: 500;
+      line-height: 1.02;
+    }
+
+    .mind-branch {
+      position: absolute;
+      z-index: 2;
+      display: grid;
+      gap: 10px;
+      width: 360px;
+      padding: 18px 20px;
+      border-left: 5px solid var(--blue);
+      background: rgba(255, 253, 248, .70);
+      box-shadow: 0 16px 36px rgba(24, 36, 51, .07);
+    }
+
+    .mind-branch h3 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 28px;
+      font-weight: 500;
+      line-height: 1.05;
+    }
+
+    .mind-branch p {
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.32;
+    }
+
+    .branch-data { left: 128px; top: 40px; border-left-color: var(--blue); }
+    .branch-language { right: 128px; top: 40px; border-left-color: var(--terracotta); }
+    .branch-static { left: 128px; bottom: 28px; border-left-color: var(--saffron); }
+    .branch-domain { right: 128px; bottom: 28px; border-left-color: var(--sage); }
+    .warning-box {
+      width: 760px;
+      padding: 18px 24px;
+      border-left-color: var(--terracotta);
+    }
+
+    /* Slide 4 */
+    .conclusion {
+      display: grid;
+      grid-template-columns: .98fr 1.02fr;
+      grid-template-rows: 545px 58px auto;
+      column-gap: 52px;
+      row-gap: 24px;
+      align-items: start;
+    }
+
+    .circular-area,
+    .roadmap-area {
+      min-height: 0;
+      padding-top: 2px;
+    }
+
+    .circle-system {
+      position: relative;
+      height: 330px;
+      margin-top: 14px;
+    }
+
+    .architecture-summary {
+      display: grid;
+      gap: 18px;
+      margin-top: 26px;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .summary-node {
+      display: grid;
+      align-content: center;
+      min-height: 86px;
+      padding: 16px 18px;
+      border: 1px solid var(--line);
+      border-top: 5px solid var(--blue);
+      border-radius: 8px;
+      background: rgba(255, 253, 248, .76);
+      box-shadow: 0 14px 32px rgba(24, 36, 51, .07);
+    }
+
+    .summary-node:nth-child(1) { border-top-color: var(--terracotta); }
+    .summary-node:nth-child(2) { border-top-color: var(--blue); }
+    .summary-node:nth-child(3) { border-top-color: var(--sage); }
+    .summary-node:nth-child(4) { border-top-color: var(--saffron); }
+
+    .summary-node strong {
+      color: var(--ink);
+      font-size: 20px;
+      font-weight: 850;
+      line-height: 1.08;
+    }
+
+    .summary-node span {
+      margin-top: 7px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 750;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+    }
+
+    .summary-converge {
+      display: grid;
+      justify-items: center;
+      gap: 10px;
+    }
+
+    .summary-converge::before {
+      content: "";
+      width: 2px;
+      height: 34px;
+      background: linear-gradient(rgba(24, 36, 51, .08), rgba(24, 36, 51, .24));
+    }
+
+    .assistant-result {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      width: 100%;
+      min-height: 72px;
+      border-top: 5px solid var(--terracotta);
+      background: rgba(255, 253, 248, .72);
+      box-shadow: 0 16px 36px rgba(24, 36, 51, .07);
+      color: var(--blue-dark);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 31px;
+      line-height: 1;
+    }
+
+    .assistant-result span {
+      display: grid;
+      place-items: center;
+      width: 58px;
+      height: 38px;
+      border-radius: 999px;
+      background: var(--terracotta);
+      color: var(--white);
+      font-family: "Avenir Next", Avenir, "Segoe UI", Arial, sans-serif;
+      font-size: 20px;
+      font-weight: 900;
+    }
+
+    .circle-core {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      display: grid;
+      place-items: center;
+      width: 164px;
+      height: 164px;
+      margin: -82px 0 0 -82px;
+      border-radius: 50%;
+      background: var(--blue-dark);
+      color: var(--white);
+      text-align: center;
+      box-shadow: 0 24px 58px rgba(12, 63, 105, .25);
+    }
+
+    .circle-core h3 {
+      max-width: 8ch;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 27px;
+      font-weight: 500;
+      line-height: 1.02;
+    }
+
+    .orbit {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 318px;
+      height: 318px;
+      margin: -159px 0 0 -159px;
+      border: 1px dashed rgba(24, 36, 51, .22);
+      border-radius: 50%;
+    }
+
+    .orbit-node {
+      position: absolute;
+      display: grid;
+      place-items: center;
+      width: 154px;
+      min-height: 62px;
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 253, 248, .78);
+      color: var(--ink);
+      font-size: 15px;
+      font-weight: 800;
+      line-height: 1.12;
+      text-align: center;
+      box-shadow: 0 14px 32px rgba(24, 36, 51, .07);
+    }
+
+    .orbit-rule { left: 50%; top: calc(50% - 159px); transform: translate(-50%, -50%); border-top: 5px solid var(--terracotta); }
+    .orbit-intent { left: calc(50% + 159px); top: 50%; transform: translate(-50%, -50%); border-top: 5px solid var(--blue); }
+    .orbit-retrieval { left: 50%; top: calc(50% + 159px); transform: translate(-50%, -50%); border-top: 5px solid var(--sage); }
+    .orbit-confidence { left: calc(50% - 159px); top: 50%; transform: translate(-50%, -50%); border-top: 5px solid var(--saffron); }
+
+    .reliable-arrow {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-top: 10px;
+      color: var(--blue-dark);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 29px;
+    }
+
+    .reliable-arrow span {
+      display: grid;
+      place-items: center;
+      width: 68px;
+      height: 42px;
+      border-radius: 999px;
+      background: var(--terracotta);
+      color: var(--white);
+      font-family: "Avenir Next", Avenir, "Segoe UI", Arial, sans-serif;
+      font-size: 24px;
+      font-weight: 900;
+    }
+
+    .key-points {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 0;
+    }
+
+    .key-point {
+      display: grid;
+      place-items: center;
+      min-height: 58px;
+      padding: 10px 18px;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 253, 248, .44);
+      color: var(--ink);
+      font-size: 17px;
+      font-weight: 800;
+      line-height: 1.18;
+      text-align: center;
+    }
+
+    .roadmap-area {
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      min-height: 545px;
+      padding: 20px 28px 22px;
+      border: 1px solid rgba(24, 36, 51, .08);
+      background: rgba(255, 253, 248, .42);
+      box-shadow: 0 18px 42px rgba(24, 36, 51, .055);
+    }
+
+    .roadmap {
+      display: grid;
+      gap: 7px;
+      margin-top: 18px;
+      padding-left: 20px;
+      border-left: 2px solid var(--line);
+    }
+
+    .road-step {
+      position: relative;
+      display: grid;
+      grid-template-columns: 42px 1fr;
+      align-items: center;
+      gap: 14px;
+      min-height: 46px;
+      padding: 5px 0;
+    }
+
+    .road-step::before {
+      content: "";
+      position: absolute;
+      left: -27px;
+      top: 29px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--terracotta);
+      box-shadow: 0 0 0 5px var(--paper);
+    }
+
+    .road-step p {
+      color: var(--ink);
+      font-size: 20px;
+      font-weight: 750;
+      line-height: 1.18;
+    }
+
+    .continuous-box {
+      margin-top: 10px;
+      padding: 14px 22px;
+      border-left: 5px solid var(--sage);
+      background: rgba(255, 253, 248, .70);
+      box-shadow: 0 16px 36px rgba(24, 36, 51, .07);
+    }
+
+    .continuous-box strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--sage);
+      font-size: 13px;
+      font-weight: 850;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .continuous-box p {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 21px;
+      line-height: 1.24;
+    }
+
+    .takeaway-box {
+      grid-column: 1 / -1;
+      position: static;
+      margin-top: 0;
+      padding: 12px 24px;
+      text-align: center;
+      border-left: 0;
+      border-top: 5px solid var(--blue);
+    }
+
+    .takeaway-box strong { margin-bottom: 5px; }
+    .takeaway-box p { font-size: 21px; }
+
+    .progress {
+      position: absolute;
+      z-index: 10;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 3px;
+      pointer-events: none;
+    }
+
+    .progress > span {
+      display: block;
+      width: 0;
+      height: 100%;
+      background: var(--terracotta);
+      transition: width 240ms var(--ease);
+    }
+
+    .counter {
+      position: absolute;
+      z-index: 10;
+      left: 92px;
+      bottom: 43px;
+      color: rgba(24, 36, 51, .42);
+      font-size: 12px;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: .12em;
+      pointer-events: none;
+    }
+
+    .nav-zone {
+      position: absolute;
+      z-index: 5;
+      top: 0;
+      bottom: 0;
+      width: 12%;
+      border: 0;
+      padding: 0;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    .nav-zone.prev { left: 0; }
+    .nav-zone.next { right: 0; }
+    .nav-zone:focus-visible { outline: 3px solid var(--blue); outline-offset: -8px; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+      }
+    }
+
+    @page { size: 16in 9in; margin: 0; }
+
+    @media print {
+      html,
+      body {
+        display: block;
+        width: auto;
+        height: auto;
+        overflow: visible;
+        background: #fff;
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+      }
+
+      .stage {
+        width: 16in;
+        height: auto;
+        overflow: visible;
+        box-shadow: none;
+      }
+
+      .deck {
+        position: relative;
+        width: 16in;
+        height: auto;
+        transform: none;
+        overflow: visible;
+      }
+
+      .slide {
+        position: relative;
+        width: 16in;
+        height: 9in;
+        break-after: page;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        transition: none;
+      }
+
+      .slide .reveal { animation: none !important; }
+      .progress,
+      .counter,
+      .nav-zone { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="stage">
+    <main class="deck" aria-label="Hybrid chatbot evaluation slide presentation">
+      <section class="slide architecture is-active" data-title="Evaluation Architecture Flow" aria-hidden="false" tabindex="-1">
+        <div class="architecture-main">
+          <header>
+            <p class="kicker reveal">Evaluation</p>
+            <h1 class="slide-title reveal d2">System Architecture Flow</h1>
+            <p class="subtitle reveal d3">System-level evaluation of the hybrid university chatbot.</p>
+          </header>
+          <div class="pipeline-vertical reveal d3" role="img" aria-label="User query flows through rule-based layer, intent classification, semantic retrieval, confidence check, and final response">
+            <div class="flow-node"><span class="icon terra">Q</span><div class="flow-card"><h3>User Query</h3><p>Input</p></div></div>
+            <div class="flow-node"><span class="icon blue">R</span><div class="flow-card"><h3>Rule-Based Layer</h3><p>Greetings / Help / Identity</p></div></div>
+            <div class="flow-node"><span class="icon sage">C</span><div class="flow-card"><h3>Intent Classification</h3><p>Category Detection</p></div></div>
+            <div class="flow-node"><span class="icon saffron">S</span><div class="flow-card"><h3>Semantic Retrieval</h3><p>TF-IDF + Embedding + RRF</p></div></div>
+            <div class="flow-node"><span class="icon blue">%</span><div class="flow-card"><h3>Confidence Check</h3><p>Reliability Score</p></div></div>
+            <div class="flow-node"><span class="icon terra">A</span><div class="flow-card"><h3>Final Response</h3><p>Answer / Fallback</p></div></div>
+          </div>
+        </div>
+        <aside class="architecture-side">
+          <div class="criteria-panel reveal d3">
+            <p class="mini-label">Architecture Criteria</p>
+            <h3>Evaluation checks</h3>
+            <div class="criteria-grid">
+              <div class="criterion"><span class="mark">M</span><span>Modularity</span></div>
+              <div class="criterion"><span class="mark">E</span><span>Explainability</span></div>
+              <div class="criterion"><span class="mark">A</span><span>Accuracy</span></div>
+              <div class="criterion"><span class="mark">R</span><span>Robustness</span></div>
+              <div class="criterion"><span class="mark">U</span><span>Usability</span></div>
+            </div>
+          </div>
+          <div class="insight-box reveal d4">
+            <strong>Key Insight</strong>
+            <p>Hybrid system = Rule + Classification + Retrieval + Confidence control</p>
+          </div>
+          <div class="system-equation reveal d4">
+            <strong>System View</strong>
+            <p>
+              <span>Fast rules handle simple intents</span>
+              <span>ML routes domain questions</span>
+              <span>Confidence control protects the final answer</span>
+            </p>
+          </div>
+        </aside>
+        <span class="slide-no">01</span>
+        <div class="footer">HUANG XINYI <span>/ AIT2509022</span></div>
+      </section>
+
+      <section class="slide behavior" data-title="Evaluation Reliability and UX" aria-hidden="true" tabindex="-1">
+        <header>
+          <p class="kicker reveal">Evaluation</p>
+          <h2 class="slide-title reveal d2">Reliability & User Experience</h2>
+        </header>
+        <div class="radial-wrap reveal d3" role="img" aria-label="Radial map of hybrid chatbot behavior around rule-based, intent detection, retrieval, confidence filtering, and fallback strategy">
+          <svg class="connector-map" viewBox="0 0 1416 430" aria-hidden="true" preserveAspectRatio="none">
+            <line x1="408" y1="215" x2="616" y2="215"></line>
+            <line x1="555" y1="104" x2="634" y2="161"></line>
+            <line x1="861" y1="104" x2="782" y2="161"></line>
+            <line x1="800" y1="215" x2="1008" y2="215"></line>
+            <line x1="708" y1="307" x2="708" y2="342"></line>
+          </svg>
+          <div class="radial-center"><h3>Hybrid Chatbot System</h3></div>
+          <div class="radial-node node-rule"><span class="icon terra">R</span><div><h3>Rule-Based</h3><p>Fast / deterministic / greeting / help</p></div></div>
+          <div class="radial-node node-intent"><span class="icon blue">I</span><div><h3>Intent Detection</h3><p>Query classification</p></div></div>
+          <div class="radial-node node-retrieval"><span class="icon sage">M</span><div><h3>Multi-Strategy Retrieval</h3><p>TF-IDF + Embedding + Token + RRF</p></div></div>
+          <div class="radial-node node-confidence"><span class="icon saffron">C</span><div><h3>Confidence Filtering</h3><p>High vs low confidence</p></div></div>
+          <div class="radial-node node-fallback"><span class="icon blue">F</span><div><h3>Fallback Strategy</h3><p>Related questions suggestion</p></div></div>
+        </div>
+        <div class="impact-flow reveal d4" aria-label="Impact flow from accuracy to user experience">
+          <div class="impact-item">Accuracy</div>
+          <div class="impact-item">Reliability</div>
+          <div class="impact-item">Trust</div>
+          <div class="impact-item">User Experience</div>
+        </div>
+        <div class="finding-box reveal d4">
+          <strong>Key Finding</strong>
+          <p>Hybrid design improves stability + response quality</p>
+        </div>
+        <span class="slide-no">02</span>
+        <div class="footer">HUANG XINYI <span>/ AIT2509022</span></div>
+      </section>
+
+      <section class="slide limitations" data-title="Limitation System Constraints" aria-hidden="true" tabindex="-1">
+        <header>
+          <p class="kicker reveal">Limitation</p>
+          <h2 class="slide-title reveal d2">Current System Constraints</h2>
+        </header>
+        <div class="mindmap reveal d3" role="img" aria-label="Mind map of system limitations including dataset dependency, language variability, static knowledge, and domain restriction">
+          <svg class="mind-connectors" viewBox="0 0 1416 492" aria-hidden="true" preserveAspectRatio="none">
+            <line x1="488" y1="109" x2="592" y2="194"></line>
+            <line x1="928" y1="109" x2="824" y2="194"></line>
+            <line x1="488" y1="372" x2="592" y2="298"></line>
+            <line x1="928" y1="372" x2="824" y2="298"></line>
+          </svg>
+          <div class="mind-center"><h3>System Limitations</h3></div>
+          <div class="mind-branch branch-data"><span class="tag">Data</span><h3>Dataset Dependency</h3><p>Limited FAQ / data quality / coverage</p></div>
+          <div class="mind-branch branch-language"><span class="tag">Language</span><h3>Language Variability</h3><p>Slang / informal / ambiguity issues</p></div>
+          <div class="mind-branch branch-static"><span class="tag">Maintenance</span><h3>Static Knowledge</h3><p>No auto-learning / manual updates</p></div>
+          <div class="mind-branch branch-domain"><span class="tag">Scope</span><h3>Domain Restriction</h3><p>XMUM-specific / weak generalization</p></div>
+        </div>
+        <div class="warning-box reveal d4">
+          <strong>Key Observation</strong>
+          <p>Limitations = Data + Maintenance issues, not architecture</p>
+        </div>
+        <span class="slide-no">03</span>
+        <div class="footer">HUANG XINYI <span>/ AIT2509022</span></div>
+      </section>
+
+      <section class="slide conclusion" data-title="Conclusion Future Improvement" aria-hidden="true" tabindex="-1">
+        <div class="circular-area">
+          <header>
+            <p class="kicker reveal">Conclusion</p>
+            <h2 class="slide-title reveal d2">Summary & Future Direction</h2>
+          </header>
+          <div class="architecture-summary reveal d3" role="img" aria-label="Four architecture modules converge into a reliable FAQ assistant">
+            <div class="summary-grid">
+              <div class="summary-node"><strong>Rule-Based Layer</strong><span>simple intents</span></div>
+              <div class="summary-node"><strong>Intent Classification</strong><span>category routing</span></div>
+              <div class="summary-node"><strong>Semantic Retrieval</strong><span>answer matching</span></div>
+              <div class="summary-node"><strong>Confidence Control</strong><span>fallback guard</span></div>
+            </div>
+            <div class="summary-converge">
+              <div class="assistant-result"><span>-></span>Reliable FAQ Assistant</div>
+            </div>
+          </div>
+        </div>
+        <div class="roadmap-area">
+          <p class="mini-label reveal">Future Roadmap</p>
+          <div class="roadmap reveal d3" aria-label="Future roadmap from unanswered query to system expansion">
+            <div class="road-step"><span class="icon terra">1</span><p>Unanswered query</p></div>
+            <div class="road-step"><span class="icon blue">2</span><p>Log system</p></div>
+            <div class="road-step"><span class="icon sage">3</span><p>Admin review</p></div>
+            <div class="road-step"><span class="icon saffron">4</span><p>FAQ update</p></div>
+            <div class="road-step"><span class="icon blue">5</span><p>Knowledge base update</p></div>
+            <div class="road-step"><span class="icon terra">6</span><p>System expansion</p></div>
+          </div>
+          <div class="continuous-box reveal d4">
+            <strong>Continuous Improvement</strong>
+            <p>Collect unanswered queries -> manual labeling -> knowledge expansion</p>
+          </div>
+        </div>
+        <div class="key-points reveal d4">
+          <div class="key-point">Freshman support</div>
+          <div class="key-point">Info accessibility</div>
+          <div class="key-point">Reliable responses</div>
+        </div>
+        <div class="takeaway-box reveal d4">
+          <strong>Final Takeaway</strong>
+          <p>Hybrid architecture enables scalable, reliable, continuously improving university chatbot system</p>
+        </div>
+        <span class="slide-no">04</span>
+        <div class="footer">HUANG XINYI <span>/ AIT2509022</span></div>
+      </section>
+
+      <button class="nav-zone prev" type="button" aria-label="Previous slide"></button>
+      <button class="nav-zone next" type="button" aria-label="Next slide"></button>
+      <div class="progress" aria-hidden="true"><span></span></div>
+      <div class="counter" aria-live="polite"></div>
+    </main>
+  </div>
+
+  <script>
+    (() => {
+      const deck = document.querySelector('.deck');
+      const stage = document.querySelector('.stage');
+      const slides = [...document.querySelectorAll('.slide')];
+      const counter = document.querySelector('.counter');
+      const progress = document.querySelector('.progress > span');
+      const prevButton = document.querySelector('.nav-zone.prev');
+      const nextButton = document.querySelector('.nav-zone.next');
+      let index = Math.max(0, Math.min(slides.length - 1, Number(location.hash.slice(1)) - 1 || 0));
+      let touchStartX = null;
+
+      function resizeStage() {
+        const scale = Math.min(stage.clientWidth / 1600, stage.clientHeight / 900);
+        deck.style.setProperty('--deck-scale', String(scale));
+      }
+
+      const isEditing = (target) => target instanceof Element && Boolean(target.closest('input, textarea, select, button:not(.nav-zone), [contenteditable="true"]'));
+
+      function render(nextIndex, updateHash = true) {
+        index = Math.max(0, Math.min(slides.length - 1, nextIndex));
+        slides.forEach((slide, slideIndex) => {
+          const active = slideIndex === index;
+          slide.classList.toggle('is-active', active);
+          slide.setAttribute('aria-hidden', String(!active));
+        });
+        counter.textContent = `${String(index + 1).padStart(2, '0')} / ${String(slides.length).padStart(2, '0')}`;
+        progress.style.width = `${((index + 1) / slides.length) * 100}%`;
+        const title = slides[index]?.dataset.title;
+        document.title = title ? `${title} — Hybrid Chatbot Evaluation` : 'Hybrid Chatbot Evaluation';
+        if (updateHash) history.replaceState(null, '', `#${index + 1}`);
+        slides[index]?.focus({ preventScroll: true });
+      }
+
+      function enterFullscreen() {
+        if (!document.fullscreenElement) deck.requestFullscreen?.().catch(() => {});
+        else document.exitFullscreen?.().catch(() => {});
+      }
+
+      function goForward() { render(index + 1); }
+      function goBack() { render(index - 1); }
+
+      document.addEventListener('keydown', (event) => {
+        if (isEditing(event.target)) return;
+        const nextKeys = ['ArrowRight', 'ArrowDown', 'PageDown', ' '];
+        const prevKeys = ['ArrowLeft', 'ArrowUp', 'PageUp'];
+        if (nextKeys.includes(event.key)) { event.preventDefault(); goForward(); }
+        else if (prevKeys.includes(event.key)) { event.preventDefault(); goBack(); }
+        else if (event.key === 'Home') { event.preventDefault(); render(0); }
+        else if (event.key === 'End') { event.preventDefault(); render(slides.length - 1); }
+        else if (event.key.toLowerCase() === 'f') { event.preventDefault(); enterFullscreen(); }
+      });
+
+      prevButton.addEventListener('click', () => goBack());
+      nextButton.addEventListener('click', () => goForward());
+      deck.addEventListener('click', (event) => {
+        if (isEditing(event.target) || event.target.closest('.nav-zone')) return;
+        goForward();
+      });
+      window.addEventListener('hashchange', () => render(Number(location.hash.slice(1)) - 1 || 0, false));
+      deck.addEventListener('touchstart', (event) => { touchStartX = event.changedTouches[0]?.clientX ?? null; }, { passive: true });
+      deck.addEventListener('touchend', (event) => {
+        if (touchStartX === null) return;
+        const distance = (event.changedTouches[0]?.clientX ?? touchStartX) - touchStartX;
+        touchStartX = null;
+        if (Math.abs(distance) < 48) return;
+        if (distance < 0) goForward();
+        else goBack();
+      }, { passive: true });
+      window.addEventListener('resize', resizeStage);
+      resizeStage();
+      render(index, false);
+    })();
+  </script>
+</body>
+</html>

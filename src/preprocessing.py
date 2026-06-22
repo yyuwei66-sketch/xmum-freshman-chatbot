@@ -1,72 +1,47 @@
-import re
 from typing import List
 
+from sklearn.feature_extraction.text import ENGLISH_STOP_WORDS, TfidfVectorizer
 
-STOPWORDS = {
-    "a", "an", "the",
-    "is", "are", "am", "was", "were",
-    "do", "does", "did",
-    "can", "could", "would", "should",
-    "i", "me", "my", "you", "your", "we", "our",
-    "to", "for", "of", "in", "on", "at", "by", "with",
-    "and", "or", "but", "so", "if", "then",
-    "please"
-}
+
+TOKEN_ANALYZER = TfidfVectorizer(
+    lowercase=True,
+    strip_accents="unicode",
+).build_analyzer()
 
 
 def normalize_text(text: str) -> str:
     """
-    Convert text to lowercase and remove punctuation.
+    Convert text to a lowercase, whitespace-separated token string.
     """
     if not isinstance(text, str):
         return ""
 
-    text = text.lower().strip()
-    text = re.sub(r"[^a-z0-9\s]", " ", text)
-    text = re.sub(r"\s+", " ", text)
-
-    return text
+    return " ".join(TOKEN_ANALYZER(text))
 
 
 def tokenize(text: str) -> List[str]:
     """
-    Split normalized text into tokens.
+    Tokenize text using scikit-learn's default TF-IDF analyzer.
     """
-    normalized_text = normalize_text(text)
-
-    if not normalized_text:
+    if not isinstance(text, str):
         return []
 
-    return normalized_text.split()
+    return TOKEN_ANALYZER(text)
 
 
 def remove_stopwords(tokens: List[str]) -> List[str]:
     """
-    Remove common stopwords.
+    Remove English stop words using scikit-learn's built-in stop word list.
     """
-    return [token for token in tokens if token not in STOPWORDS]
-
-
-def simple_stem(word: str) -> str:
-    """
-    Simple stemming for prototype use.
-    """
-    suffixes = ["ing", "ed", "es", "s"]
-
-    for suffix in suffixes:
-        if word.endswith(suffix) and len(word) > len(suffix) + 2:
-            return word[:-len(suffix)]
-
-    return word
+    return [token for token in tokens if token not in ENGLISH_STOP_WORDS]
 
 
 def preprocess_text(text: str) -> str:
     """
     Full preprocessing pipeline:
-    normalization -> tokenization -> stopword removal -> simple stemming
+    scikit-learn tokenization -> built-in English stop word removal
     """
     tokens = tokenize(text)
     tokens = remove_stopwords(tokens)
-    tokens = [simple_stem(token) for token in tokens]
 
     return " ".join(tokens)

@@ -1,0 +1,1320 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#f4efe5">
+  <title>FAQ Data Pipeline — Presentation</title>
+  <style>
+    :root {
+      --paper: #f4efe5;
+      --paper-deep: #e9dfcf;
+      --ink: #182433;
+      --muted: #66707a;
+      --blue: #165a91;
+      --blue-dark: #0c3f69;
+      --terracotta: #c86546;
+      --saffron: #d5a63f;
+      --sage: #758878;
+      --plum: #7e5f7d;
+      --teal: #4b8a8b;
+      --line: rgba(24, 36, 51, .16);
+      --white: #fffdf8;
+      --pad-x: 92px;
+      --pad-y: 70px;
+      --ease: cubic-bezier(.2, .8, .2, 1);
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background: #201f1d;
+      color: var(--ink);
+      font-family: "Avenir Next", Avenir, "Segoe UI", Arial, sans-serif;
+    }
+
+    body { display: grid; place-items: center; }
+    button { font: inherit; }
+    h1, h2, h3, p { margin: 0; }
+
+    h1, h2 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight: 500;
+      letter-spacing: -.045em;
+    }
+
+    .stage {
+      position: relative;
+      width: min(100vw, calc(100vh * 16 / 9));
+      height: min(100vh, calc(100vw * 9 / 16));
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      box-shadow: 0 32px 100px rgba(0, 0, 0, .42);
+    }
+
+    .deck {
+      position: absolute;
+      inset: 0 auto auto 0;
+      width: 1600px;
+      height: 900px;
+      transform: scale(var(--deck-scale, 1));
+      transform-origin: top left;
+      background: var(--paper);
+      isolation: isolate;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      padding: var(--pad-y) var(--pad-x);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateX(1.5%);
+      transition: opacity 260ms var(--ease), transform 400ms var(--ease), visibility 0s linear 400ms;
+      background:
+        radial-gradient(circle at 91% 8%, rgba(213, 166, 63, .13) 0 118px, transparent 119px),
+        linear-gradient(110deg, rgba(255, 255, 255, .40), transparent 42%),
+        var(--paper);
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .slide::after {
+      content: "";
+      position: absolute;
+      inset: 22px;
+      border: 1px solid rgba(24, 36, 51, .06);
+      pointer-events: none;
+    }
+
+    .slide.is-active {
+      opacity: 1;
+      visibility: visible;
+      transform: none;
+      transition-delay: 0s;
+      pointer-events: auto;
+    }
+
+    .slide.is-active .reveal { animation: rise .55s var(--ease) both; }
+    .slide.is-active .d2 { animation-delay: 80ms; }
+    .slide.is-active .d3 { animation-delay: 160ms; }
+    .slide.is-active .d4 { animation-delay: 240ms; }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: none; }
+    }
+
+    .kicker {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin: 0 0 18px;
+      color: var(--blue);
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    .kicker::before { content: ""; width: 36px; height: 3px; background: var(--terracotta); }
+
+    .slide-title {
+      max-width: 15ch;
+      font-size: 64px;
+      line-height: .98;
+    }
+
+    .slide-no {
+      position: absolute;
+      top: 73px;
+      right: 94px;
+      color: rgba(24, 36, 51, .18);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 46px;
+      font-style: italic;
+    }
+
+    .footer {
+      position: absolute;
+      z-index: 3;
+      right: 92px;
+      bottom: 42px;
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      color: var(--blue-dark);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+    }
+
+    .footer span { color: var(--muted); font-weight: 650; }
+
+    .mini-label {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+
+    .code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+      letter-spacing: 0;
+    }
+
+    .chip-row { display: flex; flex-wrap: wrap; gap: 10px; }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      min-height: 38px;
+      padding: 8px 14px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 253, 248, .74);
+      color: var(--blue-dark);
+      font-size: 15px;
+      font-weight: 800;
+      line-height: 1.15;
+    }
+
+    .icon {
+      width: 54px;
+      height: 54px;
+      color: currentColor;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2.1;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: .95fr 1.05fr;
+      align-items: center;
+      gap: 66px;
+    }
+
+    .hero-copy { margin-left: 44px; padding-bottom: 50px; }
+    .hero h1 { max-width: 10ch; font-size: 91px; line-height: .91; }
+    .hero h1 em { color: var(--blue); font-style: normal; font-weight: 500; }
+    .subtitle { margin-top: 28px; max-width: 31ch; color: var(--muted); font-size: 25px; line-height: 1.35; }
+    .hero-purpose {
+      position: absolute;
+      left: 136px;
+      bottom: 82px;
+      width: 630px;
+      padding-left: 17px;
+      border-left: 3px solid var(--terracotta);
+      color: var(--ink);
+      font-size: 17px;
+      line-height: 1.45;
+    }
+
+    .converge {
+      position: relative;
+      height: 640px;
+      display: grid;
+      place-items: center;
+    }
+
+    .source-doc {
+      position: absolute;
+      display: grid;
+      place-items: center;
+      width: 190px;
+      height: 128px;
+      border: 1px solid var(--line);
+      background: rgba(255, 253, 248, .82);
+      box-shadow: 0 18px 42px rgba(24, 36, 51, .08);
+      color: var(--blue-dark);
+    }
+
+    .source-doc.wechat { left: 54px; top: 86px; transform: rotate(-4deg); }
+    .source-doc.handbook { left: 54px; bottom: 102px; color: #8e3f28; transform: rotate(3deg); }
+    .source-doc p { margin-top: 8px; color: var(--muted); font-size: 15px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+
+    .knowledge-card {
+      position: absolute;
+      right: 58px;
+      top: 84px;
+      width: 390px;
+      height: 500px;
+      padding: 30px 32px;
+      border: 1px solid rgba(24, 36, 51, .14);
+      background: rgba(255, 253, 248, .78);
+      box-shadow: 0 24px 60px rgba(24, 36, 51, .10);
+    }
+
+    .knowledge-card::before {
+      content: "";
+      position: absolute;
+      inset: 18px;
+      border: 1px solid rgba(24, 36, 51, .06);
+      pointer-events: none;
+    }
+
+    .knowledge-card h3 {
+      font-family: Georgia, serif;
+      font-size: 31px;
+      font-weight: 500;
+      line-height: 1.08;
+    }
+
+    .knowledge-card p {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: .10em;
+      text-transform: uppercase;
+    }
+
+    .node-map {
+      position: relative;
+      height: 228px;
+      margin-top: 30px;
+    }
+
+    .node-map svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      color: rgba(24, 36, 51, .24);
+    }
+
+    .k-node {
+      position: absolute;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      border: 1px solid rgba(24, 36, 51, .16);
+      background: var(--white);
+      color: var(--blue-dark);
+      box-shadow: 0 12px 28px rgba(24, 36, 51, .08);
+      font-size: 13px;
+      font-weight: 850;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .k-node.main {
+      left: 50%;
+      top: 50%;
+      width: 112px;
+      height: 112px;
+      transform: translate(-50%, -50%);
+      background: var(--blue);
+      color: var(--white);
+      font-family: Georgia, serif;
+      font-size: 25px;
+      font-weight: 500;
+      letter-spacing: 0;
+      text-transform: none;
+    }
+
+    .k-node.n1 { left: 12px; top: 6px; width: 82px; height: 82px; color: #8e3f28; }
+    .k-node.n2 { right: 16px; top: 14px; width: 92px; height: 92px; color: #465b4b; }
+    .k-node.n3 { left: 26px; bottom: 10px; width: 92px; height: 92px; color: #785718; }
+    .k-node.n4 { right: 28px; bottom: 4px; width: 82px; height: 82px; color: var(--plum); }
+
+    .data-rows {
+      display: grid;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .data-row {
+      display: grid;
+      grid-template-columns: 68px 1fr;
+      align-items: center;
+      gap: 12px;
+      min-height: 30px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 850;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .data-row span:last-child {
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(22, 90, 145, .26);
+    }
+
+    .data-row:nth-child(2) span:last-child { width: 82%; background: rgba(200, 101, 70, .28); }
+    .data-row:nth-child(3) span:last-child { width: 64%; background: rgba(117, 136, 120, .30); }
+    }
+
+    .pipeline-slide { display: grid; grid-template-rows: auto 1fr auto; gap: 24px; }
+    .flow-track {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      gap: 14px;
+      align-items: start;
+      margin-top: 28px;
+      padding-top: 56px;
+    }
+
+    .flow-track::before {
+      content: "";
+      position: absolute;
+      left: 68px;
+      right: 68px;
+      top: 99px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--terracotta), var(--saffron), var(--blue), var(--sage));
+    }
+
+    .flow-step {
+      position: relative;
+      display: grid;
+      justify-items: center;
+      gap: 12px;
+      min-height: 300px;
+      text-align: center;
+    }
+
+    .flow-dot {
+      z-index: 2;
+      display: grid;
+      place-items: center;
+      width: 86px;
+      height: 86px;
+      border: 7px solid var(--paper);
+      border-radius: 50%;
+      background: var(--white);
+      color: var(--blue-dark);
+      box-shadow: 0 0 0 1px var(--line), 0 16px 34px rgba(24, 36, 51, .08);
+      animation: pulse 4s var(--ease) infinite;
+      animation-delay: calc(var(--i) * 170ms);
+    }
+
+    .flow-step:nth-child(2n) .flow-dot { color: #8e3f28; }
+    .flow-step:nth-child(3n) .flow-dot { color: #465b4b; }
+
+    @keyframes pulse {
+      0%, 22%, 100% { transform: translateY(0); background: var(--white); }
+      9% { transform: translateY(-12px) scale(1.06); background: var(--paper-deep); }
+    }
+
+    .flow-arrow {
+      position: absolute;
+      right: -21px;
+      top: 74px;
+      z-index: 3;
+      color: var(--terracotta);
+      font-size: 34px;
+      font-weight: 500;
+    }
+
+    .flow-arrow { display: none; }
+    .flow-name { margin-top: 18px; font-family: Georgia, serif; font-size: 25px; line-height: 1.02; }
+    .flow-note { width: 134px; color: var(--muted); font-size: 14px; line-height: 1.25; }
+
+    .pipeline-tags {
+      display: grid;
+      grid-template-columns: repeat(4, auto);
+      justify-content: start;
+      gap: 14px;
+      margin-top: 10px;
+      padding: 20px 22px;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 253, 248, .46);
+    }
+
+    .cleaning { display: grid; grid-template-rows: auto 1fr auto; gap: 24px; }
+    .before-after {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 34px;
+      align-items: stretch;
+      margin-top: 6px;
+    }
+
+    .text-panel {
+      min-height: 485px;
+      padding: 30px;
+      border: 1px solid var(--line);
+      background: rgba(255, 253, 248, .70);
+      box-shadow: 0 16px 36px rgba(24, 36, 51, .07);
+    }
+
+    .text-panel h3 {
+      font-family: Georgia, serif;
+      font-size: 38px;
+      font-weight: 500;
+    }
+
+    .noise-lines {
+      display: grid;
+      gap: 17px;
+      margin-top: 42px;
+    }
+
+    .noise-line {
+      height: 12px;
+      border-radius: 999px;
+      background: rgba(102, 112, 122, .30);
+    }
+
+    .noise-line:nth-child(2) { width: 72%; transform: translateX(42px); background: rgba(200, 101, 70, .35); }
+    .noise-line:nth-child(3) { width: 90%; transform: rotate(-1.5deg); }
+    .noise-line:nth-child(4) { width: 62%; transform: translateX(118px) rotate(1deg); background: rgba(213, 166, 63, .48); }
+    .noise-line:nth-child(5) { width: 82%; }
+    .noise-line:nth-child(6) { width: 48%; transform: translateX(78px); background: rgba(117, 136, 120, .40); }
+
+    .hierarchy {
+      margin-top: 38px;
+      display: grid;
+      gap: 18px;
+    }
+
+    .heading-row {
+      display: grid;
+      grid-template-columns: 78px 1fr;
+      align-items: center;
+      min-height: 64px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .heading-row b {
+      color: var(--terracotta);
+      font-family: Georgia, serif;
+      font-size: 24px;
+      font-weight: 500;
+    }
+
+    .heading-row span {
+      height: 13px;
+      border-radius: 999px;
+      background: var(--blue);
+      opacity: .88;
+    }
+
+    .heading-row.h2 { margin-left: 48px; }
+    .heading-row.h2 span { width: 74%; background: var(--sage); }
+    .heading-row.h3 { margin-left: 96px; }
+    .heading-row.h3 span { width: 56%; background: var(--saffron); }
+
+    .split { display: grid; grid-template-rows: auto auto 1fr auto; gap: 22px; }
+    .rule-line {
+      padding: 18px 22px;
+      border-left: 4px solid var(--terracotta);
+      background: rgba(255, 253, 248, .62);
+      color: var(--blue-dark);
+      font-size: 22px;
+      font-weight: 750;
+    }
+
+    .rule-cards {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .rule-card {
+      min-height: 350px;
+      padding: 26px 22px;
+      border: 1px solid var(--line);
+      background: rgba(255, 253, 248, .72);
+      box-shadow: 0 16px 36px rgba(24, 36, 51, .07);
+    }
+
+    .rule-mark {
+      display: grid;
+      place-items: center;
+      width: 62px;
+      height: 62px;
+      border-radius: 50%;
+      background: var(--blue);
+      color: var(--white);
+      font-family: Georgia, serif;
+      font-size: 32px;
+      font-weight: 700;
+    }
+
+    .rule-card:nth-child(2) .rule-mark { background: var(--terracotta); }
+    .rule-card:nth-child(3) .rule-mark { background: var(--sage); }
+    .rule-card:nth-child(4) .rule-mark { background: var(--saffron); }
+    .rule-card h3 { margin-top: 18px; font-family: Georgia, serif; font-size: 27px; font-weight: 500; line-height: 1.08; }
+    .rule-card p { margin-top: 14px; color: var(--muted); font-size: 16px; line-height: 1.35; }
+
+    .mini-diagram {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 24px;
+      height: 54px;
+    }
+
+    .block {
+      width: 35px;
+      height: 35px;
+      border-radius: 4px;
+      background: rgba(22, 90, 145, .18);
+      border: 1px solid rgba(22, 90, 145, .35);
+    }
+
+    .block.big { width: 86px; background: rgba(200, 101, 70, .20); border-color: rgba(200, 101, 70, .42); }
+    .block.thin { width: 18px; }
+    .mini-diagram span { color: var(--terracotta); font-size: 27px; }
+
+    .donut-slide { display: grid; grid-template-rows: auto 1fr; gap: 18px; }
+    .chart-grid {
+      display: grid;
+      grid-template-columns: .94fr 1.06fr;
+      gap: 52px;
+      align-items: center;
+      margin-top: 4px;
+    }
+
+    .donut-wrap {
+      position: relative;
+      width: 560px;
+      height: 560px;
+      justify-self: center;
+      display: grid;
+      place-items: center;
+    }
+
+    .donut {
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: conic-gradient(
+        #165a91 0deg 141.55deg,
+        #c86546 141.55deg 190.49deg,
+        #758878 190.49deg 230.68deg,
+        #d5a63f 230.68deg 270.87deg,
+        #7e5f7d 270.87deg 302.33deg,
+        #4b8a8b 302.33deg 325.05deg,
+        #9a7555 325.05deg 342.53deg,
+        #5c6f99 342.53deg 358.25deg,
+        rgba(24, 36, 51, .18) 358.25deg 360deg
+      );
+      box-shadow: 0 22px 55px rgba(24, 36, 51, .12);
+    }
+
+    .donut::after {
+      content: "";
+      position: absolute;
+      inset: 120px;
+      border-radius: 50%;
+      background: var(--paper);
+      box-shadow: inset 0 0 0 1px var(--line);
+    }
+
+    .donut-center {
+      position: absolute;
+      z-index: 2;
+      text-align: center;
+    }
+
+    .donut-center b {
+      display: block;
+      color: var(--blue-dark);
+      font-family: Georgia, serif;
+      font-size: 82px;
+      font-weight: 500;
+      line-height: .88;
+    }
+
+    .donut-center span {
+      color: var(--muted);
+      font-size: 15px;
+      font-weight: 850;
+      letter-spacing: .11em;
+      text-transform: uppercase;
+    }
+
+    .legend {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px 24px;
+    }
+
+    .legend-item {
+      display: grid;
+      grid-template-columns: 16px 1fr auto;
+      align-items: center;
+      gap: 10px;
+      min-height: 44px;
+      border-bottom: 1px solid var(--line);
+      font-size: 16px;
+      font-weight: 750;
+    }
+
+    .swatch { width: 14px; height: 14px; border-radius: 50%; background: var(--c); }
+    .legend-item b { color: var(--blue-dark); font-size: 17px; }
+
+    .callouts {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 34px;
+    }
+
+    .callout {
+      min-height: 118px;
+      padding: 21px 18px;
+      border-left: 4px solid var(--terracotta);
+      background: rgba(255, 253, 248, .62);
+    }
+
+    .callout b {
+      display: block;
+      font-family: Georgia, serif;
+      font-size: 38px;
+      font-weight: 500;
+      line-height: 1;
+    }
+
+    .callout span { display: block; margin-top: 9px; color: var(--muted); font-size: 14px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+
+    .testing { display: grid; grid-template-rows: auto 1fr auto; gap: 22px; }
+    .stage-row {
+      display: grid;
+      grid-template-columns: 1fr 54px 1fr 54px 1fr;
+      align-items: center;
+      gap: 8px;
+      margin-top: 28px;
+    }
+
+    .test-stage {
+      min-height: 390px;
+      padding: 32px 28px;
+      border: 1px solid var(--line);
+      background: rgba(255, 253, 248, .72);
+      box-shadow: 0 16px 36px rgba(24, 36, 51, .07);
+    }
+
+    .test-stage b {
+      display: block;
+      color: var(--terracotta);
+      font-family: Georgia, serif;
+      font-size: 29px;
+      font-weight: 500;
+      font-style: italic;
+    }
+
+    .test-stage h3 { margin-top: 18px; font-family: Georgia, serif; font-size: 36px; font-weight: 500; line-height: 1.05; }
+    .test-stage ul { margin: 26px 0 0; padding: 0; list-style: none; display: grid; gap: 16px; }
+    .test-stage li { display: flex; gap: 11px; align-items: baseline; color: var(--muted); font-size: 19px; font-weight: 700; }
+    .test-stage li::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--blue); flex: 0 0 auto; }
+    .test-arrow { color: var(--terracotta); font-size: 48px; text-align: center; }
+
+    .bottom-note {
+      width: max-content;
+      max-width: 100%;
+      padding: 14px 20px;
+      border-left: 4px solid var(--terracotta);
+      background: rgba(255, 253, 248, .58);
+      color: var(--blue-dark);
+      font-size: 18px;
+      font-weight: 850;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .augment { display: grid; grid-template-rows: auto 1fr; gap: 20px; }
+    .augment-grid {
+      display: grid;
+      grid-template-columns: .85fr 1.15fr;
+      gap: 58px;
+      align-items: center;
+      margin-top: 4px;
+    }
+
+    .compare-stack { display: grid; gap: 22px; }
+    .compare-card {
+      min-height: 206px;
+      padding: 30px;
+      border: 1px solid var(--line);
+      background: rgba(255, 253, 248, .72);
+      box-shadow: 0 16px 36px rgba(24, 36, 51, .07);
+    }
+
+    .compare-card h3 { font-family: Georgia, serif; font-size: 38px; font-weight: 500; }
+    .compare-card p { margin-top: 17px; color: var(--muted); font-size: 21px; line-height: 1.35; }
+    .compare-card b { color: var(--terracotta); }
+
+    .bubble-map {
+      position: relative;
+      height: 560px;
+    }
+
+    .bubble {
+      position: absolute;
+      z-index: 2;
+      display: grid;
+      place-items: center;
+      width: 150px;
+      min-height: 82px;
+      padding: 15px 18px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255, 253, 248, .82);
+      color: var(--blue-dark);
+      text-align: center;
+      font-size: 16px;
+      font-weight: 850;
+      line-height: 1.18;
+      box-shadow: 0 14px 32px rgba(24, 36, 51, .08);
+    }
+
+    .bubble.main {
+      left: 50%;
+      top: 46%;
+      width: 190px;
+      height: 146px;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      background: var(--blue);
+      color: var(--white);
+      font-family: Georgia, serif;
+      font-size: 25px;
+      font-weight: 500;
+    }
+
+    .bubble.b1 { left: 40px; top: 42px; }
+    .bubble.b2 { right: 40px; top: 42px; border-radius: 24px; color: #8e3f28; }
+    .bubble.b3 { left: 58px; top: 318px; color: #465b4b; }
+    .bubble.b4 { right: 58px; top: 318px; border-radius: 22px; color: #785718; }
+    .bubble.b5 { left: 50%; bottom: 88px; transform: translateX(-50%); color: var(--plum); }
+
+    .bubble-map svg {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      color: rgba(24, 36, 51, .22);
+    }
+
+    .augment-tag {
+      position: absolute;
+      z-index: 3;
+      left: 140px;
+      right: 0;
+      bottom: 4px;
+      min-height: 66px;
+      padding: 16px 20px;
+      border-left: 4px solid var(--terracotta);
+      background: rgba(255, 253, 248, .62);
+      color: var(--blue-dark);
+      font-size: 19px;
+      font-weight: 850;
+      line-height: 1.2;
+    }
+
+    .results { display: grid; grid-template-rows: auto auto 1fr; gap: 24px; }
+    .metric-row {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 16px;
+      margin-top: 4px;
+    }
+
+    .metric-card {
+      min-height: 122px;
+      padding: 22px 18px;
+      border: 1px solid var(--line);
+      background: rgba(255, 253, 248, .72);
+      box-shadow: 0 12px 28px rgba(24, 36, 51, .06);
+    }
+
+    .metric-card b {
+      display: block;
+      font-family: Georgia, serif;
+      font-size: 43px;
+      font-weight: 500;
+      line-height: .98;
+      color: var(--blue-dark);
+    }
+
+    .metric-card span {
+      display: block;
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 850;
+      letter-spacing: .10em;
+      text-transform: uppercase;
+    }
+
+    .results-grid {
+      display: grid;
+      grid-template-columns: 1fr 350px;
+      gap: 44px;
+      align-items: end;
+    }
+
+    .bar-chart {
+      min-height: 416px;
+      padding: 26px 28px 20px;
+      border: 1px solid var(--line);
+      background: rgba(255, 253, 248, .68);
+    }
+
+    .bar-chart h3 { font-family: Georgia, serif; font-size: 33px; font-weight: 500; }
+    .bars {
+      display: grid;
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .bar-wrap {
+      display: grid;
+      grid-template-columns: 148px 1fr 42px;
+      align-items: center;
+      gap: 14px;
+      min-height: 30px;
+    }
+
+    .bar {
+      display: block;
+      width: calc(var(--pct) * 1%);
+      height: 18px;
+      background: linear-gradient(180deg, var(--c), rgba(24, 36, 51, .18));
+      border-radius: 999px;
+      min-width: 18px;
+    }
+
+    .bar-track {
+      height: 18px;
+      border-radius: 999px;
+      background: rgba(24, 36, 51, .07);
+      overflow: hidden;
+    }
+
+    .bar-value {
+      color: var(--blue-dark);
+      font-size: 14px;
+      font-weight: 850;
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .bar-label {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 850;
+      line-height: 1.15;
+      text-align: right;
+      text-transform: uppercase;
+    }
+
+    .total-card {
+      min-height: 250px;
+      padding: 31px 28px;
+      border-left: 5px solid var(--terracotta);
+      background: rgba(255, 253, 248, .72);
+      box-shadow: 0 16px 36px rgba(24, 36, 51, .07);
+    }
+
+    .total-card p { color: var(--muted); font-size: 18px; line-height: 1.35; }
+    .total-card b { display: block; margin-top: 12px; color: var(--blue-dark); font-family: Georgia, serif; font-size: 43px; font-weight: 500; line-height: 1.03; }
+    .total-card .small { margin-top: 20px; color: var(--ink); font-size: 17px; font-weight: 800; }
+
+    .progress {
+      position: absolute;
+      z-index: 10;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 3px;
+      pointer-events: none;
+    }
+
+    .progress > span {
+      display: block;
+      width: 0;
+      height: 100%;
+      background: var(--terracotta);
+      transition: width 240ms var(--ease);
+    }
+
+    .counter {
+      position: absolute;
+      z-index: 10;
+      left: 92px;
+      bottom: 43px;
+      color: rgba(24, 36, 51, .42);
+      font-size: 12px;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: .12em;
+      pointer-events: none;
+    }
+
+    .nav-zone {
+      position: absolute;
+      z-index: 5;
+      top: 0;
+      bottom: 0;
+      width: 12%;
+      border: 0;
+      padding: 0;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    .nav-zone.prev { left: 0; }
+    .nav-zone.next { right: 0; }
+    .nav-zone:focus-visible { outline: 3px solid var(--blue); outline-offset: -8px; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+      }
+    }
+
+    @page { size: 16in 9in; margin: 0; }
+
+    @media print {
+      html, body {
+        display: block;
+        width: auto;
+        height: auto;
+        overflow: visible;
+        background: #fff;
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+      }
+
+      .stage { width: 16in; height: auto; overflow: visible; box-shadow: none; }
+      .deck { position: relative; width: 16in; height: auto; transform: none; overflow: visible; }
+      .slide {
+        position: relative;
+        width: 16in;
+        height: 9in;
+        break-after: page;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        transition: none;
+      }
+      .slide .reveal { animation: none !important; }
+      .progress, .counter, .nav-zone { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="stage">
+    <main class="deck" aria-label="FAQ Data Pipeline slide presentation">
+      <section class="slide hero is-active" data-title="From Scattered Articles to Structured Knowledge" aria-hidden="false" tabindex="-1">
+        <div class="hero-copy">
+          <p class="kicker reveal">FAQ Data Pipeline</p>
+          <h1 class="reveal d2">From Scattered Articles to <em>Structured Knowledge</em></h1>
+          <p class="subtitle reveal d3">FAQ Data Pipeline for Freshmen Chatbot</p>
+        </div>
+        <div class="converge reveal d3" role="img" aria-label="WeChat and handbook documents converge into one structured database">
+          <div class="source-doc wechat">
+            <svg class="icon" viewBox="0 0 64 64" aria-hidden="true"><path d="M24 39c-9 0-16-5-16-12s7-12 16-12 16 5 16 12-7 12-16 12Z"/><path d="M40 27c9 0 16 5 16 12s-7 12-16 12c-3 0-6-.5-8-1.7L24 52l2.6-6.4C25 43.8 24 41.5 24 39"/><path d="M18 25h.1M30 25h.1M36 37h.1M48 37h.1"/></svg>
+            <p>WeChat</p>
+          </div>
+          <div class="source-doc handbook">
+            <svg class="icon" viewBox="0 0 64 64" aria-hidden="true"><path d="M18 10h25a7 7 0 0 1 7 7v37H20a6 6 0 0 1-6-6V14a4 4 0 0 1 4-4Z"/><path d="M20 48h30M22 20h18M22 29h22M22 38h14"/></svg>
+            <p>Handbook</p>
+          </div>
+          <div class="knowledge-card">
+            <h3>Structured Knowledge</h3>
+            <p>FAQ database</p>
+            <div class="node-map">
+              <svg viewBox="0 0 326 232" aria-hidden="true">
+                <path d="M163 116 53 47M163 116 271 58M163 116 70 180M163 116 268 181" stroke="currentColor" stroke-width="2" stroke-dasharray="7 9" fill="none"/>
+              </svg>
+              <span class="k-node main">FAQ</span>
+              <span class="k-node n1">Clean</span>
+              <span class="k-node n2">Classify</span>
+              <span class="k-node n3">Validate</span>
+              <span class="k-node n4">Export</span>
+            </div>
+            <div class="data-rows" aria-hidden="true">
+              <div class="data-row"><span>Chunk</span><span style="width:92%"></span></div>
+              <div class="data-row"><span>FAQ</span><span></span></div>
+              <div class="data-row"><span>JSON</span><span></span></div>
+            </div>
+          </div>
+        </div>
+        <p class="hero-purpose reveal d4">A controlled pipeline turns messy freshman information into searchable, categorized FAQ knowledge.</p>
+        <span class="slide-no">01</span>
+        <div class="footer">Freshmen Chatbot <span>/ Data Pipeline</span></div>
+      </section>
+
+      <section class="slide pipeline-slide" data-title="The 8-Step Pipeline" aria-hidden="true" tabindex="-1">
+        <header>
+          <p class="kicker reveal">System overview</p>
+          <h2 class="slide-title reveal d2">The 8-Step Pipeline</h2>
+        </header>
+        <div class="flow-track reveal d3" role="img" aria-label="Eight step pipeline from crawling to JSON export">
+          <article class="flow-step" style="--i:0"><div class="flow-dot"><svg class="icon" viewBox="0 0 64 64" aria-hidden="true"><circle cx="28" cy="28" r="16"/><path d="m40 40 12 12"/></svg></div><span class="flow-arrow">&rarr;</span><p class="flow-name">Crawl</p><p class="flow-note">Collect source articles</p></article>
+          <article class="flow-step" style="--i:1"><div class="flow-dot"><svg class="icon" viewBox="0 0 64 64" aria-hidden="true"><path d="M14 18h36M14 32h26M14 46h18"/><path d="m45 28 7 7-12 12-7-7Z"/></svg></div><span class="flow-arrow">&rarr;</span><p class="flow-name">Preprocess</p><p class="flow-note">Clean raw text</p></article>
+          <article class="flow-step" style="--i:2"><div class="flow-dot"><svg class="icon" viewBox="0 0 64 64" aria-hidden="true"><path d="M16 12h32v40H16zM16 26h32M16 40h32"/></svg></div><span class="flow-arrow">&rarr;</span><p class="flow-name">Chunk</p><p class="flow-note">Split by headings</p></article>
+          <article class="flow-step" style="--i:3"><div class="flow-dot"><svg class="icon" viewBox="0 0 64 64" aria-hidden="true"><path d="M15 18h18v14H15zM31 38h18v14H31zM37 14l12 12M49 14 37 26"/></svg></div><span class="flow-arrow">&rarr;</span><p class="flow-name">Classify</p><p class="flow-note">Match categories</p></article>
+          <article class="flow-step" style="--i:4"><div class="flow-dot"><svg class="icon" viewBox="0 0 64 64" aria-hidden="true"><path d="M15 16h34v28H25l-10 8V16Z"/><path d="M24 25h17M24 34h11"/></svg></div><span class="flow-arrow">&rarr;</span><p class="flow-name">Generate FAQ</p><p class="flow-note">Create Q and A</p></article>
+          <article class="flow-step" style="--i:5"><div class="flow-dot"><svg class="icon" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 12v40M12 32h40"/><circle cx="32" cy="32" r="17"/></svg></div><span class="flow-arrow">&rarr;</span><p class="flow-name">Augment</p><p class="flow-note">Add phrasings</p></article>
+          <article class="flow-step" style="--i:6"><div class="flow-dot"><svg class="icon" viewBox="0 0 64 64" aria-hidden="true"><path d="m15 34 11 11 23-26"/><path d="M14 14h36v36H14z"/></svg></div><span class="flow-arrow">&rarr;</span><p class="flow-name">Validate</p><p class="flow-note">Check format</p></article>
+          <article class="flow-step" style="--i:7"><div class="flow-dot"><svg class="icon" viewBox="0 0 64 64" aria-hidden="true"><path d="M18 12h28l6 7v33H18z"/><path d="M27 30h10M24 40h16M46 12v9h6"/></svg></div><p class="flow-name">Export JSON</p><p class="flow-note">Load knowledge base</p></article>
+        </div>
+        <div class="pipeline-tags reveal d4"><span class="chip">206 Chunks</span><span class="chip">492 FAQs</span><span class="chip">8 Categories</span><span class="chip">0 Errors</span></div>
+        <span class="slide-no">02</span>
+        <div class="footer">Freshmen Chatbot <span>/ Data Pipeline</span></div>
+      </section>
+
+      <section class="slide cleaning" data-title="Cleaning the Raw Text" aria-hidden="true" tabindex="-1">
+        <header>
+          <p class="kicker reveal">Highlight 1</p>
+          <h2 class="slide-title reveal d2">Cleaning the Raw Text</h2>
+        </header>
+        <div class="before-after reveal d3">
+          <article class="text-panel">
+            <h3>Before</h3>
+            <div class="noise-lines" aria-label="Noisy text lines">
+              <div class="noise-line" style="width:86%"></div><div class="noise-line"></div><div class="noise-line"></div><div class="noise-line"></div><div class="noise-line"></div><div class="noise-line"></div>
+            </div>
+            <div class="chip-row" style="margin-top:58px"><span class="chip">Emojis</span><span class="chip">Broken line breaks</span><span class="chip">Incomplete sentences</span></div>
+          </article>
+          <article class="text-panel">
+            <h3>After</h3>
+            <div class="hierarchy" aria-label="Clean H1 H2 H3 heading hierarchy">
+              <div class="heading-row h1"><b>H1</b><span style="width:88%"></span></div>
+              <div class="heading-row h2"><b>H2</b><span></span></div>
+              <div class="heading-row h3"><b>H3</b><span></span></div>
+              <div class="heading-row h2"><b>H2</b><span style="width:67%"></span></div>
+              <div class="heading-row h3"><b>H3</b><span style="width:48%"></span></div>
+            </div>
+          </article>
+        </div>
+        <div class="chip-row reveal d4"><span class="chip">Noise Removal</span><span class="chip">Manual Review per Article</span><span class="chip">206 Chunks</span></div>
+        <span class="slide-no">03</span>
+        <div class="footer">Freshmen Chatbot <span>/ Data Pipeline</span></div>
+      </section>
+
+      <section class="slide split" data-title="Split by Heading Level" aria-hidden="true" tabindex="-1">
+        <header>
+          <p class="kicker reveal">Highlight 1</p>
+          <h2 class="slide-title reveal d2">Split by Heading Level</h2>
+        </header>
+        <p class="rule-line reveal d3">Default: each H2 and H3 generates one independent chunk</p>
+        <div class="rule-cards reveal d3">
+          <article class="rule-card"><div class="rule-mark">@</div><h3><span class="code">@</span> after <span class="code">###</span></h3><p>H3 merges into parent H2</p><div class="mini-diagram"><div class="block thin"></div><span>+</span><div class="block"></div><span>&rarr;</span><div class="block big"></div></div></article>
+          <article class="rule-card"><div class="rule-mark">@</div><h3><span class="code">@</span> after <span class="code">##</span></h3><p>Entire H2 becomes one chunk</p><div class="mini-diagram"><div class="block"></div><div class="block"></div><span>&rarr;</span><div class="block big"></div></div></article>
+          <article class="rule-card"><div class="rule-mark">@</div><h3><span class="code">@</span> after <span class="code">#</span></h3><p>All H3s ignored, split by H2 only</p><div class="mini-diagram"><div class="block big"></div><span>|</span><div class="block big"></div></div></article>
+          <article class="rule-card"><div class="rule-mark">%</div><h3><span class="code">%</span> after <span class="code">#</span></h3><p>Normal split plus one extra H1-level chunk</p><div class="mini-diagram"><div class="block"></div><div class="block"></div><span>+</span><div class="block big"></div></div></article>
+        </div>
+        <div class="chip-row reveal d4"><span class="chip">Output levels: <span class="code">h2</span></span><span class="chip"><span class="code">h3</span></span><span class="chip"><span class="code">h1_full</span></span></div>
+        <span class="slide-no">04</span>
+        <div class="footer">Freshmen Chatbot <span>/ Data Pipeline</span></div>
+      </section>
+
+      <section class="slide donut-slide" data-title="8 Categories by Keyword Matching" aria-hidden="true" tabindex="-1">
+        <header>
+          <p class="kicker reveal">Highlight 2</p>
+          <h2 class="slide-title reveal d2">8 Categories by Keyword Matching</h2>
+        </header>
+        <div class="chart-grid">
+          <div class="donut-wrap reveal d3" role="img" aria-label="Donut chart showing chunk counts across eight categories and one unmatched chunk">
+            <div class="donut"></div>
+            <div class="donut-center"><b>206</b><span>Chunks total</span></div>
+          </div>
+          <div class="reveal d4">
+            <div class="legend">
+              <div class="legend-item" style="--c:#165a91"><span class="swatch"></span><span>campus_life</span><b>81</b></div>
+              <div class="legend-item" style="--c:#c86546"><span class="swatch"></span><span>accommodation_living</span><b>28</b></div>
+              <div class="legend-item" style="--c:#758878"><span class="swatch"></span><span>academic_affairs</span><b>23</b></div>
+              <div class="legend-item" style="--c:#d5a63f"><span class="swatch"></span><span>transportation</span><b>23</b></div>
+              <div class="legend-item" style="--c:#7e5f7d"><span class="swatch"></span><span>registration_orientation</span><b>18</b></div>
+              <div class="legend-item" style="--c:#4b8a8b"><span class="swatch"></span><span>campus_services</span><b>13</b></div>
+              <div class="legend-item" style="--c:#9a7555"><span class="swatch"></span><span>it_support</span><b>10</b></div>
+              <div class="legend-item" style="--c:#5c6f99"><span class="swatch"></span><span>finance_fees</span><b>9</b></div>
+            </div>
+            <div class="callouts">
+              <div class="callout"><b>206</b><span>Chunks total</span></div>
+              <div class="callout"><b>8</b><span>Categories</span></div>
+              <div class="callout"><b>1</b><span>Unmatched, resolved manually</span></div>
+            </div>
+          </div>
+        </div>
+        <span class="slide-no">05</span>
+        <div class="footer">Freshmen Chatbot <span>/ Data Pipeline</span></div>
+      </section>
+
+      <section class="slide testing" data-title="Progressive 3-Stage Testing" aria-hidden="true" tabindex="-1">
+        <header>
+          <p class="kicker reveal">Highlight 3</p>
+          <h2 class="slide-title reveal d2">Progressive 3-Stage Testing</h2>
+        </header>
+        <div class="stage-row reveal d3">
+          <article class="test-stage"><b>Stage 1</b><h3>Micro Test</h3><ul><li>2 chunks</li><li>No fabrication</li><li>Correct format</li><li>H2 vs H3 depth</li></ul></article>
+          <div class="test-arrow">&rarr;</div>
+          <article class="test-stage"><b>Stage 2</b><h3>Single Category Full Run</h3><ul><li>Concurrency delay</li><li>Timeout retry</li><li>Markdown cleanup</li></ul></article>
+          <div class="test-arrow">&rarr;</div>
+          <article class="test-stage"><b>Stage 3</b><h3>All 8 Categories</h3><ul><li>Zero errors</li><li>Full production</li><li>Ready to export</li></ul></article>
+        </div>
+        <p class="bottom-note reveal d4">Progressive, not all-at-once</p>
+        <span class="slide-no">06</span>
+        <div class="footer">Freshmen Chatbot <span>/ Data Pipeline</span></div>
+      </section>
+
+      <section class="slide augment" data-title="Data Augmentation" aria-hidden="true" tabindex="-1">
+        <header>
+          <p class="kicker reveal">Highlight 4</p>
+          <h2 class="slide-title reveal d2">Data Augmentation</h2>
+        </header>
+        <div class="augment-grid">
+          <div class="compare-stack reveal d3">
+            <article class="compare-card"><h3>H2 Overview Level</h3><p><b>Broad answer</b><br>2-4 FAQs per chunk</p></article>
+            <article class="compare-card"><h3>H3 Detail Level</h3><p><b>Focused answer</b><br>2-3 FAQs per chunk</p></article>
+          </div>
+          <div class="bubble-map reveal d4" role="img" aria-label="One question expands into five alternative phrasings">
+            <svg viewBox="0 0 720 560" aria-hidden="true">
+              <path d="M360 258 115 83M360 258 605 83M360 258 133 359M360 258 587 359M360 258 360 431" stroke="currentColor" stroke-width="2" stroke-dasharray="8 10" fill="none"/>
+            </svg>
+            <div class="bubble main">Original<br>Question</div>
+            <div class="bubble b1">What is<br>the rule?</div>
+            <div class="bubble b2">How do I<br>apply?</div>
+            <div class="bubble b3">Where can I<br>find it?</div>
+            <div class="bubble b4">Who should<br>I ask?</div>
+            <div class="bubble b5">When is it<br>needed?</div>
+            <div class="augment-tag">1 Question &rarr; 5 Phrasings &rarr; Better Retrieval Coverage</div>
+          </div>
+        </div>
+        <span class="slide-no">07</span>
+        <div class="footer">Freshmen Chatbot <span>/ Data Pipeline</span></div>
+      </section>
+
+      <section class="slide results" data-title="Results" aria-hidden="true" tabindex="-1">
+        <header>
+          <p class="kicker reveal">Production output</p>
+          <h2 class="slide-title reveal d2">Results</h2>
+        </header>
+        <div class="metric-row reveal d3">
+          <div class="metric-card"><b>206</b><span>Chunks</span></div>
+          <div class="metric-card"><b>492</b><span>FAQs</span></div>
+          <div class="metric-card"><b>8</b><span>Categories</span></div>
+          <div class="metric-card"><b>0</b><span>Errors</span></div>
+          <div class="metric-card"><b>~20 min</b><span>Runtime</span></div>
+        </div>
+        <div class="results-grid reveal d4">
+          <div class="bar-chart" role="img" aria-label="Bar chart of FAQs by category">
+            <h3>FAQs by Category</h3>
+            <div class="bars">
+              <div class="bar-wrap"><span class="bar-label">Academic Affairs</span><span class="bar-track"><span class="bar" style="--pct:28.4;--c:#758878"></span></span><span class="bar-value">56</span></div>
+              <div class="bar-wrap"><span class="bar-label">IT Support</span><span class="bar-track"><span class="bar" style="--pct:11.7;--c:#9a7555"></span></span><span class="bar-value">23</span></div>
+              <div class="bar-wrap"><span class="bar-label">Registration</span><span class="bar-track"><span class="bar" style="--pct:21.3;--c:#7e5f7d"></span></span><span class="bar-value">42</span></div>
+              <div class="bar-wrap"><span class="bar-label">Campus Services</span><span class="bar-track"><span class="bar" style="--pct:13.2;--c:#4b8a8b"></span></span><span class="bar-value">26</span></div>
+              <div class="bar-wrap"><span class="bar-label">Accommodation</span><span class="bar-track"><span class="bar" style="--pct:35.5;--c:#c86546"></span></span><span class="bar-value">70</span></div>
+              <div class="bar-wrap"><span class="bar-label">Transportation</span><span class="bar-track"><span class="bar" style="--pct:26.9;--c:#d5a63f"></span></span><span class="bar-value">53</span></div>
+              <div class="bar-wrap"><span class="bar-label">Finance</span><span class="bar-track"><span class="bar" style="--pct:12.7;--c:#5c6f99"></span></span><span class="bar-value">25</span></div>
+              <div class="bar-wrap"><span class="bar-label">Campus Life</span><span class="bar-track"><span class="bar" style="--pct:100;--c:#165a91"></span></span><span class="bar-value">197</span></div>
+            </div>
+          </div>
+          <aside class="total-card">
+            <p>Handbook pipeline</p>
+            <b>615 FAQs</b>
+            <p class="small">Total knowledge base</p>
+            <b>1,107 entries</b>
+            <p class="small">2,400+ phrasings after augmentation</p>
+          </aside>
+        </div>
+        <span class="slide-no">08</span>
+        <div class="footer">Freshmen Chatbot <span>/ Data Pipeline</span></div>
+      </section>
+
+      <button class="nav-zone prev" type="button" aria-label="Previous slide"></button>
+      <button class="nav-zone next" type="button" aria-label="Next slide"></button>
+      <div class="progress" aria-hidden="true"><span></span></div>
+      <div class="counter" aria-live="polite"></div>
+    </main>
+  </div>
+
+  <script>
+    (() => {
+      const deck = document.querySelector('.deck');
+      const stage = document.querySelector('.stage');
+      const slides = [...document.querySelectorAll('.slide')];
+      const counter = document.querySelector('.counter');
+      const progress = document.querySelector('.progress > span');
+      const prevButton = document.querySelector('.nav-zone.prev');
+      const nextButton = document.querySelector('.nav-zone.next');
+      let index = Math.max(0, Math.min(slides.length - 1, Number(location.hash.slice(1)) - 1 || 0));
+      let touchStartX = null;
+
+      function resizeStage() {
+        const scale = Math.min(stage.clientWidth / 1600, stage.clientHeight / 900);
+        deck.style.setProperty('--deck-scale', String(scale));
+      }
+
+      const isEditing = (target) => target instanceof Element && Boolean(target.closest('input, textarea, select, button:not(.nav-zone), [contenteditable="true"]'));
+
+      function render(nextIndex, updateHash = true) {
+        index = Math.max(0, Math.min(slides.length - 1, nextIndex));
+        slides.forEach((slide, slideIndex) => {
+          const active = slideIndex === index;
+          slide.classList.toggle('is-active', active);
+          slide.setAttribute('aria-hidden', String(!active));
+        });
+        counter.textContent = `${String(index + 1).padStart(2, '0')} / ${String(slides.length).padStart(2, '0')}`;
+        progress.style.width = `${((index + 1) / slides.length) * 100}%`;
+        const title = slides[index]?.dataset.title;
+        document.title = title ? `${title} — FAQ Data Pipeline` : 'FAQ Data Pipeline';
+        if (updateHash) history.replaceState(null, '', `#${index + 1}`);
+        slides[index]?.focus({ preventScroll: true });
+      }
+
+      function goForward() { render(index + 1); }
+      function goBack() { render(index - 1); }
+
+      function enterFullscreen() {
+        if (!document.fullscreenElement) deck.requestFullscreen?.().catch(() => {});
+        else document.exitFullscreen?.().catch(() => {});
+      }
+
+      document.addEventListener('keydown', (event) => {
+        if (isEditing(event.target)) return;
+        const nextKeys = ['ArrowRight', 'ArrowDown', 'PageDown', ' '];
+        const prevKeys = ['ArrowLeft', 'ArrowUp', 'PageUp'];
+        if (nextKeys.includes(event.key)) { event.preventDefault(); goForward(); }
+        else if (prevKeys.includes(event.key)) { event.preventDefault(); goBack(); }
+        else if (event.key === 'Home') { event.preventDefault(); render(0); }
+        else if (event.key === 'End') { event.preventDefault(); render(slides.length - 1); }
+        else if (event.key.toLowerCase() === 'f') { event.preventDefault(); enterFullscreen(); }
+      });
+
+      prevButton.addEventListener('click', () => goBack());
+      nextButton.addEventListener('click', () => goForward());
+      window.addEventListener('hashchange', () => render(Number(location.hash.slice(1)) - 1 || 0, false));
+      deck.addEventListener('touchstart', (event) => { touchStartX = event.changedTouches[0]?.clientX ?? null; }, { passive: true });
+      deck.addEventListener('touchend', (event) => {
+        if (touchStartX === null) return;
+        const distance = (event.changedTouches[0]?.clientX ?? touchStartX) - touchStartX;
+        touchStartX = null;
+        if (Math.abs(distance) < 48) return;
+        if (distance < 0) goForward();
+        else goBack();
+      }, { passive: true });
+
+      window.addEventListener('resize', resizeStage);
+      resizeStage();
+      render(index, false);
+    })();
+  </script>
+</body>
+</html>

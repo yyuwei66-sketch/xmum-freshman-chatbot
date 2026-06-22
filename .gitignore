@@ -6,12 +6,14 @@
 __pycache__/
 *.py[cod]
 *.pyc
+.pytest_cache/
 
 # Virtual environments
 .venv/
 venv/
 env/
 ENV/
+.conda/
 
 # Jupyter Notebook
 .ipynb_checkpoints/
@@ -32,3 +34,43 @@ data/chunks/*
 !data/chunks/.gitkeep
 !data/processed/.gitkeep
 !data/final/.gitkeep
+
+# macOS metadata
+.DS_Store
+.vscode/
+
+# Logs and local run artifacts
+*.log
+logs/
+
+# Node.js dependencies and build artifacts
+node_modules/
+dist/
+dist-ssr/
+coverage/
+*.tsbuildinfo
+.vite/
+.vite-temp/
+
+# Project-local package manager runtime and cache
+.codex-npm/
+.pnpm-store/
+
+# Generated presentation artifacts
+pre/dist/
+pre/presentation/dist/
+pre/presentation/node_modules/
+pre/presentation/audio-segments.json
+pre/presentation/public/audio/
+
+# LaTeX build artifacts
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.out
+*.run.xml
+*.synctex.gz
+*.xdv

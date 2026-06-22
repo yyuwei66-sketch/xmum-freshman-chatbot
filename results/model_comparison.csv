@@ -1,0 +1,4 @@
+model,accuracy,f1_macro,train_acc,train_f1,gap_acc,cv_f1_mean,cv_f1_std,train_time
+Naive Bayes,0.8226,0.7205,0.9353,0.9216,0.1127,0.7437,0.0165,0.0175
+Logistic Regression,0.8172,0.7194,0.9831,0.9815,0.1659,0.7322,0.0124,1.2243
+Linear SVM,0.839,0.7409,0.9303,0.9187,0.0913,0.7451,0.0208,0.3954
