@@ -301,6 +301,7 @@ def select_response(user_question, intent_info, entities):
         return {
             "answer": "Sorry, I do not have an answer for that.",
             "score": 0.0,
+            "category": "Unknown",
             "matched_question": None,
             "related_questions": []
         }
@@ -334,6 +335,7 @@ def select_response(user_question, intent_info, entities):
         return {
             "answer": "Sorry, I do not have an answer for that.",
             "score": fallback_score,
+            "category": "Unknown",
             "matched_question": None,
             "related_questions": related_questions
         }
@@ -341,6 +343,7 @@ def select_response(user_question, intent_info, entities):
     return {
         "answer": qa_pairs[best_index]["answer"],
         "score": best_score,
+        "category": qa_pairs[best_index].get("category", "Unknown"),
         "matched_question": qa_pairs[best_index]["question"],
         "related_questions": related_questions
     }
@@ -362,6 +365,7 @@ def chatbot_pipeline(user_question):
             "selection": {
                 "answer": intent_info["response"],
                 "score": intent_info["score"],
+                "category": "General Conversation",
                 "matched_question": None,
                 "related_questions": []
             },
@@ -389,7 +393,12 @@ candidate_tokens=[unique_tokens(candidate_token_text(item)) for item in qa_pairs
 tokenized_candidate_texts=[" ".join(tokens) for tokens in candidate_tokens]
 entity_vocabulary=build_entity_vocabulary(qa_pairs)
 
-embedding_model=SentenceTransformer(EMBEDDING_MODEL_NAME)
+try:
+    # Avoid a network metadata check when the model is already cached.
+    embedding_model=SentenceTransformer(EMBEDDING_MODEL_NAME,local_files_only=True)
+except OSError:
+    # A fresh installation can still download the model in the usual way.
+    embedding_model=SentenceTransformer(EMBEDDING_MODEL_NAME)
 if hasattr(embedding_model,"get_embedding_dimension"):
     embedding_dimension=embedding_model.get_embedding_dimension()
 else:

@@ -127,6 +127,18 @@
       flex-shrink: 0;
     }
 
+    .typing-dot {
+      animation: typing-bounce 1.1s infinite ease-in-out;
+    }
+
+    .typing-dot:nth-child(2) { animation-delay: 0.15s; }
+    .typing-dot:nth-child(3) { animation-delay: 0.3s; }
+
+    @keyframes typing-bounce {
+      0%, 60%, 100% { transform: translateY(0); opacity: 0.45; }
+      30% { transform: translateY(-4px); opacity: 1; }
+    }
+
     .scroll-thin::-webkit-scrollbar { width: 6px; }
     .scroll-thin::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 9999px; }
 
@@ -223,14 +235,14 @@
       </div>
 
       <div class="sidebar-bottom-illustration" aria-hidden="true">
-        <img src="../assets/bottom.png" alt="" />
+        <img src="/assets/bottom.png" alt="" />
       </div>
     </aside>
 
     <section class="center-panel flex min-w-0 flex-1 flex-col bg-white">
       <header class="chat-header relative flex items-center gap-4 border-b border-slate-200 px-6 py-4 overflow-hidden shrink-0">
-        <div class="pointer-events-none absolute right-28 top-1/2 -translate-y-1/2 h-32 w-96 opacity-100">
-  <img src="top_bg.png" alt="Header Background" class="h-full w-full object-contain" />
+        <div class="pointer-events-none absolute right-24 top-1/2 -translate-y-1/2 h-24 w-[300px] opacity-70">
+  <img src="/assets/top_bg.png" alt="Header Background" class="h-full w-full object-contain" />
 </div>
         <div class="h-12 w-12 rounded-full bg-[#fbf3df] border border-gold flex items-center justify-center font-serif text-[15px] font-bold text-navy">Nova</div>
         <div class="relative z-10">
@@ -248,55 +260,20 @@
         </div>
       </header>
 
-      <div class="chat-messages scroll-thin flex-1 overflow-y-auto px-6 py-6 bg-slate-50/50">
-        <div class="flex items-start justify-end gap-3">
-          <div class="max-w-md rounded-2xl rounded-tr-sm bg-user-bubble px-4 py-3 shadow-sm border border-slate-100">
-            <p class="text-sm text-slate-800">What are the deadlines for tuition fee payment or finance for this semester?</p>
-            <p class="mt-2 text-right text-[11px] text-slate-400">10:24 AM</p>
-          </div>
-          <span class="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-navy text-white shadow-sm">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="w-5 h-5"><circle cx="12" cy="8" r="4" /><path d="M4 20c0-4 3.5-6 8-6s8 2 8 6" /></svg>
-          </span>
-        </div>
-
-        <div class="mt-6 flex items-start gap-3">
+      <div id="chat-messages" class="chat-messages scroll-thin flex-1 overflow-y-auto px-6 py-6 bg-slate-50/50" aria-live="polite">
+        <div class="flex items-start gap-3">
           <div class="h-9 w-9 rounded-full bg-[#fbf3df] border border-gold flex items-center justify-center font-serif text-[10px] font-bold text-navy shrink-0 shadow-sm">Nova</div>
           <div class="max-w-2xl rounded-2xl rounded-tl-sm border border-slate-200 bg-white px-5 py-4 shadow-sm">
-            <p class="text-sm text-slate-700 leading-relaxed">For this semester, please take note of the following tuition fee payment deadlines:</p>
-
-            <div class="mt-4 overflow-hidden rounded-lg border border-slate-200">
-              <table class="w-full text-sm">
-                <thead>
-                  <tr class="bg-navy text-left text-white">
-                    <th class="px-4 py-3 text-[11px] font-semibold tracking-wide">PAYMENT TERMS</th>
-                    <th class="px-4 py-3 text-[11px] font-semibold tracking-wide">DEADLINE</th>
-                  </tr>
-                </thead>
-                <tbody class="divide-y divide-slate-100 bg-white">
-                  <tr class="hover:bg-slate-50 transition-colors"><td class="px-4 py-3 text-slate-700 font-medium">Full Payment</td><td class="px-4 py-3 text-slate-600">July 31, 2026</td></tr>
-                  <tr class="hover:bg-slate-50 transition-colors"><td class="px-4 py-3 text-slate-700 font-medium">Installment – 1st Due</td><td class="px-4 py-3 text-slate-600">July 31, 2026</td></tr>
-                  <tr class="hover:bg-slate-50 transition-colors"><td class="px-4 py-3 text-slate-700 font-medium">Installment – 2nd Due</td><td class="px-4 py-3 text-slate-600">September 30, 2026</td></tr>
-                  <tr class="hover:bg-slate-50 transition-colors"><td class="px-4 py-3 text-slate-700 font-medium">Installment – 3rd Due</td><td class="px-4 py-3 text-slate-600">November 30, 2026</td></tr>
-                </tbody>
-              </table>
-            </div>
-
-            <p class="mt-4 text-sm text-slate-700">Payments made after the deadline will incur a late fee of <span class="font-semibold">RM 50.00</span>.</p>
-            <p class="mt-3 text-sm text-slate-700">You may settle your fees through the following options:</p>
-            <ul class="mt-2 list-disc space-y-1.5 pl-5 text-sm text-slate-700">
-              <li>Online via Student Portal (Credit/Debit Card or e-Wallet)</li>
-              <li>Over-the-counter at any partner bank</li>
-              <li>On-campus payment at the Finance Office</li>
-            </ul>
-            <p class="mt-4 text-[11px] text-slate-400">10:25 AM</p>
+            <p class="text-sm text-slate-700 leading-relaxed">Hi! I’m Nova. Ask me anything about freshman life at XMUM.</p>
+            <p class="mt-3 text-[11px] text-slate-400">Ready to help</p>
           </div>
         </div>
       </div>
 
       <div class="chat-input-area shrink-0 px-6 pb-5 pt-3 bg-white border-t border-slate-100">
         <div class="flex items-center gap-3 rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 shadow-inner">
-          <input type="text" placeholder="Type your question here..." class="flex-1 bg-transparent text-sm text-slate-700 outline-none placeholder:text-slate-400" />
-          <button class="grid h-9 w-9 place-items-center rounded-lg bg-navy text-white hover:bg-navy-deep transition-colors shadow-sm">
+          <input id="question-input" type="text" maxlength="2000" autocomplete="off" placeholder="Type your question here..." class="flex-1 bg-transparent text-sm text-slate-700 outline-none placeholder:text-slate-400 disabled:cursor-not-allowed" />
+          <button id="send-button" aria-label="Send question" class="grid h-9 w-9 place-items-center rounded-lg bg-navy text-white hover:bg-navy-deep transition-colors shadow-sm disabled:cursor-not-allowed disabled:opacity-50">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="w-4 h-4 ml-0.5"><path d="M4 12l16-8-6 8 6 8-16-8zM10 12h10" /></svg>
           </button>
         </div>
@@ -310,8 +287,8 @@
           <span class="text-gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="w-4 h-4"><path d="M3 3h7l11 11-7 7L3 10V3z" /><circle cx="7.5" cy="7.5" r="1.5" /></svg></span>
           <span class="text-[11px] font-semibold tracking-wide">PREDICTED CATEGORY</span>
         </div>
-        <p class="mt-2 text-lg font-bold text-navy">7. Finance &amp; Fees</p>
-        <p class="mt-1 text-xs leading-relaxed text-slate-500">Questions about payment, billing, and fee-related concerns.</p>
+        <p id="category-value" class="mt-2 text-lg font-bold text-navy">Not predicted yet</p>
+        <p id="category-description" class="mt-1 text-xs leading-relaxed text-slate-500">Ask a question to see its predicted category.</p>
       </div>
 
       <div class="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
@@ -319,11 +296,11 @@
           <span class="text-gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="w-4 h-4"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z" /></svg></span>
           <span class="text-[11px] font-semibold tracking-wide">CONFIDENCE SCORE</span>
         </div>
-        <p class="mt-2 text-3xl font-bold text-positive">95%</p>
+        <p id="confidence-value" class="mt-2 text-3xl font-bold text-slate-400">0%</p>
         <div class="mt-2 h-2 w-full overflow-hidden rounded-full bg-slate-100">
-          <div class="h-full rounded-full bg-positive" style="width: 95%"></div>
+          <div id="confidence-bar" class="h-full rounded-full bg-slate-300 transition-all" style="width: 0%"></div>
         </div>
-        <p class="mt-1 text-xs text-slate-400">High confidence</p>
+        <p id="confidence-label" class="mt-1 text-xs text-slate-400">No prediction yet</p>
       </div>
 
       <div class="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
@@ -332,17 +309,10 @@
             <span class="text-gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="w-4 h-4"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></svg></span>
             <span class="text-[11px] font-semibold tracking-wide">RECENT CHATS</span>
           </div>
-          <a href="#" class="text-[11px] text-blue-600 hover:underline">View all</a>
+          <button id="view-all" type="button" class="text-[11px] text-blue-600 hover:underline">View all</button>
         </div>
-        <ul class="mt-3 space-y-3">
-          <li class="flex items-start justify-between gap-2 rounded-md px-2 py-1.5 bg-slate-50 ring-1 ring-slate-200">
-            <span class="text-xs leading-snug text-slate-600 line-clamp-2">What are the deadlines for tuition fee payment...</span>
-            <span class="whitespace-nowrap text-[10px] text-slate-400">10:24 AM</span>
-          </li>
-          <li class="flex items-start justify-between gap-2 rounded-md px-2 py-1.5 hover:bg-slate-50">
-            <span class="text-xs leading-snug text-slate-600 line-clamp-2">How can I apply for a scholarship?</span>
-            <span class="whitespace-nowrap text-[10px] text-slate-400">Yesterday</span>
-          </li>
+        <ul id="recent-chats" class="mt-3 space-y-3">
+          <li class="px-2 py-1.5 text-xs text-slate-400">No questions yet.</li>
         </ul>
       </div>
 
@@ -351,24 +321,216 @@
           <span class="text-gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="w-4 h-4"><circle cx="12" cy="12" r="9" /><path d="M9.5 9a2.5 2.5 0 0 1 4 1.5c0 1.5-2 2-2 3M12 17h.01" /></svg></span>
           <span class="text-[11px] font-semibold tracking-wide">RELATED QUESTIONS</span>
         </div>
-        <ul class="mt-3 divide-y divide-slate-100">
-          <li>
-            <button class="flex w-full items-center justify-between gap-2 py-3 text-left hover:text-navy transition-colors group">
-              <span class="text-xs leading-snug text-slate-600 group-hover:text-navy">What payment options are available?</span>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" class="w-4 h-4 shrink-0 text-slate-300 group-hover:text-navy"><path d="M9 6l6 6-6 6" /></svg>
-            </button>
-          </li>
-          <li>
-            <button class="flex w-full items-center justify-between gap-2 py-3 text-left hover:text-navy transition-colors group">
-              <span class="text-xs leading-snug text-slate-600 group-hover:text-navy">How can I get a copy of my billing statement?</span>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" class="w-4 h-4 shrink-0 text-slate-300 group-hover:text-navy"><path d="M9 6l6 6-6 6" /></svg>
-            </button>
-          </li>
+        <ul id="related-questions" class="mt-3 divide-y divide-slate-100">
+          <li class="py-3 text-xs text-slate-400">Related questions will appear here.</li>
         </ul>
       </div>
     </aside>
 
   </div>
+
+  <script>
+    const chatMessages = document.getElementById('chat-messages');
+    const questionInput = document.getElementById('question-input');
+    const sendButton = document.getElementById('send-button');
+    const recentChats = document.getElementById('recent-chats');
+    const relatedQuestions = document.getElementById('related-questions');
+    const categoryValue = document.getElementById('category-value');
+    const categoryDescription = document.getElementById('category-description');
+    const confidenceValue = document.getElementById('confidence-value');
+    const confidenceBar = document.getElementById('confidence-bar');
+    const confidenceLabel = document.getElementById('confidence-label');
+    const history = [];
+    let isSending = false;
+
+    const categoryDescriptions = {
+      'Academic Affairs': 'Courses, grades, academic procedures, and academic offices.',
+      'IT Support': 'Accounts, systems, internet access, and technical assistance.',
+      'Registration & Orientation': 'Registration steps, arrival, and orientation activities.',
+      'Campus Services': 'Facilities, student services, and on-campus support.',
+      'Accommodation & Living': 'Housing, daily life, and residential matters.',
+      'Transportation': 'Travel, campus transport, and commuting information.',
+      'Finance & Fees': 'Payments, billing, scholarships, and fee-related concerns.',
+      'General Conversation': 'Greetings and general conversational messages.',
+      'Unknown': 'No reliable FAQ category was found for this question.'
+    };
+
+    function timeLabel() {
+      return new Intl.DateTimeFormat([], { hour: 'numeric', minute: '2-digit' }).format(new Date());
+    }
+
+    function linkifyText(container, text) {
+      const matcher = /(https?:\/\/[^\s]+|[\w.+-]+@[\w.-]+\.[A-Za-z]{2,})/g;
+      let cursor = 0;
+      for (const match of text.matchAll(matcher)) {
+        container.append(document.createTextNode(text.slice(cursor, match.index)));
+        const link = document.createElement('a');
+        const value = match[0];
+        link.href = value.includes('@') && !value.startsWith('http') ? `mailto:${value}` : value;
+        link.textContent = value;
+        link.className = 'text-blue-600 underline underline-offset-2';
+        if (link.href.startsWith('http')) {
+          link.target = '_blank';
+          link.rel = 'noopener noreferrer';
+        }
+        container.append(link);
+        cursor = match.index + value.length;
+      }
+      container.append(document.createTextNode(text.slice(cursor)));
+    }
+
+    function addUserMessage(question) {
+      const row = document.createElement('div');
+      row.className = 'mt-6 flex items-start justify-end gap-3';
+      const bubble = document.createElement('div');
+      bubble.className = 'max-w-md rounded-2xl rounded-tr-sm bg-user-bubble px-4 py-3 shadow-sm border border-slate-100';
+      const content = document.createElement('p');
+      content.className = 'text-sm text-slate-800 whitespace-pre-wrap';
+      content.textContent = question;
+      const time = document.createElement('p');
+      time.className = 'mt-2 text-right text-[11px] text-slate-400';
+      time.textContent = timeLabel();
+      bubble.append(content, time);
+      const avatar = document.createElement('span');
+      avatar.className = 'grid h-9 w-9 shrink-0 place-items-center rounded-full bg-navy text-xs font-bold text-white shadow-sm';
+      avatar.textContent = 'JS';
+      row.append(bubble, avatar);
+      chatMessages.append(row);
+    }
+
+    function addBotMessage(answer, isError = false) {
+      const row = document.createElement('div');
+      row.className = 'mt-6 flex items-start gap-3';
+      const avatar = document.createElement('div');
+      avatar.className = 'h-9 w-9 rounded-full bg-[#fbf3df] border border-gold flex items-center justify-center font-serif text-[10px] font-bold text-navy shrink-0 shadow-sm';
+      avatar.textContent = 'Nova';
+      const bubble = document.createElement('div');
+      bubble.className = `max-w-2xl rounded-2xl rounded-tl-sm border bg-white px-5 py-4 shadow-sm ${isError ? 'border-red-200' : 'border-slate-200'}`;
+      const content = document.createElement('p');
+      content.className = `text-sm leading-relaxed whitespace-pre-wrap ${isError ? 'text-red-700' : 'text-slate-700'}`;
+      linkifyText(content, answer);
+      const time = document.createElement('p');
+      time.className = 'mt-3 text-[11px] text-slate-400';
+      time.textContent = timeLabel();
+      bubble.append(content, time);
+      row.append(avatar, bubble);
+      chatMessages.append(row);
+      return row;
+    }
+
+    function addTypingIndicator() {
+      const row = document.createElement('div');
+      row.className = 'mt-6 flex items-start gap-3';
+      row.innerHTML = '<div class="h-9 w-9 rounded-full bg-[#fbf3df] border border-gold flex items-center justify-center font-serif text-[10px] font-bold text-navy shrink-0 shadow-sm">Nova</div><div class="flex items-center gap-1 rounded-2xl rounded-tl-sm border border-slate-200 bg-white px-5 py-4 shadow-sm" aria-label="Nova is typing"><span class="typing-dot h-2 w-2 rounded-full bg-slate-400"></span><span class="typing-dot h-2 w-2 rounded-full bg-slate-400"></span><span class="typing-dot h-2 w-2 rounded-full bg-slate-400"></span></div>';
+      chatMessages.append(row);
+      return row;
+    }
+
+    function updateRecentChats() {
+      recentChats.replaceChildren();
+      history.slice(-2).reverse().forEach((item, index) => {
+        const li = document.createElement('li');
+        li.className = `flex items-start justify-between gap-2 rounded-md px-2 py-1.5 ${index === 0 ? 'bg-slate-50 ring-1 ring-slate-200' : ''}`;
+        const question = document.createElement('span');
+        question.className = 'text-xs leading-snug text-slate-600 line-clamp-2';
+        question.textContent = item.question;
+        const time = document.createElement('span');
+        time.className = 'whitespace-nowrap text-[10px] text-slate-400';
+        time.textContent = item.time;
+        li.append(question, time);
+        recentChats.append(li);
+      });
+    }
+
+    function updateRelatedQuestions(questions) {
+      relatedQuestions.replaceChildren();
+      if (!questions.length) {
+        const empty = document.createElement('li');
+        empty.className = 'py-3 text-xs text-slate-400';
+        empty.textContent = 'No related questions available.';
+        relatedQuestions.append(empty);
+        return;
+      }
+      questions.forEach((question) => {
+        const li = document.createElement('li');
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'flex w-full items-center justify-between gap-2 py-3 text-left hover:text-navy transition-colors group';
+        const label = document.createElement('span');
+        label.className = 'text-xs leading-snug text-slate-600 group-hover:text-navy';
+        label.textContent = question;
+        const arrow = document.createElement('span');
+        arrow.className = 'text-slate-300 group-hover:text-navy';
+        arrow.textContent = '›';
+        button.append(label, arrow);
+        button.addEventListener('click', () => sendQuestion(question));
+        li.append(button);
+        relatedQuestions.append(li);
+      });
+    }
+
+    function updateAnalysis(data) {
+      const score = Math.max(0, Math.min(100, Math.round(data.confidence * 100)));
+      categoryValue.textContent = data.category;
+      categoryDescription.textContent = categoryDescriptions[data.category] || 'FAQ category predicted from the closest matching question.';
+      confidenceValue.textContent = `${score}%`;
+      confidenceBar.style.width = `${score}%`;
+      const isHigh = score >= 75;
+      const isMedium = score >= 45 && score < 75;
+      confidenceLabel.textContent = isHigh ? 'High confidence' : isMedium ? 'Medium confidence' : 'Low confidence';
+      confidenceValue.className = `mt-2 text-3xl font-bold ${isHigh ? 'text-positive' : isMedium ? 'text-gold-strong' : 'text-red-500'}`;
+      confidenceBar.className = `h-full rounded-full transition-all ${isHigh ? 'bg-positive' : isMedium ? 'bg-gold-strong' : 'bg-red-400'}`;
+      updateRelatedQuestions(data.related_questions || []);
+    }
+
+    async function sendQuestion(prefilledQuestion) {
+      if (isSending) return;
+      const question = (prefilledQuestion ?? questionInput.value).trim();
+      if (!question) {
+        questionInput.focus();
+        return;
+      }
+      isSending = true;
+      questionInput.value = '';
+      questionInput.disabled = true;
+      sendButton.disabled = true;
+      addUserMessage(question);
+      history.push({ question, time: timeLabel() });
+      updateRecentChats();
+      const typing = addTypingIndicator();
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+
+      try {
+        const response = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ question })
+        });
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.error || 'The chatbot could not answer right now.');
+        typing.remove();
+        addBotMessage(data.answer);
+        updateAnalysis(data);
+      } catch (error) {
+        typing.remove();
+        addBotMessage(`${error.message} Please try again.`, true);
+      } finally {
+        isSending = false;
+        questionInput.disabled = false;
+        sendButton.disabled = false;
+        questionInput.focus();
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+    }
+
+    sendButton.addEventListener('click', () => sendQuestion());
+    questionInput.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') sendQuestion();
+    });
+    document.getElementById('view-all').addEventListener('click', () => {
+      chatMessages.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
 
 </body>
 </html>

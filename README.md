@@ -10,7 +10,7 @@ This project develops a text-based FAQ chatbot prototype for XMUM freshman enqui
 - ML category classification using Naive Bayes (best performing) and Linear SVM
 - Retrieval-based answer matching using cosine similarity
 - Confidence-based response strategy
-- Streamlit user interface
+- Flask web interface using the design in `ui/`
 
 ## Project Structure
 
@@ -19,7 +19,8 @@ This project develops a text-based FAQ chatbot prototype for XMUM freshman enqui
 - `models/`: trained classifier model
 - `results/`: evaluation results and screenshots
 - `docs/`: proposal, literature review, and final report
-- `app.py`: Streamlit chatbot interface
+- `app.py`: Flask web server and chatbot API
+- `ui/`: browser interface
 
 ## How to Run
 
@@ -43,5 +44,9 @@ pytest tests/ -v
 
 ### 4. Start the Chatbot UI
 ```bash
-streamlit run app.py
+python app.py
 ```
+
+Then open `http://127.0.0.1:5000`. The retrieval model is loaded when the
+server starts, so startup may take a moment. To expose the app on a trusted
+local network, run `flask --app app run --host 0.0.0.0`.
