@@ -130,6 +130,14 @@
       line-height: .98;
     }
 
+    .subline {
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 17px;
+      font-weight: 650;
+      letter-spacing: .015em;
+    }
+
     .slide-no {
       position: absolute;
       top: 73px;
@@ -412,8 +420,16 @@
       top: 22px;
       font-size: 30px;
     }
-    .flow-name { margin-top: 18px; font-family: Georgia, serif; font-size: 25px; line-height: 1.02; }
-    .flow-note { width: 134px; color: var(--muted); font-size: 14px; line-height: 1.25; }
+    .flow-name {
+      width: 100%;
+      margin-top: 18px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 17px;
+      font-weight: 800;
+      line-height: 1.05;
+      overflow-wrap: anywhere;
+    }
+    .flow-note { width: 142px; color: var(--muted); font-size: 13px; line-height: 1.25; }
 
     .pipeline-tags {
       display: grid;
@@ -430,10 +446,17 @@
     .cleaning { display: grid; grid-template-rows: auto 1fr auto; gap: 24px; }
     .before-after {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 34px;
+      grid-template-columns: 1fr 76px 1fr;
+      gap: 22px;
       align-items: stretch;
       margin-top: 6px;
+    }
+
+    .transform-arrow {
+      display: grid;
+      place-items: center;
+      color: var(--terracotta);
+      font-size: 50px;
     }
 
     .text-panel {
@@ -443,6 +466,8 @@
       background: rgba(255, 253, 248, .70);
       box-shadow: 0 16px 36px rgba(24, 36, 51, .07);
     }
+
+    .cleaning .text-panel { min-height: 450px; }
 
     .text-panel h3 {
       font-family: Georgia, serif;
@@ -468,6 +493,19 @@
     .noise-line:nth-child(5) { width: 82%; }
     .noise-line:nth-child(6) { width: 48%; transform: translateX(78px); background: rgba(117, 136, 120, .40); }
 
+    .noise-symbols {
+      position: relative;
+      height: 48px;
+      margin-top: 20px;
+      color: rgba(24, 36, 51, .42);
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 21px;
+      letter-spacing: .28em;
+      transform: rotate(-2deg);
+    }
+
+    .panel-tags { margin-top: 25px; }
+
     .hierarchy {
       margin-top: 38px;
       display: grid;
@@ -490,18 +528,24 @@
     }
 
     .heading-row span {
-      height: 13px;
-      border-radius: 999px;
-      background: var(--blue);
-      opacity: .88;
+      display: flex;
+      align-items: center;
+      min-height: 42px;
+      padding: 8px 14px;
+      border-left: 4px solid var(--blue);
+      background: rgba(22, 90, 145, .10);
+      color: var(--blue-dark);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 16px;
+      font-weight: 800;
     }
 
     .heading-row.h2 { margin-left: 48px; }
-    .heading-row.h2 span { width: 74%; background: var(--sage); }
+    .heading-row.h2 span { width: 74%; border-color: var(--sage); background: rgba(117, 136, 120, .13); }
     .heading-row.h3 { margin-left: 96px; }
-    .heading-row.h3 span { width: 56%; background: var(--saffron); }
+    .heading-row.h3 span { width: 60%; border-color: var(--saffron); background: rgba(213, 166, 63, .14); }
 
-    .split { display: grid; grid-template-rows: auto auto 1fr auto; gap: 22px; }
+    .split { display: grid; grid-template-rows: auto auto 1fr auto; gap: 16px; }
     .rule-line {
       padding: 18px 22px;
       border-left: 4px solid var(--terracotta);
@@ -511,87 +555,85 @@
       font-weight: 750;
     }
 
-    .rule-cards {
+    .chunking-layout {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 20px;
+      grid-template-columns: 1fr 300px;
+      gap: 26px;
+      min-height: 430px;
     }
 
-    .rule-card {
-      min-height: 350px;
-      padding: 26px 22px;
+    .chunk-stage {
+      position: relative;
+      overflow: hidden;
       border: 1px solid var(--line);
-      background: rgba(255, 253, 248, .72);
+      background: rgba(255, 253, 248, .64);
       box-shadow: 0 16px 36px rgba(24, 36, 51, .07);
     }
 
-    .rule-mark {
-      display: grid;
-      place-items: center;
-      width: 62px;
-      height: 62px;
-      border-radius: 50%;
-      background: var(--blue);
-      color: var(--white);
-      font-family: Georgia, serif;
-      font-size: 32px;
-      font-weight: 700;
-    }
-
-    .rule-card:nth-child(2) .rule-mark { background: var(--terracotta); }
-    .rule-card:nth-child(3) .rule-mark { background: var(--sage); }
-    .rule-card:nth-child(4) .rule-mark { background: var(--saffron); }
-    .rule-card h3 { margin-top: 18px; font-family: Georgia, serif; font-size: 27px; font-weight: 500; line-height: 1.08; }
-    .rule-card p { margin-top: 14px; color: var(--muted); font-size: 16px; line-height: 1.35; }
-
-    .rule-spec {
-      display: grid;
-      gap: 11px;
-      margin: 20px 0 0;
-    }
-
-    .rule-spec div {
-      display: grid;
-      grid-template-columns: 66px 1fr;
-      gap: 10px;
-      align-items: baseline;
-    }
-
-    .rule-spec dt {
-      color: var(--muted);
+    .source-sheet {
+      position: absolute;
+      left: 26px;
+      top: 20px;
+      width: 49%;
+      height: 388px;
+      padding: 18px 20px;
+      border: 1px solid rgba(24, 36, 51, .18);
+      background: var(--white);
+      box-shadow: 0 12px 28px rgba(24, 36, 51, .08);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
       font-size: 11px;
-      font-weight: 850;
-      letter-spacing: .1em;
-      text-transform: uppercase;
+      line-height: 1.24;
     }
 
-    .rule-spec dd {
-      margin: 0;
-      color: var(--ink);
-      font-size: 15px;
-      font-weight: 750;
-      line-height: 1.25;
+    .doc-h1, .doc-h2, .doc-h3 { display: block; color: var(--blue-dark); font-weight: 850; }
+    .doc-h2 { margin-top: 8px; color: #9b482e; }
+    .doc-h3 { margin-top: 6px; padding-left: 14px; color: var(--blue); }
+    .doc-copy { display: block; padding-left: 14px; color: var(--muted); }
+
+    .chunk-out {
+      position: absolute;
+      z-index: 4;
+      left: 55%;
+      right: 22px;
+      min-height: 58px;
+      padding: 9px 12px;
+      border: 2px solid var(--blue);
+      background: rgba(255, 253, 248, .96);
+      box-shadow: 0 10px 22px rgba(24, 36, 51, .08);
+      opacity: 0;
+      transform: translateX(-70px) rotate(-1deg);
+      animation: floatChunk 700ms var(--ease) 1 both;
+      animation-delay: calc(var(--i) * 180ms + 250ms);
+      animation-play-state: paused;
+    }
+    .slide.is-active .chunk-out { animation-play-state: running; }
+    .chunk-out.h2 { border-color: var(--terracotta); }
+    .chunk-out.c1 { top: 18px; }
+    .chunk-out.c2 { top: 94px; }
+    .chunk-out.c3 { top: 170px; }
+    .chunk-out.c4 { top: 246px; }
+    .chunk-out.c5 { top: 322px; }
+    .chunk-out b { display: block; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; }
+    .chunk-out span { display: block; margin-top: 4px; color: var(--muted); font-size: 10px; line-height: 1.2; }
+    .level-tag { position: absolute; right: 8px; top: 8px; color: var(--blue); font-size: 10px; font-weight: 900; text-transform: uppercase; }
+    .chunk-out.h2 .level-tag { color: var(--terracotta); }
+
+    @keyframes floatChunk {
+      from { opacity: 0; transform: translateX(-70px) rotate(-1deg); }
+      to { opacity: 1; transform: none; }
     }
 
-    .mini-diagram {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 24px;
-      height: 54px;
+    .override-stack { display: grid; gap: 9px; }
+    .override-card {
+      min-height: 94px;
+      padding: 15px 16px;
+      border-left: 4px solid var(--blue);
+      background: rgba(255, 253, 248, .75);
+      box-shadow: 0 9px 22px rgba(24, 36, 51, .05);
     }
-
-    .block {
-      width: 35px;
-      height: 35px;
-      border-radius: 4px;
-      background: rgba(22, 90, 145, .18);
-      border: 1px solid rgba(22, 90, 145, .35);
-    }
-
-    .block.big { width: 86px; background: rgba(200, 101, 70, .20); border-color: rgba(200, 101, 70, .42); }
-    .block.thin { width: 18px; }
-    .mini-diagram span { color: var(--terracotta); font-size: 27px; }
+    .override-card:nth-child(2n) { border-color: var(--terracotta); }
+    .override-card b { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--blue-dark); font-size: 15px; }
+    .override-card p { margin-top: 8px; color: var(--muted); font-size: 13px; font-weight: 700; }
 
     .donut-slide { display: grid; grid-template-rows: auto 1fr; gap: 18px; }
     .chart-grid {
@@ -661,6 +703,33 @@
       text-transform: uppercase;
     }
 
+    .donut-pct {
+      position: absolute;
+      z-index: 3;
+      min-width: 58px;
+      padding: 5px 8px;
+      border: 2px solid var(--label-color);
+      border-radius: 999px;
+      background: rgba(255, 253, 248, .96);
+      color: var(--ink);
+      font-size: 13px;
+      font-weight: 900;
+      line-height: 1;
+      text-align: center;
+      font-variant-numeric: tabular-nums;
+      text-shadow: none;
+      box-shadow: 0 5px 14px rgba(24, 36, 51, .12);
+      transform: translate(-50%, -50%);
+    }
+    .donut-pct.p1 { left: 430px; top: 235px; --label-color: #165a91; font-size: 15px; }
+    .donut-pct.p2 { left: 340px; top: 454px; --label-color: #c86546; }
+    .donut-pct.p3 { left: 190px; top: 432px; --label-color: #758878; }
+    .donut-pct.p4 { left: 80px; top: 335px; --label-color: #d5a63f; }
+    .donut-pct.p5 { left: 78px; top: 225px; --label-color: #7e5f7d; }
+    .donut-pct.p6 { left: 130px; top: 112px; --label-color: #4b8a8b; }
+    .donut-pct.p7 { left: 220px; top: 70px; --label-color: #9a7555; }
+    .donut-pct.p8 { left: 310px; top: 62px; --label-color: #5c6f99; }
+
     .legend {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -679,7 +748,7 @@
     }
 
     .swatch { width: 14px; height: 14px; border-radius: 50%; background: var(--c); }
-    .legend-item b { color: var(--blue-dark); font-size: 17px; }
+    .legend-item b { color: var(--blue-dark); font-size: 14px; white-space: nowrap; }
 
     .callouts {
       display: grid;
@@ -946,9 +1015,12 @@
       box-shadow: 0 16px 36px rgba(24, 36, 51, .07);
     }
 
-    .total-card p { color: var(--muted); font-size: 18px; line-height: 1.35; }
-    .total-card b { display: block; margin-top: 12px; color: var(--blue-dark); font-family: Georgia, serif; font-size: 43px; font-weight: 500; line-height: 1.03; }
-    .total-card .small { margin-top: 20px; color: var(--ink); font-size: 17px; font-weight: 800; }
+    .source-row { display: flex; align-items: baseline; justify-content: space-between; gap: 18px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+    .source-row span { color: var(--muted); font-size: 15px; font-weight: 750; }
+    .source-row b { color: var(--blue-dark); font-family: Georgia, serif; font-size: 27px; font-weight: 500; white-space: nowrap; }
+    .source-row.total { border-bottom: 0; }
+    .source-row.total span, .source-row.total b { color: var(--terracotta); font-weight: 850; }
+    .total-card .small { margin-top: 18px; color: var(--ink); font-size: 14px; font-weight: 800; line-height: 1.35; }
 
     .progress {
       position: absolute;
@@ -999,12 +1071,13 @@
       top: 50%;
       color: rgba(24, 36, 51, .24);
       font-size: 28px;
+      opacity: 0;
       transform: translateY(-50%);
-      transition: color 180ms var(--ease), transform 180ms var(--ease);
+      transition: color 180ms var(--ease), opacity 180ms var(--ease), transform 180ms var(--ease);
     }
     .nav-zone.prev::before { content: "←"; left: 30px; }
     .nav-zone.next::before { content: "→"; right: 30px; }
-    .nav-zone:hover::before { color: var(--blue); }
+    .nav-zone:hover::before, .nav-zone:focus-visible::before { color: var(--blue); opacity: 1; }
     .nav-zone.prev:hover::before { transform: translate(-4px, -50%); }
     .nav-zone.next:hover::before { transform: translate(4px, -50%); }
     .nav-zone:focus-visible { outline: 3px solid var(--blue); outline-offset: -8px; }
@@ -1016,6 +1089,7 @@
         animation-duration: .01ms !important;
         animation-iteration-count: 1 !important;
       }
+      .chunk-out { opacity: 1; transform: none; }
     }
 
     @page { size: 16in 9in; margin: 0; }
@@ -1044,6 +1118,7 @@
         transition: none;
       }
       .slide .reveal { animation: none !important; }
+      .chunk-out { opacity: 1; transform: none; animation: none !important; }
       .progress, .counter, .nav-zone { display: none; }
     }
   </style>
@@ -1096,14 +1171,14 @@
           <h2 class="slide-title reveal d2">The 8-Step Pipeline</h2>
         </header>
         <div class="flow-track reveal d3" role="img" aria-label="Eight step pipeline from crawling to JSON export">
-          <article class="flow-step" style="--i:0"><div class="flow-dot"><svg class="icon" viewBox="0 0 64 64" aria-hidden="true"><circle cx="28" cy="28" r="16"/><path d="m40 40 12 12"/></svg></div><span class="flow-arrow">&rarr;</span><p class="flow-name">Crawl</p><p class="flow-note">Collect source articles</p></article>
-          <article class="flow-step" style="--i:1"><div class="flow-dot"><svg class="icon" viewBox="0 0 64 64" aria-hidden="true"><path d="M14 18h36M14 32h26M14 46h18"/><path d="m45 28 7 7-12 12-7-7Z"/></svg></div><span class="flow-arrow">&rarr;</span><p class="flow-name">Preprocess</p><p class="flow-note">Clean raw text</p></article>
-          <article class="flow-step" style="--i:2"><div class="flow-dot"><svg class="icon" viewBox="0 0 64 64" aria-hidden="true"><path d="M16 12h32v40H16zM16 26h32M16 40h32"/></svg></div><span class="flow-arrow">&rarr;</span><p class="flow-name">Chunk</p><p class="flow-note">Split by headings</p></article>
-          <article class="flow-step" style="--i:3"><div class="flow-dot"><svg class="icon" viewBox="0 0 64 64" aria-hidden="true"><path d="M15 18h18v14H15zM31 38h18v14H31zM37 14l12 12M49 14 37 26"/></svg></div><span class="flow-arrow">&rarr;</span><p class="flow-name">Classify</p><p class="flow-note">Match categories</p></article>
-          <article class="flow-step" style="--i:4"><div class="flow-dot"><svg class="icon" viewBox="0 0 64 64" aria-hidden="true"><path d="M15 16h34v28H25l-10 8V16Z"/><path d="M24 25h17M24 34h11"/></svg></div><span class="flow-arrow">&rarr;</span><p class="flow-name">Generate FAQ</p><p class="flow-note">Create Q and A</p></article>
-          <article class="flow-step" style="--i:5"><div class="flow-dot"><svg class="icon" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 12v40M12 32h40"/><circle cx="32" cy="32" r="17"/></svg></div><span class="flow-arrow">&rarr;</span><p class="flow-name">Augment</p><p class="flow-note">Add phrasings</p></article>
-          <article class="flow-step" style="--i:6"><div class="flow-dot"><svg class="icon" viewBox="0 0 64 64" aria-hidden="true"><path d="m15 34 11 11 23-26"/><path d="M14 14h36v36H14z"/></svg></div><span class="flow-arrow">&rarr;</span><p class="flow-name">Validate</p><p class="flow-note">Check format</p></article>
-          <article class="flow-step" style="--i:7"><div class="flow-dot"><svg class="icon" viewBox="0 0 64 64" aria-hidden="true"><path d="M18 12h28l6 7v33H18z"/><path d="M27 30h10M24 40h16M46 12v9h6"/></svg></div><p class="flow-name">Export JSON</p><p class="flow-note">Load knowledge base</p></article>
+          <article class="flow-step" style="--i:0"><div class="flow-dot"><svg class="icon" viewBox="0 0 64 64" aria-hidden="true"><circle cx="28" cy="28" r="16"/><path d="m40 40 12 12"/></svg></div><span class="flow-arrow">&rarr;</span><p class="flow-name">Crawler</p><p class="flow-note">fetch raw content</p></article>
+          <article class="flow-step" style="--i:1"><div class="flow-dot"><svg class="icon" viewBox="0 0 64 64" aria-hidden="true"><path d="M14 18h36M14 32h26M14 46h18"/><path d="m45 28 7 7-12 12-7-7Z"/></svg></div><span class="flow-arrow">&rarr;</span><p class="flow-name">Preprocessor</p><p class="flow-note">clean &amp; format data</p></article>
+          <article class="flow-step" style="--i:2"><div class="flow-dot"><svg class="icon" viewBox="0 0 64 64" aria-hidden="true"><path d="M16 12h32v40H16zM16 26h32M16 40h32"/></svg></div><span class="flow-arrow">&rarr;</span><p class="flow-name">Chunker</p><p class="flow-note">split documents</p></article>
+          <article class="flow-step" style="--i:3"><div class="flow-dot"><svg class="icon" viewBox="0 0 64 64" aria-hidden="true"><path d="M15 18h18v14H15zM31 38h18v14H31zM37 14l12 12M49 14 37 26"/></svg></div><span class="flow-arrow">&rarr;</span><p class="flow-name">Classifier</p><p class="flow-note">label data</p></article>
+          <article class="flow-step" style="--i:4"><div class="flow-dot"><svg class="icon" viewBox="0 0 64 64" aria-hidden="true"><path d="M15 16h34v28H25l-10 8V16Z"/><path d="M24 25h17M24 34h11"/></svg></div><span class="flow-arrow">&rarr;</span><p class="flow-name">FAQ_Generator</p><p class="flow-note">build QA pairs</p></article>
+          <article class="flow-step" style="--i:5"><div class="flow-dot"><svg class="icon" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 12v40M12 32h40"/><circle cx="32" cy="32" r="17"/></svg></div><span class="flow-arrow">&rarr;</span><p class="flow-name">Augmenter</p><p class="flow-note">enrich dataset</p></article>
+          <article class="flow-step" style="--i:6"><div class="flow-dot"><svg class="icon" viewBox="0 0 64 64" aria-hidden="true"><path d="m15 34 11 11 23-26"/><path d="M14 14h36v36H14z"/></svg></div><span class="flow-arrow">&rarr;</span><p class="flow-name">Validator</p><p class="flow-note">ensure data quality</p></article>
+          <article class="flow-step" style="--i:7"><div class="flow-dot"><svg class="icon" viewBox="0 0 64 64" aria-hidden="true"><path d="M18 12h28l6 7v33H18z"/><path d="M27 30h10M24 40h16M46 12v9h6"/></svg></div><p class="flow-name">Ingestor</p><p class="flow-note">write to storage</p></article>
         </div>
         <span class="slide-no">02</span>
         <div class="footer">Freshmen Chatbot <span>/ Data Pipeline</span></div>
@@ -1113,6 +1188,7 @@
         <header>
           <p class="kicker reveal">Highlight 1</p>
           <h2 class="slide-title reveal d2">Cleaning the Raw Text</h2>
+          <p class="subline reveal d2">Raw WeChat articles contain noise that breaks machine parsing</p>
         </header>
         <div class="before-after reveal d3">
           <article class="text-panel">
@@ -1120,20 +1196,21 @@
             <div class="noise-lines" aria-label="Noisy text lines">
               <div class="noise-line" style="width:86%"></div><div class="noise-line"></div><div class="noise-line"></div><div class="noise-line"></div><div class="noise-line"></div><div class="noise-line"></div>
             </div>
-            <div class="chip-row" style="margin-top:58px"><span class="chip">Emojis</span><span class="chip">Broken line breaks</span><span class="chip">Incomplete sentences</span></div>
+            <div class="noise-symbols" aria-hidden="true">✦ @@@ ↵↵ … ▧ ?! #</div>
+            <div class="chip-row panel-tags"><span class="chip">🎉 Emojis</span><span class="chip">↵↵ Broken line breaks</span><span class="chip">… Incomplete sentences</span><span class="chip">📷 Embedded images</span></div>
           </article>
+          <div class="transform-arrow" aria-hidden="true">&rarr;</div>
           <article class="text-panel">
             <h3>After</h3>
             <div class="hierarchy" aria-label="Clean H1 H2 H3 heading hierarchy">
-              <div class="heading-row h1"><b>H1</b><span style="width:88%"></span></div>
-              <div class="heading-row h2"><b>H2</b><span></span></div>
-              <div class="heading-row h3"><b>H3</b><span></span></div>
-              <div class="heading-row h2"><b>H2</b><span style="width:67%"></span></div>
-              <div class="heading-row h3"><b>H3</b><span style="width:48%"></span></div>
+              <div class="heading-row h1"><b>#</b><span style="width:88%">Title</span></div>
+              <div class="heading-row h2"><b>##</b><span>Section</span></div>
+              <div class="heading-row h3"><b>###</b><span>Subsection</span></div>
             </div>
+            <div class="chip-row panel-tags"><span class="chip">Clean structure</span><span class="chip">Markdown-ready</span></div>
           </article>
         </div>
-        <div class="chip-row reveal d4"><span class="chip">Noise Removal</span><span class="chip">Manual Review per Article</span><span class="chip">206 Chunks</span></div>
+        <div class="chip-row reveal d4"><span class="chip">✓ Auto Noise Removal</span><span class="chip">✓ Manual Review per Article</span><span class="chip">✓ 206 Chunks Output</span></div>
         <span class="slide-no">03</span>
         <div class="footer">Freshmen Chatbot <span>/ Data Pipeline</span></div>
       </section>
@@ -1142,15 +1219,33 @@
         <header>
           <p class="kicker reveal">Highlight 1</p>
           <h2 class="slide-title reveal d2">Split by Heading Level</h2>
+          <p class="subline reveal d2">Not by word count — by semantic heading structure</p>
         </header>
-        <p class="rule-line reveal d3">Default: each H2 and H3 generates one independent chunk</p>
-        <div class="rule-cards reveal d3">
-          <article class="rule-card"><div class="rule-mark">@</div><dl class="rule-spec"><div><dt>Marker</dt><dd class="code">@</dd></div><div><dt>Position</dt><dd>After <span class="code">###</span></dd></div><div><dt>Effect</dt><dd>H3 merges into parent H2</dd></div></dl><div class="mini-diagram"><div class="block thin"></div><span>+</span><div class="block"></div><span>&rarr;</span><div class="block big"></div></div></article>
-          <article class="rule-card"><div class="rule-mark">@</div><dl class="rule-spec"><div><dt>Marker</dt><dd class="code">@</dd></div><div><dt>Position</dt><dd>After <span class="code">##</span></dd></div><div><dt>Effect</dt><dd>Entire H2 becomes one chunk</dd></div></dl><div class="mini-diagram"><div class="block"></div><div class="block"></div><span>&rarr;</span><div class="block big"></div></div></article>
-          <article class="rule-card"><div class="rule-mark">@</div><dl class="rule-spec"><div><dt>Marker</dt><dd class="code">@</dd></div><div><dt>Position</dt><dd>After <span class="code">#</span></dd></div><div><dt>Effect</dt><dd>Ignore H3s; split by H2 only</dd></div></dl><div class="mini-diagram"><div class="block big"></div><span>|</span><div class="block big"></div></div></article>
-          <article class="rule-card"><div class="rule-mark">%</div><dl class="rule-spec"><div><dt>Marker</dt><dd class="code">%</dd></div><div><dt>Position</dt><dd>After <span class="code">#</span></dd></div><div><dt>Effect</dt><dd>Normal split + one H1-level chunk</dd></div></dl><div class="mini-diagram"><div class="block"></div><div class="block"></div><span>+</span><div class="block big"></div></div></article>
+        <p class="rule-line reveal d3">Default: each <span class="code">##</span> → 1 chunk / each <span class="code">###</span> → 1 independent chunk</p>
+        <div class="chunking-layout reveal d3">
+          <div class="chunk-stage" role="img" aria-label="A structured handbook is cut at heading lines into H2 and H3 chunks">
+            <div class="source-sheet">
+              <span class="doc-h1"># Student Handbook</span>
+              <span class="doc-h2">## Tuition &amp; Fees</span><span class="doc-copy">All students must complete payment before the semester starts.</span>
+              <span class="doc-h3">### Payment Methods</span><span class="doc-copy">You may pay via online banking or campus cashier.</span>
+              <span class="doc-h3">### Deadlines</span><span class="doc-copy">Late payment incurs a penalty fee of RM50.</span>
+              <span class="doc-h2">## Campus Services</span><span class="doc-copy">The university provides various support services for students.</span>
+              <span class="doc-h3">### Library Access</span><span class="doc-copy">Students can borrow up to 5 books at a time.</span>
+            </div>
+            <div class="chunk-out h2 c1" style="--i:0"><b>## Tuition &amp; Fees</b><span>Payment before semester start</span><em class="level-tag">h2 chunk</em></div>
+            <div class="chunk-out c2" style="--i:1"><b>### Payment Methods</b><span>Online banking or campus cashier</span><em class="level-tag">h3 chunk</em></div>
+            <div class="chunk-out c3" style="--i:2"><b>### Deadlines</b><span>Late payment: RM50 penalty</span><em class="level-tag">h3 chunk</em></div>
+            <div class="chunk-out h2 c4" style="--i:3"><b>## Campus Services</b><span>Student support services</span><em class="level-tag">h2 chunk</em></div>
+            <div class="chunk-out c5" style="--i:4"><b>### Library Access</b><span>Borrow up to 5 books</span><em class="level-tag">h3 chunk</em></div>
+          </div>
+          <div class="override-stack" aria-label="Heading marker overrides">
+            <article class="override-card"><b>@ after ###</b><p>merges into H2</p></article>
+            <article class="override-card"><b>@ after ##</b><p>entire H2 = 1 chunk</p></article>
+            <article class="override-card"><b>@ after #</b><p>H3s ignored</p></article>
+            <article class="override-card"><b>% after #</b><p>extra H1 chunk</p></article>
+          </div>
         </div>
-        <div class="chip-row reveal d4"><span class="chip">Output levels: <span class="code">h2</span></span><span class="chip"><span class="code">h3</span></span><span class="chip"><span class="code">h1_full</span></span></div>
+        <div class="chip-row reveal d4"><span class="chip">Output levels:</span><span class="chip code">h2</span><span class="chip code">h3</span><span class="chip code">h1_full</span></div>
         <span class="slide-no">04</span>
         <div class="footer">Freshmen Chatbot <span>/ Data Pipeline</span></div>
       </section>
@@ -1164,17 +1259,18 @@
           <div class="donut-wrap reveal d3" role="img" aria-label="Donut chart showing chunk counts across eight categories and one unmatched chunk">
             <div class="donut"></div>
             <div class="donut-center"><b>206</b><span>Chunks total</span></div>
+            <span class="donut-pct p1">39.3%</span><span class="donut-pct p2">13.6%</span><span class="donut-pct p3">11.2%</span><span class="donut-pct p4">11.2%</span><span class="donut-pct p5">8.7%</span><span class="donut-pct p6">6.3%</span><span class="donut-pct p7">4.9%</span><span class="donut-pct p8">4.4%</span>
           </div>
           <div class="reveal d4">
             <div class="legend">
-              <div class="legend-item" style="--c:#165a91"><span class="swatch"></span><span>campus_life</span><b>81</b></div>
-              <div class="legend-item" style="--c:#c86546"><span class="swatch"></span><span>accommodation_living</span><b>28</b></div>
-              <div class="legend-item" style="--c:#758878"><span class="swatch"></span><span>academic_affairs</span><b>23</b></div>
-              <div class="legend-item" style="--c:#d5a63f"><span class="swatch"></span><span>transportation</span><b>23</b></div>
-              <div class="legend-item" style="--c:#7e5f7d"><span class="swatch"></span><span>registration_orientation</span><b>18</b></div>
-              <div class="legend-item" style="--c:#4b8a8b"><span class="swatch"></span><span>campus_services</span><b>13</b></div>
-              <div class="legend-item" style="--c:#9a7555"><span class="swatch"></span><span>it_support</span><b>10</b></div>
-              <div class="legend-item" style="--c:#5c6f99"><span class="swatch"></span><span>finance_fees</span><b>9</b></div>
+              <div class="legend-item" style="--c:#165a91"><span class="swatch"></span><span>campus_life</span><b>81 · 39.3%</b></div>
+              <div class="legend-item" style="--c:#c86546"><span class="swatch"></span><span>accommodation_living</span><b>28 · 13.6%</b></div>
+              <div class="legend-item" style="--c:#758878"><span class="swatch"></span><span>academic_affairs</span><b>23 · 11.2%</b></div>
+              <div class="legend-item" style="--c:#d5a63f"><span class="swatch"></span><span>transportation</span><b>23 · 11.2%</b></div>
+              <div class="legend-item" style="--c:#7e5f7d"><span class="swatch"></span><span>registration_orientation</span><b>18 · 8.7%</b></div>
+              <div class="legend-item" style="--c:#4b8a8b"><span class="swatch"></span><span>campus_services</span><b>13 · 6.3%</b></div>
+              <div class="legend-item" style="--c:#9a7555"><span class="swatch"></span><span>it_support</span><b>10 · 4.9%</b></div>
+              <div class="legend-item" style="--c:#5c6f99"><span class="swatch"></span><span>finance_fees</span><b>9 · 4.4%</b></div>
             </div>
             <div class="callouts">
               <div class="callout"><b>206</b><span>Chunks total</span></div>
@@ -1258,10 +1354,9 @@
             </div>
           </div>
           <aside class="total-card">
-            <p>Handbook pipeline</p>
-            <b>615 FAQs</b>
-            <p class="small">Total knowledge base</p>
-            <b>1,107 entries</b>
+            <div class="source-row"><span>WeChat Pipeline</span><b>492 FAQs</b></div>
+            <div class="source-row"><span>Handbook Pipeline</span><b>123 FAQs</b></div>
+            <div class="source-row total"><span>Total</span><b>615 entries</b></div>
             <p class="small">2,400+ phrasings after augmentation</p>
           </aside>
         </div>
