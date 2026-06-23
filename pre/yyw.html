@@ -250,13 +250,10 @@
       width: 212px;
       height: 212px;
       transform: translate(-50%, -50%);
-      border: 1px solid rgba(22, 90, 145, .34);
+      border: 2px solid var(--blue);
       border-radius: 50%;
-      background:
-        radial-gradient(circle at 34% 24%, rgba(255, 255, 255, .92), transparent 46%),
-        linear-gradient(145deg, rgba(22, 90, 145, .15), rgba(213, 166, 63, .12)),
-        var(--white);
-      color: var(--blue-dark);
+      background: var(--blue-dark);
+      color: var(--white);
       text-align: center;
       box-shadow: 0 24px 62px rgba(22, 90, 145, .17);
       animation: pulseGlow 3.4s var(--ease) infinite;
@@ -270,7 +267,7 @@
       letter-spacing: 0;
     }
 
-    .nova-node span { margin-top: 6px; color: var(--muted); font-size: 15px; font-weight: 800; letter-spacing: .11em; text-transform: uppercase; }
+    .nova-node span { margin-top: 6px; color: rgba(255, 253, 248, .72); font-size: 15px; font-weight: 800; letter-spacing: .11em; text-transform: uppercase; }
 
     .module {
       position: absolute;

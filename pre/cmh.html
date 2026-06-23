@@ -954,9 +954,20 @@
         const title = slides[index]?.dataset.title;
         document.title = title ? `${title} — Combined NLP Layer` : 'Combined NLP Layer';
         if (updateHash) history.replaceState(null, '', `#${index + 1}`);
+        if (updateHash) parent.postMessage({ type: 'nova-child-slide-change', deckId: 'cmh', index }, '*');
         if (slides[index] === preprocessSlide && previousSlide !== preprocessSlide) drawPrepStep(0, false);
         slides[index]?.focus({ preventScroll: true });
       }
+
+      window.__novaSyncIndex = (nextIndex) => {
+        index = Math.max(0, Math.min(slides.length - 1, Number(nextIndex) || 0));
+        if (slides[index] === preprocessSlide) drawPrepStep(0, false);
+      };
+
+      window.__novaLocalCommand = (command) => {
+        if (command === 'next') goForward();
+        else if (command === 'prev') goBack();
+      };
 
       function enterFullscreen() {
         if (!document.fullscreenElement) deck.requestFullscreen?.().catch(() => {});
