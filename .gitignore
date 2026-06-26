@@ -28,6 +28,7 @@ data/raw/handbooks/*
 # Generated handbook chunks - do not upload chunk files
 data/chunks/*
 !data/chunks/.gitkeep
+pre/
 
 # Keep folder structure
 !data/raw/.gitkeep
